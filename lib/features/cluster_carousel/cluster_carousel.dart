@@ -6,7 +6,9 @@ import 'package:kagi_news/features/cluster_details/cluster_details_bloc.dart';
 import 'package:kagi_news/features/cluster_details/cluster_details_page.dart';
 
 class ClusterCarousel extends StatelessWidget {
-  const ClusterCarousel({super.key});
+  const ClusterCarousel({super.key, this.scrollController});
+
+  final ScrollController? scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,15 @@ class ClusterCarousel extends StatelessWidget {
                             (context) =>
                                 ClusterDetailsBloc(cluster: state.clusters[index])
                                   ..add(const ClusterDetailsStarted()),
-                        child: const ClusterDetailsPage(),
+                        child: ClusterDetailsPage(
+                          edgeDragged: () {
+                            scrollController?.animateTo(
+                              0,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                          },
+                        ),
                       );
                     },
                     length: state.clusters.length,

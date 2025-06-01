@@ -11,6 +11,27 @@ class CategoryTab extends StatelessWidget {
   const CategoryTab({super.key});
 
   void _pushCarousel(BuildContext context, List<Cluster> clusters, int index) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      scrollControlDisabledMaxHeightRatio: 0.88,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.88,
+          expand: false,
+          builder: (context, scrollController) {
+            return BlocProvider(
+              create:
+                  (context) =>
+                      ClusterCarouselBloc(clusters: clusters, index: index)
+                        ..add(const ClusterCarouselStarted()),
+              child: ClusterCarousel(scrollController: scrollController),
+            );
+          },
+        );
+      },
+    );
+    return;
     // showModalBottomSheet(
     //   context: context,
     //   scrollControlDisabledMaxHeightRatio: 0.88,

@@ -52,20 +52,18 @@ class _CarouselState extends State<Carousel> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children:
-                  List.generate(widget.length, (index) => index).map((index) {
-                    return widget.itemBuilder(context, index);
-                  }).toList(),
-            ),
+    return Column(
+      children: [
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children:
+                List.generate(widget.length, (index) => index).map((index) {
+                  return widget.itemBuilder(context, index);
+                }).toList(),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

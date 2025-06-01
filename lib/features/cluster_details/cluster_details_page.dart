@@ -10,8 +10,41 @@ import 'package:kagi_news/features/cluster_details/components/sliver_with_paddin
 import 'package:kagi_news/features/cluster_details/components/sliver_spacing.dart';
 import 'package:kagi_news/features/cluster_details/utilities/numbered_list_helpers.dart';
 
-class ClusterDetailsPage extends StatelessWidget {
-  const ClusterDetailsPage({super.key});
+class ClusterDetailsPage extends StatefulWidget {
+  const ClusterDetailsPage({super.key, required this.edgeDragged});
+
+  final VoidCallback edgeDragged;
+
+  @override
+  State<ClusterDetailsPage> createState() => _ClusterDetailsPageState();
+}
+
+class _ClusterDetailsPageState extends State<ClusterDetailsPage> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollChanged);
+    super.initState();
+  }
+
+  void _scrollChanged() {
+    debugPrint('Scroll position: ${_scrollController.position.pixels}');
+    if (_scrollController.position.pixels < 0) {
+      widget.edgeDragged(); // Notify the parent that the top edge was reached
+    }
+    // final isTop = _scrollController.position.pixels == 0;
+    // if (isTop) {
+    //   widget.edgeDragged(); // Notify the parent that the top edge was reached
+    // }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +56,7 @@ class ClusterDetailsPage extends StatelessWidget {
         return Scaffold(
           body: SafeArea(
             child: CustomScrollView(
+              controller: _scrollController,
               slivers: [
                 SliverWithPadding(
                   child: Text(state.cluster.title, style: Theme.of(context).textTheme.titleLarge),
