@@ -1,0 +1,33 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kagi_news/features/home/home_bloc.dart';
+import 'package:kagi_news/features/home/home_page.dart';
+import 'package:kagi_news/locator.dart';
+import 'package:kagi_news/repositories/news_repository.dart';
+import 'package:kagi_news/theme/theme.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initLocator();
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'News',
+      debugShowCheckedModeBanner: false,
+      theme: KagiTheme.createLightTheme(),
+      darkTheme: KagiTheme.createDarkTheme(),
+      home: BlocProvider(
+        create:
+            (context) =>
+                HomeBloc(newsRepository: locator<NewsRepository>())..add(const HomeStarted()),
+        child: const HomePage(),
+      ),
+    );
+  }
+}
