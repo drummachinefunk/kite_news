@@ -98,7 +98,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   void _updateTabController(List categories, dynamic category, int index) {
-    debugPrint('Updating tab controller with categories: $categories and category: $category');
     if (_tabController!.length != categories.length) {
       _tabController?.dispose();
       _tabController = TabController(length: categories.length, initialIndex: 0, vsync: this);
