@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagi_news/features/cluster_carousel/cluster_carousel.dart';
@@ -18,32 +17,54 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  bool _isFocused = false;
 
   void _pushCarousel(BuildContext context, List<Cluster> clusters, int index) {
-    setState(() {
-      _isFocused = true;
-    });
-    // showModalBottomSheet(
+
+    // showCupertinoSheet(
     //   context: context,
-    //   isScrollControlled: true,
-    //   scrollControlDisabledMaxHeightRatio: 0.88,
-    //   builder: (context) {
-    //     return DraggableScrollableSheet(
-    //       initialChildSize: 0.88,
-    //       expand: false,
-    //       builder: (context, scrollController) {
-    //         return BlocProvider(
-    //           create:
-    //               (context) =>
-    //                   ClusterCarouselBloc(clusters: clusters, index: index)
-    //                     ..add(const ClusterCarouselStarted()),
-    //           child: ClusterCarousel(scrollController: scrollController),
-    //         );
-    //       },
+    //   pageBuilder: (context) {
+    //     return BlocProvider(
+    //       create:
+    //           (context) =>
+    //               ClusterCarouselBloc(clusters: clusters, index: index)
+    //                 ..add(const ClusterCarouselStarted()),
+    //       child: ClusterCarousel(
+    //         onDismiss: () {
+    //           setState(() => _isFocused = false);
+    //           CupertinoSheetRoute.popSheet(context);
+    //           //Navigator.of(context).pop();
+    //         },
+    //       ),
     //     );
     //   },
     // );
+
+    showModalBottomSheet(
+      context: context,
+      scrollControlDisabledMaxHeightRatio: 1.0,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.95,
+          minChildSize: 0.95,
+          maxChildSize: 0.95,
+          expand: false,
+          builder: (context, scrollController) {
+            return BlocProvider(
+              create:
+                  (context) =>
+                      ClusterCarouselBloc(clusters: clusters, index: index)
+                        ..add(const ClusterCarouselStarted()),
+              child: ClusterCarousel(
+                scrollController: scrollController,
+                onDismiss: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            );
+          },
+        );
+      },
+    );
     // showModalBottomSheet(
     //   context: context,
     //   scrollControlDisabledMaxHeightRatio: 0.88,
@@ -63,24 +84,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     //     );
     //   },
     // );
-    Navigator.push(
-      context,
-      CupertinoModalPopupRoute(
-        builder:
-            (context) => BlocProvider(
-              create:
-                  (context) =>
-                      ClusterCarouselBloc(clusters: clusters, index: index)
-                        ..add(const ClusterCarouselStarted()),
-              child: ClusterCarousel(
-                onDismiss: () {
-                  Navigator.of(context).pop();
-                  setState(() => _isFocused = false);
-                },
-              ),
-            ),
-      ),
-    );
+    // Navigator.push(
+    //   context,
+    //   CupertinoModalPopupRoute(
+    //     builder:
+    //         (context) => BlocProvider(
+    //           create:
+    //               (context) =>
+    //                   ClusterCarouselBloc(clusters: clusters, index: index)
+    //                     ..add(const ClusterCarouselStarted()),
+    //           child: ClusterCarousel(
+    //             onDismiss: () {
+    //               Navigator.of(context).pop();
+    //               setState(() => _isFocused = false);
+    //             },
+    //           ),
+    //         ),
+    //   ),
+    // );
   }
 
   TabController? _tabController;
@@ -137,19 +158,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       children: [
                         Expanded(
                           child:
-                          // child: SizedBox(
-                          //   height: 50,
-                          //   child: CustomTabBar(
-                          //     tabs: state.categories.map((e) => e.name).toList(),
-                          //     selectedIndex: state.categories.indexOf(state.category),
-                          //     focusedIndex:
-                          //         _isFocused ? state.categories.indexOf(state.category) : -1,
-                          //     onDismiss: () {
-                          //       setState(() => _isFocused = false);
-                          //       //Navigator.of(context).pop();
-                          //     },
-                          //   ),
-                          // ),
                           TabBar(
                             controller: _tabController,
                             isScrollable: true,
