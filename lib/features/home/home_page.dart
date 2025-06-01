@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagi_news/components/carousel.dart';
+import 'package:kagi_news/components/custom_tabbar.dart';
+import 'package:kagi_news/features/cluster_carousel/cluster_carousel.dart';
+import 'package:kagi_news/features/cluster_carousel/cluster_carousel_bloc.dart';
 import 'package:kagi_news/features/home/home_bloc.dart';
 import 'package:kagi_news/features/home/tab/category_tab.dart';
 import 'package:kagi_news/features/home/tab/category_tab_bloc.dart';
 import 'package:kagi_news/locator.dart';
+import 'package:kagi_news/models/cluster.dart';
 import 'package:kagi_news/repositories/news_repository.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,6 +19,66 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+  bool _isFocused = false;
+
+  void _pushCarousel(BuildContext context, List<Cluster> clusters, int index) {
+    setState(() {
+      _isFocused = true;
+    });
+    // showModalBottomSheet(
+    //   context: context,
+    //   isScrollControlled: true,
+    //   scrollControlDisabledMaxHeightRatio: 0.88,
+    //   builder: (context) {
+    //     return DraggableScrollableSheet(
+    //       initialChildSize: 0.88,
+    //       expand: false,
+    //       builder: (context, scrollController) {
+    //         return BlocProvider(
+    //           create:
+    //               (context) =>
+    //                   ClusterCarouselBloc(clusters: clusters, index: index)
+    //                     ..add(const ClusterCarouselStarted()),
+    //           child: ClusterCarousel(scrollController: scrollController),
+    //         );
+    //       },
+    //     );
+    //   },
+    // );
+    showModalBottomSheet(
+      context: context,
+      scrollControlDisabledMaxHeightRatio: 0.88,
+      barrierColor: Colors.transparent,
+      builder: (context) {
+        return BlocProvider(
+          create:
+              (context) =>
+                  ClusterCarouselBloc(clusters: clusters, index: index)
+                    ..add(const ClusterCarouselStarted()),
+          child: ClusterCarousel(
+            onDismiss: () {
+              setState(() => _isFocused = false);
+              Navigator.of(context).pop();
+            },
+          ),
+        );
+      },
+    );
+    // Navigator.push(
+    //   context,
+    //   CupertinoModalPopupRoute(
+    //     builder:
+    //         (context) => BlocProvider(
+    //           create:
+    //               (context) =>
+    //                   ClusterCarouselBloc(clusters: clusters, index: index)
+    //                     ..add(const ClusterCarouselStarted()),
+    //           child: const ClusterCarousel(),
+    //         ),
+    //   ),
+    // );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
@@ -35,6 +99,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         child: DefaultTabController(
                           length: state.categories.length,
                           initialIndex: index,
+
+                          // child: SizedBox(
+                          //   height: 50,
+                          //   child: CustomTabBar(
+                          //     tabs: state.categories.map((e) => e.name).toList(),
+                          //     selectedIndex: state.categories.indexOf(state.category),
+                          //     focusedIndex:
+                          //         _isFocused ? state.categories.indexOf(state.category) : -1,
+                          //     onDismiss: () {
+                          //       setState(() => _isFocused = false);
+                          //       //Navigator.of(context).pop();
+                          //     },
+                          //   ),
+                          // ),
                           child: TabBar(
                             isScrollable: true,
                             tabs:
@@ -76,7 +154,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                       category: state.categories[index],
                                       newsRepository: locator<NewsRepository>(),
                                     )..add(const CategoryTabStarted()),
-                                child: const CategoryTab(),
+                                child: CategoryTab(
+                                  onSelected:
+                                      (clusters, index) => _pushCarousel(context, clusters, index),
+                                ),
                               );
                             },
                             index: state.categories.indexOf(state.category),

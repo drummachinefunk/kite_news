@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BulletList extends StatelessWidget {
@@ -34,6 +35,9 @@ class BulletListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('- $text');
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [const Text('•'), const SizedBox(width: 4), Expanded(child: Text(text))],
+    );
   }
 }

@@ -30,7 +30,7 @@ class _ClusterDetailsPageState extends State<ClusterDetailsPage> {
   }
 
   void _scrollChanged() {
-    debugPrint('Scroll position: ${_scrollController.position.pixels}');
+    //debugPrint('Scroll position: ${_scrollController.position.pixels}');
     if (_scrollController.position.pixels < 0) {
       widget.edgeDragged(); // Notify the parent that the top edge was reached
     }
@@ -58,8 +58,9 @@ class _ClusterDetailsPageState extends State<ClusterDetailsPage> {
             child: CustomScrollView(
               controller: _scrollController,
               slivers: [
+                SliverSpacing(),
                 SliverWithPadding(
-                  child: Text(state.cluster.title, style: Theme.of(context).textTheme.titleLarge),
+                  child: Text(state.cluster.title, style: Theme.of(context).textTheme.displaySmall),
                 ),
                 SliverSpacing(),
                 SliverWithPadding(
@@ -190,6 +191,9 @@ class _ClusterDetailsPageState extends State<ClusterDetailsPage> {
                   ),
                   SliverSpacing(),
                 ],
+                SliverSpacing(),
+                SliverSpacing(),
+                SliverSpacing(),
               ],
             ),
           ),

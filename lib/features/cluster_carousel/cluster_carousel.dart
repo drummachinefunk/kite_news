@@ -6,9 +6,10 @@ import 'package:kagi_news/features/cluster_details/cluster_details_bloc.dart';
 import 'package:kagi_news/features/cluster_details/cluster_details_page.dart';
 
 class ClusterCarousel extends StatelessWidget {
-  const ClusterCarousel({super.key, this.scrollController});
+  const ClusterCarousel({super.key, this.scrollController, required this.onDismiss});
 
   final ScrollController? scrollController;
+  final VoidCallback onDismiss;
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +19,19 @@ class ClusterCarousel extends StatelessWidget {
           body: SafeArea(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Row(
-                    children: [
-                      Text('${state.selectedIndex + 1} / ${state.clusters.length}'),
-                      const Spacer(),
-                      IconButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        icon: const Icon(Icons.close),
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                //   child: Row(
+                //     children: [
+                //       Text('${state.selectedIndex + 1} / ${state.clusters.length}'),
+                //       const Spacer(),
+                //       IconButton(
+                //         onPressed: () => onDismiss(),
+                //         icon: const Icon(Icons.close),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 Expanded(
                   child: Carousel(
                     itemBuilder: (context, index) {
@@ -39,15 +40,7 @@ class ClusterCarousel extends StatelessWidget {
                             (context) =>
                                 ClusterDetailsBloc(cluster: state.clusters[index])
                                   ..add(const ClusterDetailsStarted()),
-                        child: ClusterDetailsPage(
-                          edgeDragged: () {
-                            scrollController?.animateTo(
-                              0,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                          },
-                        ),
+                        child: ClusterDetailsPage(edgeDragged: () {}),
                       );
                     },
                     length: state.clusters.length,

@@ -1,64 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kagi_news/features/cluster_carousel/cluster_carousel.dart';
-import 'package:kagi_news/features/cluster_carousel/cluster_carousel_bloc.dart';
 import 'package:kagi_news/features/home/tab/category_item.dart';
 import 'package:kagi_news/features/home/tab/category_tab_bloc.dart';
 import 'package:kagi_news/models/cluster.dart';
 
 class CategoryTab extends StatelessWidget {
-  const CategoryTab({super.key});
+  const CategoryTab({super.key, required this.onSelected});
 
-  void _pushCarousel(BuildContext context, List<Cluster> clusters, int index) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      scrollControlDisabledMaxHeightRatio: 0.88,
-      builder: (context) {
-        return DraggableScrollableSheet(
-          initialChildSize: 0.88,
-          expand: false,
-          builder: (context, scrollController) {
-            return BlocProvider(
-              create:
-                  (context) =>
-                      ClusterCarouselBloc(clusters: clusters, index: index)
-                        ..add(const ClusterCarouselStarted()),
-              child: ClusterCarousel(scrollController: scrollController),
-            );
-          },
-        );
-      },
-    );
-    return;
-    // showModalBottomSheet(
-    //   context: context,
-    //   scrollControlDisabledMaxHeightRatio: 0.88,
-    //   builder: (context) {
-    //     return BlocProvider(
-    //       create:
-    //           (context) =>
-    //               ClusterCarouselBloc(clusters: clusters, index: index)
-    //                 ..add(const ClusterCarouselStarted()),
-    //       child: const ClusterCarousel(),
-    //     );
-    //   },
-    // );
-    Navigator.push(
-      context,
-      CupertinoModalPopupRoute(
-        builder:
-            (context) => BlocProvider(
-              create:
-                  (context) =>
-                      ClusterCarouselBloc(clusters: clusters, index: index)
-                        ..add(const ClusterCarouselStarted()),
-              child: const ClusterCarousel(),
-            ),
-      ),
-    );
-  }
+  final void Function(List<Cluster> clusters, int index) onSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +19,7 @@ class CategoryTab extends StatelessWidget {
               itemBuilder:
                   (context, index) => CategoryItem(
                     cluster: state.clusters[index],
-                    onTap: () => _pushCarousel(context, state.clusters, index),
+                    onTap: () => onSelected(state.clusters, index),
                   ),
               separatorBuilder:
                   (context, index) => const Divider(height: 1, indent: 16, endIndent: 16),

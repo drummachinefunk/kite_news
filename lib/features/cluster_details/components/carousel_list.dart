@@ -17,7 +17,7 @@ class CarouselList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 240,
+      height: 250,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,27 +33,45 @@ class CarouselList extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               scrollDirection: Axis.horizontal,
               itemCount: items.length,
-              itemBuilder: (context, index) {
-                final item = items[index];
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  width: MediaQuery.sizeOf(context).width * 0.8,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(item.text, style: Theme.of(context).textTheme.titleSmall),
-                      const SizedBox(height: 4.0),
-                      TextButton(onPressed: () {}, child: Text(item.source)),
-                    ],
-                  ),
-                );
-              },
+              itemBuilder: (context, index) => CarouselListItem(data: items[index]),
               separatorBuilder: (context, index) => const SizedBox(width: 16.0),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CarouselListItem extends StatelessWidget {
+  const CarouselListItem({super.key, required this.data});
+
+  final CarouselListItemData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      width: MediaQuery.sizeOf(context).width * 0.8,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondaryContainer,
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(data.text, style: Theme.of(context).textTheme.bodyMedium),
+          const SizedBox(height: 4.0),
+          TextButton(
+            onPressed: () {},
+            style: ButtonStyle(
+              padding: WidgetStateProperty.all(EdgeInsets.zero),
+              shape: WidgetStateProperty.all(
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(1)),
+              ),
+              minimumSize: WidgetStateProperty.all(Size.zero),
+            ),
+            child: Text(data.source),
           ),
         ],
       ),

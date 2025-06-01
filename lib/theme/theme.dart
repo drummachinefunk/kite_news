@@ -6,14 +6,16 @@ class KagiTheme {
     primary: Colors.deepPurple,
     secondary: Colors.amber,
     surface: Colors.white,
+    onSurface: Colors.black,
     error: Colors.red,
   );
 
   static ThemeData createDarkTheme() => _createTheme(
     brightness: Brightness.dark,
-    primary: Colors.deepPurple,
+    primary: Colors.amber,
     secondary: Colors.amber,
     surface: Colors.black,
+    onSurface: Colors.white,
     error: Colors.red,
   );
 
@@ -22,9 +24,10 @@ class KagiTheme {
     required Color primary,
     required Color secondary,
     required Color surface,
+    required Color onSurface,
     required Color error,
   }) {
-    return ThemeData(
+    final data = ThemeData(
       brightness: brightness,
       colorScheme: ColorScheme.fromSeed(
         brightness: brightness,
@@ -32,8 +35,27 @@ class KagiTheme {
         primary: primary,
         secondary: secondary,
         surface: surface,
+        onSurface: onSurface,
         error: error,
       ),
+      textTheme: TextTheme(
+        displaySmall: TextStyle(
+          fontSize: 32,
+          fontWeight: FontWeight.w600,
+          color: onSurface,
+        ), // from 36
+        titleLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: onSurface),
+        titleMedium: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: onSurface),
+        titleSmall: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: onSurface.withAlpha(150),
+        ),
+        bodyMedium: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: onSurface),
+        labelMedium: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: onSurface),
+      ),
     );
+
+    return data;
   }
 }

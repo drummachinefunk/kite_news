@@ -16,7 +16,7 @@ class CategoryItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(cluster.category, style: Theme.of(context).textTheme.bodySmall),
+          Text(cluster.category, style: Theme.of(context).textTheme.titleSmall),
           const SizedBox(height: 4.0),
           Text(cluster.title, style: Theme.of(context).textTheme.titleLarge),
         ],
