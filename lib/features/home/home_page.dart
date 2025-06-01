@@ -1,7 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kagi_news/components/carousel.dart';
-import 'package:kagi_news/components/custom_tabbar.dart';
 import 'package:kagi_news/features/cluster_carousel/cluster_carousel.dart';
 import 'package:kagi_news/features/cluster_carousel/cluster_carousel_bloc.dart';
 import 'package:kagi_news/features/home/home_bloc.dart';
@@ -18,7 +17,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   bool _isFocused = false;
 
   void _pushCarousel(BuildContext context, List<Cluster> clusters, int index) {
@@ -45,61 +44,100 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     //     );
     //   },
     // );
-    showModalBottomSheet(
-      context: context,
-      scrollControlDisabledMaxHeightRatio: 0.88,
-      barrierColor: Colors.transparent,
-      builder: (context) {
-        return BlocProvider(
-          create:
-              (context) =>
-                  ClusterCarouselBloc(clusters: clusters, index: index)
-                    ..add(const ClusterCarouselStarted()),
-          child: ClusterCarousel(
-            onDismiss: () {
-              setState(() => _isFocused = false);
-              Navigator.of(context).pop();
-            },
-          ),
-        );
-      },
-    );
-    // Navigator.push(
-    //   context,
-    //   CupertinoModalPopupRoute(
-    //     builder:
-    //         (context) => BlocProvider(
-    //           create:
-    //               (context) =>
-    //                   ClusterCarouselBloc(clusters: clusters, index: index)
-    //                     ..add(const ClusterCarouselStarted()),
-    //           child: const ClusterCarousel(),
-    //         ),
-    //   ),
+    // showModalBottomSheet(
+    //   context: context,
+    //   scrollControlDisabledMaxHeightRatio: 0.88,
+    //   barrierColor: Colors.transparent,
+    //   builder: (context) {
+    //     return BlocProvider(
+    //       create:
+    //           (context) =>
+    //               ClusterCarouselBloc(clusters: clusters, index: index)
+    //                 ..add(const ClusterCarouselStarted()),
+    //       child: ClusterCarousel(
+    //         onDismiss: () {
+    //           setState(() => _isFocused = false);
+    //           Navigator.of(context).pop();
+    //         },
+    //       ),
+    //     );
+    //   },
     // );
+    Navigator.push(
+      context,
+      CupertinoModalPopupRoute(
+        builder:
+            (context) => BlocProvider(
+              create:
+                  (context) =>
+                      ClusterCarouselBloc(clusters: clusters, index: index)
+                        ..add(const ClusterCarouselStarted()),
+              child: ClusterCarousel(
+                onDismiss: () {
+                  Navigator.of(context).pop();
+                  setState(() => _isFocused = false);
+                },
+              ),
+            ),
+      ),
+    );
+  }
+
+  TabController? _tabController;
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 0, initialIndex: 0, vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController?.dispose();
+    super.dispose();
+  }
+
+  void _updateTabController(List categories, dynamic category, int index) {
+    debugPrint('Updating tab controller with categories: $categories and category: $category');
+    if (_tabController!.length != categories.length) {
+      _tabController?.dispose();
+      _tabController = TabController(length: categories.length, initialIndex: 0, vsync: this);
+    }
+    if (_tabController!.index != index) {
+      _tabController!.index = index;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        int? index = state.categories.indexOf(state.category);
-        if (index == -1) index = 0;
+    return BlocListener<HomeBloc, HomeState>(
+      listener: (context, state) {
+        _updateTabController(
+          state.categories,
+          state.category,
+          state.categories.indexOf(state.category),
+        );
+      },
+      listenWhen:
+          (previous, current) =>
+              previous.categories.length != current.categories.length ||
+              previous.category != current.category,
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          int? index = state.categories.indexOf(state.category);
+          if (index == -1) index = 0;
 
-        return Scaffold(
-          body: SafeArea(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: DefaultTabController(
-                          length: state.categories.length,
-                          initialIndex: index,
-
+          return Scaffold(
+            body: SafeArea(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child:
                           // child: SizedBox(
                           //   height: 50,
                           //   child: CustomTabBar(
@@ -113,7 +151,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           //     },
                           //   ),
                           // ),
-                          child: TabBar(
+                          TabBar(
+                            controller: _tabController,
                             isScrollable: true,
                             tabs:
                                 state.categories.map((category) {
@@ -125,55 +164,44 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 ),
                           ),
                         ),
-                      ),
-                      // FilledButton(
-                      //   onPressed: () => context.read<HomeBloc>().add(const HomePrevPressed()),
-                      //   child: const Icon(Icons.arrow_back),
-                      // ),
-                      // const SizedBox(width: 8),
-                      // Expanded(
-                      //   child: FilledButton(onPressed: () {}, child: Text(state.category.name)),
-                      // ),
-                      // const SizedBox(width: 8),
-                      // FilledButton(
-                      //   onPressed: () => context.read<HomeBloc>().add(const HomeNextPressed()),
-                      //   child: const Icon(Icons.arrow_forward),
-                      // ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child:
-                      state.categories.isNotEmpty
-                          ? Carousel(
-                            length: state.categories.length,
-                            itemBuilder: (context, index) {
-                              return BlocProvider(
-                                create:
-                                    (context) => CategoryTabBloc(
-                                      category: state.categories[index],
-                                      newsRepository: locator<NewsRepository>(),
-                                    )..add(const CategoryTabStarted()),
-                                child: CategoryTab(
-                                  onSelected:
-                                      (clusters, index) => _pushCarousel(context, clusters, index),
+                  Expanded(
+                    child:
+                        state.categories.isNotEmpty
+                            ? Column(
+                              children: [
+                                Expanded(
+                                  child: TabBarView(
+                                    controller: _tabController,
+                                    children:
+                                        state.categories.asMap().entries.map((e) {
+                                          return BlocProvider(
+                                            create:
+                                                (context) => CategoryTabBloc(
+                                                  category: e.value,
+                                                  newsRepository: locator<NewsRepository>(),
+                                                )..add(const CategoryTabStarted()),
+                                            child: CategoryTab(
+                                              onSelected:
+                                                  (clusters, index) =>
+                                                      _pushCarousel(context, clusters, e.key),
+                                            ),
+                                          );
+                                        }).toList(),
+                                  ),
                                 ),
-                              );
-                            },
-                            index: state.categories.indexOf(state.category),
-                            onIndexChanged: (int index) {
-                              context.read<HomeBloc>().add(
-                                HomeCategoryChanged(state.categories[index]),
-                              );
-                            },
-                          )
-                          : Container(),
-                ),
-              ],
+                              ],
+                            )
+                            : Container(),
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

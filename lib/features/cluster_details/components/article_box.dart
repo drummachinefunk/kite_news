@@ -73,7 +73,7 @@ class ArticleBox extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               caption,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
+              style: Theme.of(context).textTheme.labelSmall,
             ),
           ],
         ],

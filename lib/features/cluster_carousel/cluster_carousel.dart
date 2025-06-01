@@ -19,19 +19,21 @@ class ClusterCarousel extends StatelessWidget {
           body: SafeArea(
             child: Column(
               children: [
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                //   child: Row(
-                //     children: [
-                //       Text('${state.selectedIndex + 1} / ${state.clusters.length}'),
-                //       const Spacer(),
-                //       IconButton(
-                //         onPressed: () => onDismiss(),
-                //         icon: const Icon(Icons.close),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Text('${state.selectedIndex + 1} / ${state.clusters.length}'),
+                      Row(
+                        children: [
+                          const Spacer(),
+                          IconButton(onPressed: () => onDismiss(), icon: const Icon(Icons.close)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
                 Expanded(
                   child: Carousel(
                     itemBuilder: (context, index) {
