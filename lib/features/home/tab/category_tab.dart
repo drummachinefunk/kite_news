@@ -15,7 +15,12 @@ class CategoryTab extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
-            child: ListView.separated(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              child:
+                  state.clusters.isEmpty
+                      ? Container()
+                      : ListView.separated(
               itemBuilder:
                   (context, index) => CategoryItem(
                     cluster: state.clusters[index],
@@ -24,6 +29,7 @@ class CategoryTab extends StatelessWidget {
               separatorBuilder:
                   (context, index) => const Divider(height: 1, indent: 16, endIndent: 16),
               itemCount: state.clusters.length,
+            ),
             ),
           ),
         );

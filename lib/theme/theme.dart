@@ -14,7 +14,7 @@ class KagiTheme {
     brightness: Brightness.dark,
     primary: Colors.amber,
     secondary: Colors.amber,
-    surface: Colors.black,
+    surface: const Color(0xFF151515),
     onSurface: Colors.white,
     error: Colors.red,
   );
