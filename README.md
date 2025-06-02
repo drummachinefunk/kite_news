@@ -2,11 +2,14 @@
 
 A mobile client for [Kite](https://kite.kagi.com) by Kagi.
 
-# Development
+# Getting Started
 
 - Checkout the repository
 - Run `flutter pub get`
 - Build and run with `flutter run`
+
+# Development
+- The app uses `json_serializable` to parse JSON models. To generate the files run `dart run build_runner build`
 
 # Known Limitations
 - No caching of web resources

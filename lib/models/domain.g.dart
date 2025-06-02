@@ -7,9 +7,9 @@ part of 'domain.dart';
 // **************************************************************************
 
 Domain _$DomainFromJson(Map<String, dynamic> json) =>
-    Domain(url: json['url'] as String, favicon: json['favicon'] as String);
+    Domain(name: json['name'] as String, favicon: json['favicon'] as String);
 
 Map<String, dynamic> _$DomainToJson(Domain instance) => <String, dynamic>{
-  'url': instance.url,
+  'name': instance.name,
   'favicon': instance.favicon,
 };

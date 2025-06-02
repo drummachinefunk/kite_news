@@ -63,6 +63,10 @@ Cluster _$ClusterFromJson(Map<String, dynamic> json) => Cluster(
       (json['articles'] as List<dynamic>)
           .map((e) => Article.fromJson(e as Map<String, dynamic>))
           .toList(),
+  domains:
+      (json['domains'] as List<dynamic>)
+          .map((e) => Domain.fromJson(e as Map<String, dynamic>))
+          .toList(),
 );
 
 Map<String, dynamic> _$ClusterToJson(Cluster instance) => <String, dynamic>{
@@ -104,4 +108,5 @@ Map<String, dynamic> _$ClusterToJson(Cluster instance) => <String, dynamic>{
   'suggested_qna': instance.suggestedQna,
   'technical_details': instance.technicalDetails,
   'articles': instance.articles,
+  'domains': instance.domains,
 };

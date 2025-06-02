@@ -4,10 +4,10 @@ part 'domain.g.dart';
 
 @JsonSerializable()
 class Domain {
-  final String url;
+  final String name;
   final String favicon;
 
-  const Domain({required this.url, required this.favicon});
+  const Domain({required this.name, required this.favicon});
 
   factory Domain.fromJson(Map<String, dynamic> json) => _$DomainFromJson(json);
 

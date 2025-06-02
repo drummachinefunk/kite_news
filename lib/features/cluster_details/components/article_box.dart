@@ -54,13 +54,13 @@ class ArticleBox extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onSurface.withAlpha(200),
+                        color: Theme.of(context).colorScheme.surface.withAlpha(200),
                         borderRadius: BorderRadius.circular(2),
                       ),
                       child: Text(
                         source,
                         style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.surface,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                     ),

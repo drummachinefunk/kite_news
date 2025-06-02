@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:kagi_news/models/article.dart';
+import 'package:kagi_news/models/domain.dart';
 import 'package:kagi_news/models/perspective.dart';
 import 'package:kagi_news/models/qna.dart';
 
@@ -114,7 +115,7 @@ class Cluster {
 
   final List<Article> articles;
 
-  // final List<Domain> domains;
+  final List<Domain> domains;
 
   const Cluster({
     required this.clusterNumber,
@@ -155,7 +156,7 @@ class Cluster {
     required this.suggestedQna,
     required this.technicalDetails,
     required this.articles,
-    // required this.domains,
+    required this.domains,
   });
 
   factory Cluster.fromJson(Map<String, dynamic> json) => _$ClusterFromJson(json);
