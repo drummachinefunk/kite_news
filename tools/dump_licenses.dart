@@ -14,8 +14,10 @@ Future<void> main() async {
     licenses.add('## $packages\n\n$body');
   }
 
-  final markdown = '# Licenses\n\n${licenses.join('\n\n---\n\n')}';
+  final markdown = licenses.join('\n\n---\n\n');
   await File('assets/acknowledgements.md').writeAsString(markdown);
 
-  debugPrint('✅ LICENSES.md written.');
+  debugPrint('✅ assets/acknowledgements.md written.');
+
+  exit(0);
 }

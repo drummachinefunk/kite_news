@@ -1,5 +1,3 @@
-# Licenses
-
 ## _fe_analyzer_shared
 
 Copyright 2019, the Dart project authors.
