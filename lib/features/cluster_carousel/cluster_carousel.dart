@@ -59,10 +59,8 @@ class _ClusterCarouselState extends State<ClusterCarousel> {
                         if (notification is OverscrollNotification && notification.overscroll < 0) {
                           setState(() {
                             _draggin = true;
-                            // Apply drag delta to containerOffset
                             _dragOffset += notification.overscroll;
-                            // Clamp it if needed
-                            _dragOffset = _dragOffset.clamp(-2000.0, 0.0);
+                            _dragOffset = _dragOffset.clamp(-5000.0, 0.0);
                           });
                           return true; // Consume the overscroll
                         }
