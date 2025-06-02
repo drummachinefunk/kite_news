@@ -20,91 +20,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
-  void _pushCarousel(BuildContext context, Category category, List<Cluster> clusters, int index) {
-
-    // showCupertinoSheet(
-    //   context: context,
-    //   pageBuilder: (context) {
-    //     return BlocProvider(
-    //       create:
-    //           (context) =>
-    //               ClusterCarouselBloc(clusters: clusters, index: index)
-    //                 ..add(const ClusterCarouselStarted()),
-    //       child: ClusterCarousel(
-    //         onDismiss: () {
-    //           setState(() => _isFocused = false);
-    //           CupertinoSheetRoute.popSheet(context);
-    //           //Navigator.of(context).pop();
-    //         },
-    //       ),
-    //     );
-    //   },
-    // );
-
-    // showModalBottomSheet(
-    //   context: context,
-    //   scrollControlDisabledMaxHeightRatio: 1.0,
-    //   builder: (context) {
-    //     return DraggableScrollableSheet(
-    //       initialChildSize: 0.95,
-    //       minChildSize: 0.95,
-    //       maxChildSize: 0.95,
-    //       expand: false,
-    //       builder: (context, scrollController) {
-    //         return BlocProvider(
-    //           create:
-    //               (context) =>
-    //                   ClusterCarouselBloc(clusters: clusters, index: index)
-    //                     ..add(const ClusterCarouselStarted()),
-    //           child: ClusterCarousel(
-    //             scrollController: scrollController,
-    //             onDismiss: () {
-    //               Navigator.of(context).pop();
-    //             },
-    //           ),
-    //         );
-    //       },
-    //     );
-    //   },
-    // );
-    // showModalBottomSheet(
-    //   context: context,
-    //   scrollControlDisabledMaxHeightRatio: 0.88,
-    //   barrierColor: Colors.transparent,
-    //   builder: (context) {
-    //     return BlocProvider(
-    //       create:
-    //           (context) =>
-    //               ClusterCarouselBloc(clusters: clusters, index: index)
-    //                 ..add(const ClusterCarouselStarted()),
-    //       child: ClusterCarousel(
-    //         onDismiss: () {
-    //           setState(() => _isFocused = false);
-    //           Navigator.of(context).pop();
-    //         },
-    //       ),
-    //     );
-    //   },
-    // );
-    Navigator.push(
-      context,
-      CupertinoModalPopupRoute(
-        builder:
-            (context) => BlocProvider(
-              create:
-                  (context) =>
-                      ClusterCarouselBloc(category: category, clusters: clusters, index: index)
-                        ..add(const ClusterCarouselStarted()),
-              child: ClusterCarousel(
-                onDismiss: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
-      ),
-    );
-  }
-
   TabController? _tabController;
 
   @override
@@ -127,6 +42,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     if (_tabController!.index != index) {
       _tabController!.index = index;
     }
+  }
+
+  void _pushCarousel(BuildContext context, Category category, List<Cluster> clusters, int index) {
+    Navigator.push(
+      context,
+      CupertinoModalPopupRoute(
+        builder:
+            (context) => BlocProvider(
+              create:
+                  (context) =>
+                      ClusterCarouselBloc(category: category, clusters: clusters, index: index)
+                        ..add(const ClusterCarouselStarted()),
+              child: ClusterCarousel(
+                onDismiss: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+      ),
+    );
   }
 
   @override
@@ -163,9 +98,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             controller: _tabController,
                             isScrollable: true,
                             tabs:
-                                state.categories.map((category) {
-                                  return Tab(text: category.name);
-                                }).toList(),
+                                state.categories
+                                    .map((category) => Tab(text: category.name))
+                                    .toList(),
                             onTap:
                                 (value) => context.read<HomeBloc>().add(
                                   HomeCategoryChanged(state.categories[value]),
