@@ -42,11 +42,6 @@ class ArticleBox extends StatelessWidget {
                           (context, url) => const Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
                     ),
-                    // child: Image.network(
-                    //   imageUrl,
-                    //   fit: BoxFit.cover,
-                    //   errorBuilder: (context, error, stackTrace) => Container(),
-                    // ),
                   ),
                   Positioned(
                     right: 8,
