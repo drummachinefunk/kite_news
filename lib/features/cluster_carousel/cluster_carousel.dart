@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagi_news/components/animated_translation.dart';
 import 'package:kagi_news/components/carousel.dart';
+import 'package:kagi_news/components/title_bar.dart';
 import 'package:kagi_news/features/cluster_carousel/cluster_carousel_bloc.dart';
 import 'package:kagi_news/features/cluster_details/cluster_details_bloc.dart';
 import 'package:kagi_news/features/cluster_details/cluster_details_page.dart';
@@ -32,28 +33,18 @@ class _ClusterCarouselState extends State<ClusterCarousel> {
             body: SafeArea(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Text(
-                          state.category.name,
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Text('${state.selectedIndex + 1} / ${state.clusters.length}'),
-                            const Spacer(),
-                            IconButton(
-                              onPressed: () => widget.onDismiss(),
-                              icon: const Icon(Icons.close),
-                            ),
-                          ],
-                        ),
-                      ],
+                  TitleBar(
+                    padding: const EdgeInsets.fromLTRB(16, 3, 10, 3),
+                    leading: Text('${state.selectedIndex + 1} / ${state.clusters.length}'),
+                    title: Text(
+                      state.category.name,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    trailing: IconButton(
+                      onPressed: () => widget.onDismiss(),
+                      icon: const Icon(Icons.close),
                     ),
                   ),
                   Expanded(

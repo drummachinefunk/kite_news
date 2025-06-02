@@ -1,11 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
+import 'package:kagi_news/components/title_bar.dart';
 import 'package:kagi_news/features/cluster_carousel/cluster_carousel.dart';
 import 'package:kagi_news/features/cluster_carousel/cluster_carousel_bloc.dart';
 import 'package:kagi_news/features/home/home_bloc.dart';
 import 'package:kagi_news/features/home/tab/category_tab.dart';
 import 'package:kagi_news/features/home/tab/category_tab_bloc.dart';
+import 'package:kagi_news/features/info/info_bloc.dart';
+import 'package:kagi_news/features/info/info_page.dart';
+import 'package:kagi_news/features/settings/settings_bloc.dart';
+import 'package:kagi_news/features/settings/settings_page.dart';
 import 'package:kagi_news/locator.dart';
 import 'package:kagi_news/models/category.dart';
 import 'package:kagi_news/models/cluster.dart';
@@ -19,7 +26,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-
   TabController? _tabController;
 
   @override
@@ -64,6 +70,34 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
+  void _presentSettings(BuildContext context) {
+    Navigator.push(
+      context,
+      CupertinoModalPopupRoute(
+        builder:
+            (context) => BlocProvider(
+              create: (context) => SettingsBloc()..add(const SettingsStarted()),
+              child: const SettingsPage(),
+            ),
+      ),
+    );
+  }
+
+  void _presentInfo(BuildContext context) {
+    Navigator.push(
+      context,
+      CupertinoModalPopupRoute(
+        builder:
+            (context) => BlocProvider(
+              create:
+                  (context) =>
+                      InfoBloc(title: 'About', asset: 'assets/info.md')..add(const InfoStarted()),
+              child: const InfoPage(),
+            ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<HomeBloc, HomeState>(
@@ -87,14 +121,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             body: SafeArea(
               child: Column(
                 children: [
+                  TitleBar(
+                    leading: IconButton(
+                      padding: const EdgeInsets.all(2),
+                      onPressed: () => _presentInfo(context),
+                      icon: SvgPicture.asset('assets/kite.svg', width: 36, height: 36),
+                    ),
+                    title: Text(DateFormat('EEE, MMM dd').format(state.date)),
+                    trailing: IconButton(
+                      onPressed: () => _presentSettings(context),
+                      icon: const Icon(Icons.settings),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          child:
-                          TabBar(
+                          child: TabBar(
+                            tabAlignment: TabAlignment.start,
                             controller: _tabController,
                             isScrollable: true,
                             tabs:
@@ -128,8 +174,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                 )..add(const CategoryTabStarted()),
                                             child: CategoryTab(
                                               onSelected:
-                                                  (clusters, index) =>
-                                                      _pushCarousel(
+                                                  (clusters, index) => _pushCarousel(
                                                     context,
                                                     e.value,
                                                     clusters,
