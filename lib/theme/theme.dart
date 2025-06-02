@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class KagiTheme {
   static ThemeData createLightTheme() => _createTheme(
     brightness: Brightness.light,
-    primary: Colors.deepPurple,
-    secondary: Colors.amber,
+    primary: const Color.fromARGB(255, 215, 146, 6),
+    secondary: const Color.fromARGB(255, 214, 162, 7),
     surface: Colors.white,
     onSurface: Colors.black,
     error: Colors.red,
