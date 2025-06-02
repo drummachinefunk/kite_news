@@ -30,7 +30,9 @@ class _ClusterDetailsPageState extends State<ClusterDetailsPage> {
           body: CustomScrollView(
             physics: const ClampingScrollPhysics(),
             slivers: [
-              SliverSpacing(),
+              SliverWithPadding(
+                child: Text(state.cluster.category, style: Theme.of(context).textTheme.titleSmall),
+              ),
               SliverWithPadding(
                 child: Text(state.cluster.title, style: Theme.of(context).textTheme.displaySmall),
               ),
