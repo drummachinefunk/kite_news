@@ -193,7 +193,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                             child: CategoryTab(
                                               onSelected:
                                                   (clusters, index) =>
-                                                      _pushCarousel(context, clusters, e.key),
+                                                      _pushCarousel(context, clusters, index),
                                             ),
                                           );
                                         }).toList(),
