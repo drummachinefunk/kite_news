@@ -1,16 +1,21 @@
-# kagi_news
+# Kite
 
-A new Flutter project.
+A mobile client for [Kite](https://kite.kagi.com) by Kagi.
 
-## Getting Started
+# Development
 
-This project is a starting point for a Flutter application.
+- Checkout the repository
+- Run `flutter pub get`
+- Build and run with `flutter run`
 
-A few resources to get you started if this is your first Flutter project:
+# Known Limitations
+- No caching of web resources
+- No tablet optimized layout
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Suggestions for Improvement
+- Add localization
+- Improve article reader layout
+- Optimize article reader rendering
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# License
+This project is licensed under the MIT License – see the [LICENSE](LICENSE.md) file for details.

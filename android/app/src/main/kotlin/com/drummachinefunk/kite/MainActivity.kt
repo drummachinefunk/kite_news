@@ -1,4 +1,4 @@
-package com.drummachinefunk.kagi_news
+package com.drummachinefunk.kite
 
 import io.flutter.embedding.android.FlutterActivity
 
