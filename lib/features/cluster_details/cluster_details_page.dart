@@ -11,30 +11,13 @@ import 'package:kagi_news/features/cluster_details/components/sliver_spacing.dar
 import 'package:kagi_news/features/cluster_details/utilities/numbered_list_helpers.dart';
 
 class ClusterDetailsPage extends StatefulWidget {
-  const ClusterDetailsPage({super.key, required this.edgeDragged});
-
-  final void Function(double delta) edgeDragged;
+  const ClusterDetailsPage({super.key});
 
   @override
   State<ClusterDetailsPage> createState() => _ClusterDetailsPageState();
 }
 
 class _ClusterDetailsPageState extends State<ClusterDetailsPage> {
-  final _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    _scrollController.addListener(_scrollUpdated);
-    super.initState();
-  }
-
-  void _scrollUpdated() {
-    final offset = _scrollController.offset;
-    debugPrint('Scroll updated: $offset');
-    if (offset < 0) {
-      widget.edgeDragged(offset);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +28,6 @@ class _ClusterDetailsPageState extends State<ClusterDetailsPage> {
 
         return Scaffold(
           body: CustomScrollView(
-            controller: _scrollController,
             physics: const ClampingScrollPhysics(),
             slivers: [
               SliverSpacing(),

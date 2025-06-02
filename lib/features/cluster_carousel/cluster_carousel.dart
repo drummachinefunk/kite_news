@@ -17,14 +17,17 @@ class ClusterCarousel extends StatefulWidget {
 
 class _ClusterCarouselState extends State<ClusterCarousel> {
   double _dragOffset = 0.0;
-  bool _popped = false;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ClusterCarouselBloc, ClusterCarouselState>(
       builder: (context, state) {
-        return Transform.translate(
-          offset: Offset(0, -_dragOffset),
+        return TweenAnimationBuilder(
+          tween: Tween<double>(begin: 0, end: 1),
+          duration: const Duration(milliseconds: 1200),
+          builder: (context, double value, child) {
+            return Transform.translate(offset: Offset(0, -_dragOffset), child: child);
+          },
           child: Scaffold(
             body: SafeArea(
               child: Column(
@@ -50,6 +53,9 @@ class _ClusterCarouselState extends State<ClusterCarousel> {
                   Expanded(
                     child: NotificationListener<ScrollNotification>(
                       onNotification: (notification) {
+                        if (notification.metrics.axis != Axis.vertical) {
+                          return false; // Only handle vertical overscroll
+                        }
                         if (notification is OverscrollNotification && notification.overscroll < 0) {
                           setState(() {
                             // Apply drag delta to containerOffset
@@ -63,9 +69,9 @@ class _ClusterCarouselState extends State<ClusterCarousel> {
                           if (-_dragOffset > MediaQuery.sizeOf(context).height * 0.3) {
                             Navigator.of(context).pop();
                           } else {
-                            setState(() {
-                              _dragOffset = 0.0; // Reset offset if not dismissed
-                            });
+                            if (_dragOffset != 0) {
+                              setState(() => _dragOffset = 0.0);
+                            }
                           }
                         }
                         return false;
@@ -77,13 +83,7 @@ class _ClusterCarouselState extends State<ClusterCarousel> {
                                 (context) =>
                                     ClusterDetailsBloc(cluster: state.clusters[index])
                                       ..add(const ClusterDetailsStarted()),
-                            child: ClusterDetailsPage(
-                              edgeDragged: (delta) {
-                                setState(() {
-                                  _dragOffset += delta;
-                                });
-                              },
-                            ),
+                            child: const ClusterDetailsPage(),
                           );
                         },
                         length: state.clusters.length,
