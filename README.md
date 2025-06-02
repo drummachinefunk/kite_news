@@ -11,6 +11,12 @@ A mobile client for [Kite](https://kite.kagi.com) by Kagi.
 # Development
 - The app uses `json_serializable` to parse JSON models. To generate the files run `dart run build_runner build`
 
+# Deployment
+
+For iOS:
+- Run `flutter build ipa`
+- Use Xcode or Transporter to upload to the App Store
+
 # Known Limitations
 - No caching of web resources
 - No tablet optimized layout
