@@ -15,6 +15,7 @@ class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   void _presentAcknowledgements(BuildContext context) {
+    
     Navigator.push(
       context,
       CupertinoModalPopupRoute(
