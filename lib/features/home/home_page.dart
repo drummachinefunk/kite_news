@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagi_news/features/cluster_carousel/cluster_carousel.dart';
@@ -39,32 +40,32 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     //   },
     // );
 
-    showModalBottomSheet(
-      context: context,
-      scrollControlDisabledMaxHeightRatio: 1.0,
-      builder: (context) {
-        return DraggableScrollableSheet(
-          initialChildSize: 0.95,
-          minChildSize: 0.95,
-          maxChildSize: 0.95,
-          expand: false,
-          builder: (context, scrollController) {
-            return BlocProvider(
-              create:
-                  (context) =>
-                      ClusterCarouselBloc(clusters: clusters, index: index)
-                        ..add(const ClusterCarouselStarted()),
-              child: ClusterCarousel(
-                scrollController: scrollController,
-                onDismiss: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            );
-          },
-        );
-      },
-    );
+    // showModalBottomSheet(
+    //   context: context,
+    //   scrollControlDisabledMaxHeightRatio: 1.0,
+    //   builder: (context) {
+    //     return DraggableScrollableSheet(
+    //       initialChildSize: 0.95,
+    //       minChildSize: 0.95,
+    //       maxChildSize: 0.95,
+    //       expand: false,
+    //       builder: (context, scrollController) {
+    //         return BlocProvider(
+    //           create:
+    //               (context) =>
+    //                   ClusterCarouselBloc(clusters: clusters, index: index)
+    //                     ..add(const ClusterCarouselStarted()),
+    //           child: ClusterCarousel(
+    //             scrollController: scrollController,
+    //             onDismiss: () {
+    //               Navigator.of(context).pop();
+    //             },
+    //           ),
+    //         );
+    //       },
+    //     );
+    //   },
+    // );
     // showModalBottomSheet(
     //   context: context,
     //   scrollControlDisabledMaxHeightRatio: 0.88,
@@ -84,24 +85,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     //     );
     //   },
     // );
-    // Navigator.push(
-    //   context,
-    //   CupertinoModalPopupRoute(
-    //     builder:
-    //         (context) => BlocProvider(
-    //           create:
-    //               (context) =>
-    //                   ClusterCarouselBloc(clusters: clusters, index: index)
-    //                     ..add(const ClusterCarouselStarted()),
-    //           child: ClusterCarousel(
-    //             onDismiss: () {
-    //               Navigator.of(context).pop();
-    //               setState(() => _isFocused = false);
-    //             },
-    //           ),
-    //         ),
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      CupertinoModalPopupRoute(
+        builder:
+            (context) => BlocProvider(
+              create:
+                  (context) =>
+                      ClusterCarouselBloc(clusters: clusters, index: index)
+                        ..add(const ClusterCarouselStarted()),
+              child: ClusterCarousel(
+                onDismiss: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+      ),
+    );
   }
 
   TabController? _tabController;
