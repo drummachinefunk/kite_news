@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kagi_news/components/animated_translation.dart';
 import 'package:kagi_news/components/carousel.dart';
 import 'package:kagi_news/features/cluster_carousel/cluster_carousel_bloc.dart';
 import 'package:kagi_news/features/cluster_details/cluster_details_bloc.dart';
@@ -17,17 +18,16 @@ class ClusterCarousel extends StatefulWidget {
 
 class _ClusterCarouselState extends State<ClusterCarousel> {
   double _dragOffset = 0.0;
+  bool _draggin = false;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ClusterCarouselBloc, ClusterCarouselState>(
       builder: (context, state) {
-        return TweenAnimationBuilder(
-          tween: Tween<double>(begin: 0, end: 1),
-          duration: const Duration(milliseconds: 1200),
-          builder: (context, double value, child) {
-            return Transform.translate(offset: Offset(0, -_dragOffset), child: child);
-          },
+        return AnimatedTranslation(
+          offset: Offset(0.0, -_dragOffset),
+          duration: _draggin ? Duration.zero : const Duration(milliseconds: 100),
+          curve: Curves.easeOut,
           child: Scaffold(
             body: SafeArea(
               child: Column(
@@ -58,6 +58,7 @@ class _ClusterCarouselState extends State<ClusterCarousel> {
                         }
                         if (notification is OverscrollNotification && notification.overscroll < 0) {
                           setState(() {
+                            _draggin = true;
                             // Apply drag delta to containerOffset
                             _dragOffset += notification.overscroll;
                             // Clamp it if needed
@@ -70,6 +71,7 @@ class _ClusterCarouselState extends State<ClusterCarousel> {
                             Navigator.of(context).pop();
                           } else {
                             if (_dragOffset != 0) {
+                              _draggin = false;
                               setState(() => _dragOffset = 0.0);
                             }
                           }
