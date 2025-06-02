@@ -95,8 +95,8 @@ class Cluster {
   @JsonKey(name: 'design_principles')
   final String designPrinciples;
 
-  @JsonKey(name: 'user_experience_impact')
-  final String userExperienceImpact;
+  @JsonKey(name: 'user_experience_impact', fromJson: _fromJsonStringList)
+  final List<String> userExperienceImpact;
 
   @JsonKey(name: 'gameplay_mechanics', fromJson: _fromJsonStringList)
   final List<String> gameplayMechanics;

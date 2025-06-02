@@ -33,6 +33,7 @@ class _ClusterDetailsPageState extends State<ClusterDetailsPage> {
               SliverWithPadding(
                 child: Text(state.cluster.category, style: Theme.of(context).textTheme.titleSmall),
               ),
+              SliverSpacing(height: 3),
               SliverWithPadding(
                 child: Text(state.cluster.title, style: Theme.of(context).textTheme.displaySmall),
               ),

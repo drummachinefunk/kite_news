@@ -50,7 +50,9 @@ Cluster _$ClusterFromJson(Map<String, dynamic> json) => Cluster(
   leagueStandings: json['league_standings'] as String,
   diyTips: json['diy_tips'] as String,
   designPrinciples: json['design_principles'] as String,
-  userExperienceImpact: json['user_experience_impact'] as String,
+  userExperienceImpact: Cluster._fromJsonStringList(
+    json['user_experience_impact'],
+  ),
   gameplayMechanics: Cluster._fromJsonStringList(json['gameplay_mechanics']),
   industryImpact: Cluster._fromJsonStringList(json['industry_impact']),
   technicalSpecifications: json['technical_specifications'] as String,
