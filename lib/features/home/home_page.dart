@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       onPressed: () => _presentInfo(context),
                       icon: SvgPicture.asset('assets/kite.svg', width: 36, height: 36),
                     ),
-                    title: Text(DateFormat('EEE, MMM dd').format(state.date)),
+                    title: Text(DateFormat('EEEE, MMM d').format(state.date)),
                     trailing: IconButton(
                       onPressed: () => _presentSettings(context),
                       icon: const Icon(Icons.settings),
