@@ -7,6 +7,7 @@ import 'package:kagi_news/features/home/home_bloc.dart';
 import 'package:kagi_news/features/home/tab/category_tab.dart';
 import 'package:kagi_news/features/home/tab/category_tab_bloc.dart';
 import 'package:kagi_news/locator.dart';
+import 'package:kagi_news/models/category.dart';
 import 'package:kagi_news/models/cluster.dart';
 import 'package:kagi_news/repositories/news_repository.dart';
 
@@ -19,7 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
-  void _pushCarousel(BuildContext context, List<Cluster> clusters, int index) {
+  void _pushCarousel(BuildContext context, Category category, List<Cluster> clusters, int index) {
 
     // showCupertinoSheet(
     //   context: context,
@@ -92,7 +93,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             (context) => BlocProvider(
               create:
                   (context) =>
-                      ClusterCarouselBloc(clusters: clusters, index: index)
+                      ClusterCarouselBloc(category: category, clusters: clusters, index: index)
                         ..add(const ClusterCarouselStarted()),
               child: ClusterCarousel(
                 onDismiss: () {
@@ -193,7 +194,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                             child: CategoryTab(
                                               onSelected:
                                                   (clusters, index) =>
-                                                      _pushCarousel(context, clusters, index),
+                                                      _pushCarousel(
+                                                    context,
+                                                    e.value,
+                                                    clusters,
+                                                    index,
+                                                  ),
                                             ),
                                           );
                                         }).toList(),

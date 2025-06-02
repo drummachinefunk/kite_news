@@ -37,9 +37,15 @@ class _ClusterCarouselState extends State<ClusterCarousel> {
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        Text('${state.selectedIndex + 1} / ${state.clusters.length}'),
+                        Text(
+                          state.category.name,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
                         Row(
                           children: [
+                            Text('${state.selectedIndex + 1} / ${state.clusters.length}'),
                             const Spacer(),
                             IconButton(
                               onPressed: () => widget.onDismiss(),
