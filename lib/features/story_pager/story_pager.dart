@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagi_news/components/animated_translation.dart';
-import 'package:kagi_news/components/carousel.dart';
+import 'package:kagi_news/components/pager.dart';
 import 'package:kagi_news/components/title_bar.dart';
 import 'package:kagi_news/features/story_pager/story_pager_bloc.dart';
 import 'package:kagi_news/features/story_details/story_details_bloc.dart';
