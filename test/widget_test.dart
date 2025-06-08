@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kagi_news/features/cluster_carousel/cluster_carousel.dart';
+import 'package:kagi_news/features/home/home_page.dart';
 import 'package:kagi_news/locator.dart';
 import 'package:kagi_news/main.dart';
 import 'package:kagi_news/repositories/news_repository.dart';
@@ -72,9 +74,25 @@ void main() {
     await tester.pumpWidget(const KiteApp());
     await tester.pumpAndSettle();
 
+    // Verify categories are displayed
+    expect(find.text(mockTechCategory.name), findsOneWidget);
+    expect(find.text(mockWorldCategory.name), findsOneWidget);
+    expect(find.text(mockUsaCategory.name), findsOneWidget);
+
+    // Tap on the first article in the Tech category
     await tester.tap(find.text(mockTechCategoryResponse.clusters.first.title));
     await tester.pumpAndSettle();
 
+    // Verify the article reader is displayed
+    expect(find.byType(ClusterCarousel), findsOneWidget);
     expect(find.text(mockTechCategoryResponse.clusters.first.shortSummary), findsWidgets);
+
+    // Dismiss the article reader
+    await tester.tap(find.byIcon(Icons.close));
+    await tester.pumpAndSettle();
+
+    // Verify we are back to the main screen
+    expect(find.byType(ClusterCarousel), findsNothing);
+    expect(find.byType(HomePage), findsOneWidget);
   });
 }
