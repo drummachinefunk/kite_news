@@ -57,7 +57,11 @@ class SettingsPage extends StatelessWidget {
                               case 0:
                                 return SettingsListTile(
                                   title: 'Kagi Search',
-                                  onTap: () => launchUrlString('https://kagi.com'),
+                                  onTap:
+                                      () => launchUrlString(
+                                        'https://kagi.com',
+                                        mode: LaunchMode.externalApplication,
+                                      ),
                                 );
                               case 1:
                                 return SettingsListTile(
