@@ -40,7 +40,7 @@ void main() {
           HomeStateLoaded(
             categories: mockCategories.categories,
             category: mockCategories.categories.first,
-            date: DateTime.fromMillisecondsSinceEpoch(mockCategories.timestamp * 1000),
+            date: 'Saturday, Jun 7',
           ),
         ],
     verify: (_) {
@@ -57,7 +57,7 @@ void main() {
         () => HomeStateLoaded(
           categories: mockCategories.categories,
           category: mockCategories.categories.first,
-          date: DateTime.fromMillisecondsSinceEpoch(mockCategories.timestamp * 1000),
+          date: 'Saturday, Jun 7',
         ),
     act: (bloc) => bloc.add(HomeCategoryChanged(mockCategories.categories[1])),
     expect:
@@ -65,7 +65,7 @@ void main() {
           HomeStateLoaded(
             categories: mockCategories.categories,
             category: mockCategories.categories[1],
-            date: DateTime.fromMillisecondsSinceEpoch(mockCategories.timestamp * 1000),
+            date: 'Saturday, Jun 7',
           ),
         ],
   );
@@ -83,7 +83,7 @@ void main() {
           HomeStateLoaded(
             categories: mockCategories.categories,
             category: mockCategories.categories[0],
-            date: DateTime.fromMillisecondsSinceEpoch(mockCategories.timestamp * 1000),
+            date: 'Saturday, Jun 7',
           ),
         ],
   );

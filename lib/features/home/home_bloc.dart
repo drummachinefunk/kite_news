@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:kagi_news/models/category.dart';
 
 import 'package:kagi_news/repositories/news_repository.dart';
@@ -26,7 +27,7 @@ final class HomeStateError extends HomeState {
 
 class HomeStateLoaded extends HomeState {
   final List<Category> categories;
-  final DateTime date;
+  final String date;
   final Category category;
 
   const HomeStateLoaded({required this.categories, required this.category, required this.date});
@@ -34,7 +35,7 @@ class HomeStateLoaded extends HomeState {
   @override
   List<Object?> get props => [category, categories, date];
 
-  HomeStateLoaded copyWith({Category? category, List<Category>? categories, DateTime? date}) {
+  HomeStateLoaded copyWith({Category? category, List<Category>? categories, String? date}) {
     return HomeStateLoaded(
       category: category ?? this.category,
       categories: categories ?? this.categories,
@@ -89,11 +90,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   void _reload(Emitter<HomeState> emit) async {
     try {
       final response = await newsRepository.loadCategories();
+      final date = DateTime.fromMillisecondsSinceEpoch(response.timestamp * 1000);
+      final dateString = DateFormat('EEEE, MMM d').format(date);
       emit(
         HomeStateLoaded(
           categories: response.categories,
           category: response.categories.first,
-          date: DateTime.fromMillisecondsSinceEpoch(response.timestamp * 1000),
+          date: dateString,
         ),
       );
     } catch (e) {

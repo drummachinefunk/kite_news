@@ -1,21 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 import 'package:kagi_news/components/title_bar.dart';
-import 'package:kagi_news/features/cluster_carousel/cluster_carousel.dart';
-import 'package:kagi_news/features/cluster_carousel/cluster_carousel_bloc.dart';
 import 'package:kagi_news/features/home/home_bloc.dart';
 import 'package:kagi_news/features/home/tab/category_tab.dart';
 import 'package:kagi_news/features/home/tab/category_tab_bloc.dart';
-import 'package:kagi_news/features/info/info_bloc.dart';
-import 'package:kagi_news/features/info/info_page.dart';
-import 'package:kagi_news/features/settings/settings_bloc.dart';
-import 'package:kagi_news/features/settings/settings_page.dart';
+import 'package:kagi_news/features/navigation/navigation.dart';
 import 'package:kagi_news/locator.dart';
 import 'package:kagi_news/models/category.dart';
-import 'package:kagi_news/models/cluster.dart';
 import 'package:kagi_news/repositories/news_repository.dart';
 
 class HomePage extends StatefulWidget {
@@ -50,57 +42,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     }
   }
 
-  void _pushCarousel(BuildContext context, Category category, List<Cluster> clusters, int index) {
-    Navigator.push(
-      context,
-      CupertinoModalPopupRoute(
-        builder:
-            (context) => BlocProvider(
-              create:
-                  (context) =>
-                      ClusterCarouselBloc(category: category, clusters: clusters, index: index)
-                        ..add(const ClusterCarouselStarted()),
-              child: ClusterCarousel(
-                onDismiss: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
-      ),
-    );
-  }
-
-  void _presentSettings(BuildContext context) {
-    Navigator.push(
-      context,
-      CupertinoModalPopupRoute(
-        builder:
-            (context) => BlocProvider(
-              create: (context) => SettingsBloc()..add(const SettingsStarted()),
-              child: const SettingsPage(),
-            ),
-      ),
-    );
-  }
-
-  void _presentInfo(BuildContext context) {
-    Navigator.push(
-      context,
-      CupertinoModalPopupRoute(
-        builder:
-            (context) => BlocProvider(
-              create:
-                  (context) =>
-                      InfoBloc(title: 'About', asset: 'assets/info.md')..add(const InfoStarted()),
-              child: const InfoPage(),
-            ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<HomeBloc, HomeState>(
+      listenWhen:
+          (previous, current) =>
+              (previous is! HomeStateLoaded && current is HomeStateLoaded) ||
+              (previous is HomeStateLoaded &&
+                  current is HomeStateLoaded &&
+                  (previous.categories != current.categories ||
+                      previous.category != current.category)),
       listener: (context, state) {
         if (state is HomeStateLoaded) {
           _updateTabController(
@@ -110,10 +61,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           );
         }
       },
-      listenWhen:
-          (previous, current) =>
-              (previous is! HomeStateLoaded && current is HomeStateLoaded) || true,
-
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           switch (state) {
@@ -141,12 +88,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       TitleBar(
                         leading: IconButton(
                           padding: const EdgeInsets.all(2),
-                          onPressed: () => _presentInfo(context),
+                          onPressed: () => presentInfo(context),
                           icon: SvgPicture.asset('assets/kite.svg', width: 36, height: 36),
                         ),
-                        title: Text(DateFormat('EEEE, MMM d').format(date)),
+                        title: Text(date),
                         trailing: IconButton(
-                          onPressed: () => _presentSettings(context),
+                          onPressed: () => presentSettings(context),
                           icon: const Icon(Icons.settings),
                         ),
                       ),
@@ -173,39 +120,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ],
                         ),
                       ),
-                      Expanded(
-                        child:
-                            state.categories.isNotEmpty
-                                ? Column(
-                                  children: [
-                                    Expanded(
-                                      child: TabBarView(
-                                        controller: _tabController,
-                                        children:
-                                            state.categories.asMap().entries.map((e) {
-                                              return BlocProvider(
-                                                create:
-                                                    (context) => CategoryTabBloc(
-                                                      category: e.value,
-                                                      newsRepository: locator<NewsRepository>(),
-                                                    )..add(const CategoryTabStarted()),
-                                                child: CategoryTab(
-                                                  onSelected:
-                                                      (clusters, index) => _pushCarousel(
-                                                        context,
-                                                        e.value,
-                                                        clusters,
-                                                        index,
-                                                      ),
-                                                ),
-                                              );
-                                            }).toList(),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                                : Container(),
-                      ),
+                      Expanded(child: _buildCategoryTabs(state.categories)),
                     ],
                   ),
                 ),
@@ -216,5 +131,34 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         },
       ),
     );
+  }
+
+  Widget _buildCategoryTabs(List<Category> categories) {
+    return categories.isNotEmpty
+        ? Column(
+          children: [
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children:
+                    categories.asMap().entries.map((e) {
+                      return BlocProvider(
+                        create:
+                            (context) => CategoryTabBloc(
+                              category: e.value,
+                              newsRepository: locator<NewsRepository>(),
+                            )..add(const CategoryTabStarted()),
+                        child: CategoryTab(
+                          onSelected:
+                              (clusters, index) =>
+                                  presentCategory(context, e.value, clusters, index),
+                        ),
+                      );
+                    }).toList(),
+              ),
+            ),
+          ],
+        )
+        : Container();
   }
 }
