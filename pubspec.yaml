@@ -39,6 +39,7 @@ flutter:
   generate: true
   assets:
     - assets/kite.svg
+    - assets/kite_dark.svg
     - assets/dmf_logo.svg
     - assets/info.md
     - assets/acknowledgements.md

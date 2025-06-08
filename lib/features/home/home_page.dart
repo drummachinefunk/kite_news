@@ -89,7 +89,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         leading: IconButton(
                           padding: const EdgeInsets.all(2),
                           onPressed: () => presentInfo(context),
-                          icon: SvgPicture.asset('assets/kite.svg', width: 36, height: 36),
+                          icon: SvgPicture.asset(
+                            Theme.of(context).brightness == Brightness.light
+                                ? 'assets/kite.svg'
+                                : 'assets/kite_dark.svg',
+                            width: 36,
+                            height: 36,
+                          ),
                         ),
                         title: Text(date),
                         trailing: IconButton(
