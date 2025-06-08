@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:kagi_news/features/navigation/navigation.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ArticleBox extends StatelessWidget {
@@ -24,11 +25,7 @@ class ArticleBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
-            onTap: () {
-              try {
-                launchUrlString(url);
-              } catch (_) {}
-            },
+            onTap: () => presentUrl(url),
             child: Container(
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),

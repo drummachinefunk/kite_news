@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kagi_news/features/navigation/navigation.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class QuoteBox extends StatelessWidget {
@@ -29,7 +30,7 @@ class QuoteBox extends StatelessWidget {
           if (author != null) ...[
             if (source != null) ...[
               TextButton(
-                onPressed: () => launchUrlString(source!),
+                onPressed: () => presentUrl(source!),
                 style: ButtonStyle(
                   padding: WidgetStateProperty.all(EdgeInsets.zero),
                   shape: WidgetStateProperty.all(

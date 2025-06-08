@@ -8,6 +8,7 @@ import 'package:kagi_news/features/settings/settings_bloc.dart';
 import 'package:kagi_news/features/settings/settings_page.dart';
 import 'package:kagi_news/models/category.dart';
 import 'package:kagi_news/models/cluster.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 void presentCategory(BuildContext context, Category category, List<Cluster> clusters, int index) {
   Navigator.push(
@@ -55,4 +56,13 @@ void presentInfo(BuildContext context) {
           ),
     ),
   );
+}
+
+void presentUrl(String url, {bool isExternal = false}) {
+  try {
+    launchUrlString(
+      url,
+      mode: isExternal ? LaunchMode.externalApplication : LaunchMode.inAppWebView,
+    );
+  } catch (_) {}
 }

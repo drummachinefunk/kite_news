@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kagi_news/components/title_bar.dart';
+import 'package:kagi_news/features/navigation/navigation.dart';
 import 'package:kagi_news/features/story_details/components/sliver_spacing.dart';
 import 'package:kagi_news/features/story_details/components/sliver_with_padding.dart';
 import 'package:kagi_news/features/info/info_bloc.dart';
@@ -15,7 +16,6 @@ class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   void _presentAcknowledgements(BuildContext context) {
-    
     Navigator.push(
       context,
       CupertinoModalPopupRoute(
@@ -57,11 +57,7 @@ class SettingsPage extends StatelessWidget {
                               case 0:
                                 return SettingsListTile(
                                   title: 'Kagi Search',
-                                  onTap:
-                                      () => launchUrlString(
-                                        'https://kagi.com',
-                                        mode: LaunchMode.externalApplication,
-                                      ),
+                                  onTap: () => presentUrl('https://kagi.com', isExternal: true),
                                 );
                               case 1:
                                 return SettingsListTile(
@@ -71,15 +67,11 @@ class SettingsPage extends StatelessWidget {
                               case 2:
                                 return SettingsListTile(
                                   title: 'Feedback',
-                                  onTap: () => launchUrlString('mailto:hello@drummachinefunk.com'),
+                                  onTap: () => presentUrl('mailto:hello@drummachinefunk.com'),
                                 );
-                              case 3:
-                                return SettingsListTile(
-                                  title: 'Kagi Search',
-                                  onTap: () => launchUrlString('https://kagi.com'),
-                                );
+                              default:
+                                return Container();
                             }
-                            return Container();
                           },
                           separatorBuilder: (context, index) => const Divider(),
                           itemCount: 3,
@@ -96,7 +88,7 @@ class SettingsPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 4),
                             CupertinoButton(
-                              onPressed: () => launchUrlString('https://drummachinefunk.com'),
+                              onPressed: () => presentUrl('https://drummachinefunk.com'),
                               child: SvgPicture.asset(
                                 'assets/dmf_logo.svg',
                                 width: 80,

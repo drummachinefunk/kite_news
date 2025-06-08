@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kagi_news/features/navigation/navigation.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class CarouselListItemData {
@@ -64,7 +65,7 @@ class CarouselListItem extends StatelessWidget {
           Text(data.text, style: Theme.of(context).textTheme.bodyMedium),
           const SizedBox(height: 4.0),
           TextButton(
-            onPressed: () => launchUrlString(data.url),
+            onPressed: () => presentUrl(data.url),
             style: ButtonStyle(
               padding: WidgetStateProperty.all(EdgeInsets.zero),
               shape: WidgetStateProperty.all(
