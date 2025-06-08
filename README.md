@@ -15,15 +15,19 @@ A mobile client for [Kite](https://kite.kagi.com) by Kagi.
 # Deployment
 
 For iOS:
-- Run `flutter build ipa`
-- Use Xcode or Transporter to upload to the App Store
+- Increase the version and build numbers in `pubspec.yaml`
+- For iOS build:
+    - Run: `flutter build ipa`
+    - Use Xcode or Transporter to upload to the App Store
+- For Android build:
+    - Run `flutter build appbundle`
+    - Upload the build to the Play Store 
 
 # Known Limitations
 - No caching of web resources
 - No tablet optimized layout
 
 # Suggestions for Improvement
-- Add localization
 - Improve article reader layout
 - Optimize article reader rendering
 
