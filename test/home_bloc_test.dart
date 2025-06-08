@@ -1,12 +1,10 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kagi_news/features/home/home_bloc.dart';
-import 'package:kagi_news/repositories/news_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'mock_data.dart';
-
-class MockNewsRepository extends Mock implements NewsRepository {}
+import 'mocks/mock_data.dart';
+import 'mocks/mock_news_repository.dart';
 
 void main() {
   late MockNewsRepository mockRepository;

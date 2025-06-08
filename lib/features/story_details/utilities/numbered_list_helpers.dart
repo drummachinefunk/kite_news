@@ -1,4 +1,4 @@
-import 'package:kagi_news/features/cluster_details/components/numbered_list.dart';
+import 'package:kagi_news/features/story_details/components/numbered_list.dart';
 
 class NumberedListHelper {
   /// Converts a list of strings into a list of [NumberedListItemData] based on a specified separator.

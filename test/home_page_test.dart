@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kagi_news/features/cluster_carousel/cluster_carousel.dart';
+import 'package:kagi_news/features/story_pager/story_pager.dart';
 import 'package:kagi_news/features/home/home_page.dart';
 import 'package:kagi_news/locator.dart';
 import 'package:kagi_news/main.dart';
 import 'package:kagi_news/repositories/news_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'mock_data.dart';
-
-class MockNewsRepository extends Mock implements NewsRepository {}
+import 'mocks/mock_data.dart';
+import 'mocks/mock_news_repository.dart';
 
 void main() {
   late MockNewsRepository mockNewsRepository;
@@ -82,7 +81,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify the article reader is displayed
-    expect(find.byType(ClusterCarousel), findsOneWidget);
+    expect(find.byType(StoryPager), findsOneWidget);
   });
 
   testWidgets('Tapping the close button closes the article reader', (WidgetTester tester) async {
@@ -94,14 +93,14 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify the article reader is displayed
-    expect(find.byType(ClusterCarousel), findsOneWidget);
+    expect(find.byType(StoryPager), findsOneWidget);
 
     // Dismiss the article reader
     await tester.tap(find.byIcon(Icons.close));
     await tester.pumpAndSettle();
 
     // Verify we are back to the main screen
-    expect(find.byType(ClusterCarousel), findsNothing);
+    expect(find.byType(StoryPager), findsNothing);
     expect(find.byType(HomePage), findsOneWidget);
   });
 
@@ -114,14 +113,14 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify the article reader is displayed
-    expect(find.byType(ClusterCarousel), findsOneWidget);
+    expect(find.byType(StoryPager), findsOneWidget);
 
     // Swipe down to close the article reader
     await tester.fling(find.byType(CustomScrollView), const Offset(0, 500), 1000);
     await tester.pumpAndSettle();
 
     // Verify we are back to the main screen
-    expect(find.byType(ClusterCarousel), findsNothing);
+    expect(find.byType(StoryPager), findsNothing);
     expect(find.byType(HomePage), findsOneWidget);
   });
 }

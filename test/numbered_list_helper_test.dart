@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kagi_news/features/cluster_details/utilities/numbered_list_helpers.dart';
+import 'package:kagi_news/features/story_details/utilities/numbered_list_helpers.dart';
 
 void main() {
   test('Items with :: separators', () {

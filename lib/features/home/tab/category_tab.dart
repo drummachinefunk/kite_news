@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kagi_news/features/home/tab/category_item.dart';
+import 'package:kagi_news/features/home/tab/category_list_tile.dart';
 import 'package:kagi_news/features/home/tab/category_tab_bloc.dart';
 import 'package:kagi_news/models/cluster.dart';
 
@@ -24,7 +24,7 @@ class CategoryTab extends StatelessWidget {
                       ? Container()
                       : ListView.separated(
                         itemBuilder:
-                            (context, index) => CategoryItem(
+                            (context, index) => CategoryListTile(
                               cluster: state.clusters[index],
                               onTap: () => onSelected(state.clusters, index),
                             ),

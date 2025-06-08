@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kagi_news/models/cluster.dart';
 
-class CategoryItem extends StatelessWidget {
-  const CategoryItem({super.key, required this.cluster, this.onTap});
+class CategoryListTile extends StatelessWidget {
+  const CategoryListTile({super.key, required this.cluster, this.onTap});
 
   final Cluster cluster;
   final VoidCallback? onTap;

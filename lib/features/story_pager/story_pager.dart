@@ -3,27 +3,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagi_news/components/animated_translation.dart';
 import 'package:kagi_news/components/carousel.dart';
 import 'package:kagi_news/components/title_bar.dart';
-import 'package:kagi_news/features/cluster_carousel/cluster_carousel_bloc.dart';
-import 'package:kagi_news/features/cluster_details/cluster_details_bloc.dart';
-import 'package:kagi_news/features/cluster_details/cluster_details_page.dart';
+import 'package:kagi_news/features/story_pager/story_pager_bloc.dart';
+import 'package:kagi_news/features/story_details/story_details_bloc.dart';
+import 'package:kagi_news/features/story_details/story_details_page.dart';
 
-class ClusterCarousel extends StatefulWidget {
-  const ClusterCarousel({super.key, this.scrollController, required this.onDismiss});
+class StoryPager extends StatefulWidget {
+  const StoryPager({super.key, this.scrollController, required this.onDismiss});
 
   final ScrollController? scrollController;
   final VoidCallback onDismiss;
 
   @override
-  State<ClusterCarousel> createState() => _ClusterCarouselState();
+  State<StoryPager> createState() => _StoryPagerState();
 }
 
-class _ClusterCarouselState extends State<ClusterCarousel> {
+class _StoryPagerState extends State<StoryPager> {
   double _dragOffset = 0.0;
   bool _draggin = false;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ClusterCarouselBloc, ClusterCarouselState>(
+    return BlocBuilder<StoryPagerBloc, StoryPagerState>(
       builder: (context, state) {
         return AnimatedTranslation(
           offset: Offset(0.0, -_dragOffset),
@@ -78,17 +78,15 @@ class _ClusterCarouselState extends State<ClusterCarousel> {
                           return BlocProvider(
                             create:
                                 (context) =>
-                                    ClusterDetailsBloc(cluster: state.clusters[index])
-                                      ..add(const ClusterDetailsStarted()),
-                            child: const ClusterDetailsPage(),
+                                    StoryDetailsBloc(cluster: state.clusters[index])
+                                      ..add(const StoryDetailsStarted()),
+                            child: const StoryDetailsPage(),
                           );
                         },
                         length: state.clusters.length,
                         index: state.selectedIndex,
                         onIndexChanged: (int index) {
-                          context.read<ClusterCarouselBloc>().add(
-                            ClusterCarouselIndexChanged(index),
-                          );
+                          context.read<StoryPagerBloc>().add(StoryPagerIndexChanged(index));
                         },
                       ),
                     ),

@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kagi_news/features/cluster_details/components/article_box.dart';
-import 'package:kagi_news/features/cluster_details/components/bullet_list.dart';
-import 'package:kagi_news/features/cluster_details/components/carousel_list.dart';
-import 'package:kagi_news/features/cluster_details/components/numbered_list.dart';
-import 'package:kagi_news/features/cluster_details/cluster_details_bloc.dart';
-import 'package:kagi_news/features/cluster_details/components/quote_box.dart';
-import 'package:kagi_news/features/cluster_details/components/sliver_with_padding.dart';
-import 'package:kagi_news/features/cluster_details/components/sliver_spacing.dart';
-import 'package:kagi_news/features/cluster_details/utilities/numbered_list_helpers.dart';
+import 'package:kagi_news/features/story_details/components/article_box.dart';
+import 'package:kagi_news/features/story_details/components/bullet_list.dart';
+import 'package:kagi_news/features/story_details/components/carousel_list.dart';
+import 'package:kagi_news/features/story_details/components/numbered_list.dart';
+import 'package:kagi_news/features/story_details/story_details_bloc.dart';
+import 'package:kagi_news/features/story_details/components/quote_box.dart';
+import 'package:kagi_news/features/story_details/components/sliver_with_padding.dart';
+import 'package:kagi_news/features/story_details/components/sliver_spacing.dart';
+import 'package:kagi_news/features/story_details/utilities/numbered_list_helpers.dart';
 
-class ClusterDetailsPage extends StatefulWidget {
-  const ClusterDetailsPage({super.key});
+class StoryDetailsPage extends StatefulWidget {
+  const StoryDetailsPage({super.key});
 
   @override
-  State<ClusterDetailsPage> createState() => _ClusterDetailsPageState();
+  State<StoryDetailsPage> createState() => _StoryDetailsPageState();
 }
 
-class _ClusterDetailsPageState extends State<ClusterDetailsPage> {
-
+class _StoryDetailsPageState extends State<StoryDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ClusterDetailsBloc, ClusterDetailsState>(
+    return BlocBuilder<StoryDetailsBloc, StoryDetailsState>(
       builder: (context, state) {
         final article1 = state.cluster.articles.isNotEmpty ? state.cluster.articles.first : null;
         final article2 = state.cluster.articles.length > 1 ? state.cluster.articles[1] : null;

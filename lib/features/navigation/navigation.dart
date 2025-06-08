@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kagi_news/features/cluster_carousel/cluster_carousel.dart';
-import 'package:kagi_news/features/cluster_carousel/cluster_carousel_bloc.dart';
+import 'package:kagi_news/features/story_pager/story_pager.dart';
+import 'package:kagi_news/features/story_pager/story_pager_bloc.dart';
 import 'package:kagi_news/features/info/info_bloc.dart';
 import 'package:kagi_news/features/info/info_page.dart';
 import 'package:kagi_news/features/settings/settings_bloc.dart';
@@ -17,9 +17,9 @@ void presentCategory(BuildContext context, Category category, List<Cluster> clus
           (context) => BlocProvider(
             create:
                 (context) =>
-                    ClusterCarouselBloc(category: category, clusters: clusters, index: index)
-                      ..add(const ClusterCarouselStarted()),
-            child: ClusterCarousel(
+                    StoryPagerBloc(category: category, clusters: clusters, index: index)
+                      ..add(const StoryPagerStarted()),
+            child: StoryPager(
               onDismiss: () {
                 Navigator.of(context).pop();
               },
