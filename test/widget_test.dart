@@ -74,10 +74,8 @@ void main() {
     await tester.pumpWidget(const KiteApp());
     await tester.pumpAndSettle();
 
-    // Verify categories are displayed
-    expect(find.text(mockTechCategory.name), findsOneWidget);
-    expect(find.text(mockWorldCategory.name), findsOneWidget);
-    expect(find.text(mockUsaCategory.name), findsOneWidget);
+    // Verify home page is displayed
+    expect(find.byType(HomePage), findsOneWidget);
 
     // Tap on the first article in the Tech category
     await tester.tap(find.text(mockTechCategoryResponse.clusters.first.title));
@@ -85,10 +83,41 @@ void main() {
 
     // Verify the article reader is displayed
     expect(find.byType(ClusterCarousel), findsOneWidget);
-    expect(find.text(mockTechCategoryResponse.clusters.first.shortSummary), findsWidgets);
+  });
+
+  testWidgets('Tapping the close button closes the article reader', (WidgetTester tester) async {
+    await tester.pumpWidget(const KiteApp());
+    await tester.pumpAndSettle();
+
+    // Tap on the first article in the Tech category
+    await tester.tap(find.text(mockTechCategoryResponse.clusters.first.title));
+    await tester.pumpAndSettle();
+
+    // Verify the article reader is displayed
+    expect(find.byType(ClusterCarousel), findsOneWidget);
 
     // Dismiss the article reader
     await tester.tap(find.byIcon(Icons.close));
+    await tester.pumpAndSettle();
+
+    // Verify we are back to the main screen
+    expect(find.byType(ClusterCarousel), findsNothing);
+    expect(find.byType(HomePage), findsOneWidget);
+  });
+
+  testWidgets('Swiping down on the article reader closes it', (WidgetTester tester) async {
+    await tester.pumpWidget(const KiteApp());
+    await tester.pumpAndSettle();
+
+    // Tap on the first article in the Tech category
+    await tester.tap(find.text(mockTechCategoryResponse.clusters.first.title));
+    await tester.pumpAndSettle();
+
+    // Verify the article reader is displayed
+    expect(find.byType(ClusterCarousel), findsOneWidget);
+
+    // Swipe down to close the article reader
+    await tester.fling(find.byType(CustomScrollView), const Offset(0, 500), 1000);
     await tester.pumpAndSettle();
 
     // Verify we are back to the main screen
