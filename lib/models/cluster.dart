@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:kagi_news/models/article.dart';
 import 'package:kagi_news/models/domain.dart';
+import 'package:kagi_news/models/parsing/string_list_parser.dart';
 import 'package:kagi_news/models/perspective.dart';
 import 'package:kagi_news/models/qna.dart';
 
@@ -27,7 +28,7 @@ class Cluster {
   @JsonKey(name: 'did_you_know')
   final String didYouKnow;
 
-  @JsonKey(name: 'talking_points')
+  @JsonKey(name: 'talking_points', fromJson: fromJsonStringList)
   final List<String> talkingPoints;
 
   final String quote;
@@ -53,7 +54,7 @@ class Cluster {
   @JsonKey(name: 'historical_background')
   final String historicalBackground;
 
-  @JsonKey(name: 'international_reactions', fromJson: _fromJsonStringList)
+  @JsonKey(name: 'international_reactions', fromJson: fromJsonStringList)
   final List<String> internationalReactions;
 
   @JsonKey(name: 'humanitarian_impact')
@@ -62,7 +63,7 @@ class Cluster {
   @JsonKey(name: 'economic_implications')
   final String economicImplications;
 
-  @JsonKey(fromJson: _fromJsonStringList)
+  @JsonKey(fromJson: fromJsonStringList)
   final List<String> timeline;
 
   @JsonKey(name: 'future_outlook')
@@ -71,16 +72,16 @@ class Cluster {
   @JsonKey(name: 'business_angle_text')
   final String businessAngleText;
 
-  @JsonKey(name: 'user_action_items', fromJson: _fromJsonStringList)
+  @JsonKey(name: 'user_action_items', fromJson: fromJsonStringList)
   final List<String> userActionItems;
 
-  @JsonKey(name: 'scientific_significance', fromJson: _fromJsonStringList)
+  @JsonKey(name: 'scientific_significance', fromJson: fromJsonStringList)
   final List<String> scientificSignificance;
 
-  @JsonKey(name: 'travel_advisory', fromJson: _fromJsonStringList)
+  @JsonKey(name: 'travel_advisory', fromJson: fromJsonStringList)
   final List<String> travelAdvisory;
 
-  @JsonKey(name: 'destination_highlights', fromJson: _fromJsonStringList)
+  @JsonKey(name: 'destination_highlights', fromJson: fromJsonStringList)
   final List<String> destinationHighlights;
 
   @JsonKey(name: 'culinary_significance')
@@ -95,13 +96,13 @@ class Cluster {
   @JsonKey(name: 'design_principles')
   final String designPrinciples;
 
-  @JsonKey(name: 'user_experience_impact', fromJson: _fromJsonStringList)
+  @JsonKey(name: 'user_experience_impact', fromJson: fromJsonStringList)
   final List<String> userExperienceImpact;
 
-  @JsonKey(name: 'gameplay_mechanics', fromJson: _fromJsonStringList)
+  @JsonKey(name: 'gameplay_mechanics', fromJson: fromJsonStringList)
   final List<String> gameplayMechanics;
 
-  @JsonKey(name: 'industry_impact', fromJson: _fromJsonStringList)
+  @JsonKey(name: 'industry_impact', fromJson: fromJsonStringList)
   final List<String> industryImpact;
 
   @JsonKey(name: 'technical_specifications')
@@ -110,7 +111,7 @@ class Cluster {
   @JsonKey(name: 'suggested_qna')
   final List<Qna> suggestedQna;
 
-  @JsonKey(name: 'technical_details', fromJson: _fromJsonStringList)
+  @JsonKey(name: 'technical_details', fromJson: fromJsonStringList)
   final List<String> technicalDetails;
 
   final List<Article> articles;
@@ -162,18 +163,4 @@ class Cluster {
   factory Cluster.fromJson(Map<String, dynamic> json) => _$ClusterFromJson(json);
 
   Map<String, dynamic> toJson() => _$ClusterToJson(this);
-
-  /// Converts a JSON string to a list of strings. Falls back to an empty list if the input is not a valid list or string.
-  static List<String> _fromJsonStringList(dynamic json) {
-    if (json is List) {
-      return List<String>.from(json);
-    } else if (json is String) {
-      if (json.isEmpty) {
-        return [];
-      }
-      return [json];
-    } else {
-      return [];
-    }
-  }
 }

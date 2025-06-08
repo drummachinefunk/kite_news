@@ -14,10 +14,7 @@ Cluster _$ClusterFromJson(Map<String, dynamic> json) => Cluster(
   shortSummary: json['short_summary'] as String,
   category: json['category'] as String,
   didYouKnow: json['did_you_know'] as String,
-  talkingPoints:
-      (json['talking_points'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
+  talkingPoints: fromJsonStringList(json['talking_points']),
   quote: json['quote'] as String,
   qouteAuthor: json['quote_author'] as String,
   quoteSourceUrl: json['quote_source_url'] as String,
@@ -30,37 +27,29 @@ Cluster _$ClusterFromJson(Map<String, dynamic> json) => Cluster(
   emoji: json['emoji'] as String,
   geopoliticalContext: json['geopolitical_context'] as String,
   historicalBackground: json['historical_background'] as String,
-  internationalReactions: Cluster._fromJsonStringList(
-    json['international_reactions'],
-  ),
+  internationalReactions: fromJsonStringList(json['international_reactions']),
   humanitarianImpact: json['humanitarian_impact'] as String,
   economicImplications: json['economic_implications'] as String,
-  timeline: Cluster._fromJsonStringList(json['timeline']),
+  timeline: fromJsonStringList(json['timeline']),
   futureOutlook: json['future_outlook'] as String,
   businessAngleText: json['business_angle_text'] as String,
-  userActionItems: Cluster._fromJsonStringList(json['user_action_items']),
-  scientificSignificance: Cluster._fromJsonStringList(
-    json['scientific_significance'],
-  ),
-  travelAdvisory: Cluster._fromJsonStringList(json['travel_advisory']),
-  destinationHighlights: Cluster._fromJsonStringList(
-    json['destination_highlights'],
-  ),
+  userActionItems: fromJsonStringList(json['user_action_items']),
+  scientificSignificance: fromJsonStringList(json['scientific_significance']),
+  travelAdvisory: fromJsonStringList(json['travel_advisory']),
+  destinationHighlights: fromJsonStringList(json['destination_highlights']),
   culinarySignificance: json['culinary_significance'] as String,
   leagueStandings: json['league_standings'] as String,
   diyTips: json['diy_tips'] as String,
   designPrinciples: json['design_principles'] as String,
-  userExperienceImpact: Cluster._fromJsonStringList(
-    json['user_experience_impact'],
-  ),
-  gameplayMechanics: Cluster._fromJsonStringList(json['gameplay_mechanics']),
-  industryImpact: Cluster._fromJsonStringList(json['industry_impact']),
+  userExperienceImpact: fromJsonStringList(json['user_experience_impact']),
+  gameplayMechanics: fromJsonStringList(json['gameplay_mechanics']),
+  industryImpact: fromJsonStringList(json['industry_impact']),
   technicalSpecifications: json['technical_specifications'] as String,
   suggestedQna:
       (json['suggested_qna'] as List<dynamic>)
           .map((e) => Qna.fromJson(e as Map<String, dynamic>))
           .toList(),
-  technicalDetails: Cluster._fromJsonStringList(json['technical_details']),
+  technicalDetails: fromJsonStringList(json['technical_details']),
   articles:
       (json['articles'] as List<dynamic>)
           .map((e) => Article.fromJson(e as Map<String, dynamic>))
