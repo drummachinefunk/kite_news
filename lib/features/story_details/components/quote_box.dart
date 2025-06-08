@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class QuoteBox extends StatelessWidget {
-  const QuoteBox({super.key, required this.title, required this.text});
+  const QuoteBox({super.key, required this.title, required this.text, this.author, this.source});
 
-  final String title;
+  final String? title;
   final String text;
+  final String? author;
+  final String? source;
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +21,33 @@ class QuoteBox extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 8),
+          if (title != null) ...[
+            Text(title!, style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: 8),
+          ],
           Text(text, style: Theme.of(context).textTheme.bodyMedium),
+          if (author != null) ...[
+            if (source != null) ...[
+              TextButton(
+                onPressed: () => launchUrlString(source!),
+                style: ButtonStyle(
+                  padding: WidgetStateProperty.all(EdgeInsets.zero),
+                  shape: WidgetStateProperty.all(
+                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(1)),
+                  ),
+                  minimumSize: WidgetStateProperty.all(Size.zero),
+                ),
+                child: Text(author!),
+              ),
+            ] else ...[
+              Text(
+                author!,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ]
         ],
       ),
     );

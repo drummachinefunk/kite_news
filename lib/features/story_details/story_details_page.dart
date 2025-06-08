@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kagi_news/features/story_details/components/location.dart';
+import 'package:kagi_news/features/story_details/components/text_section.dart';
 
 import 'components/article_box.dart';
 import 'components/bullet_list.dart';
@@ -44,6 +46,10 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
               ),
             ),
             SliverSpacing(),
+            if (state.cluster.location.isNotEmpty) ...[
+              SliverWithPadding(child: Location(state.cluster.location)),
+              SliverSpacing(),
+            ],
             if (article1 != null) ...[
               SliverToBoxAdapter(
                 child: ArticleBox(
@@ -67,11 +73,24 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
               ),
               SliverSpacing(),
             ],
-            if (state.cluster.destinationHighlights.isNotEmpty) ...[
+            if (state.cluster.quote.isNotEmpty) ...[
               SliverWithPadding(
-                child: BulletList(
-                  title: 'Destination Highlights',
-                  items: state.cluster.destinationHighlights,
+                child: QuoteBox(
+                  title: null,
+                  text: state.cluster.quote,
+                  author: state.cluster.qouteAuthor,
+                  source: state.cluster.quoteSourceUrl,
+                ),
+              ),
+              SliverSpacing(),
+            ],
+            if (article2 != null) ...[
+              SliverToBoxAdapter(
+                child: ArticleBox(
+                  imageUrl: article2.image,
+                  caption: article2.imageCaption,
+                  source: article2.domain,
+                  url: article2.link,
                 ),
               ),
               SliverSpacing(),
@@ -94,11 +113,39 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
               ),
               SliverSpacing(),
             ],
+            if (state.cluster.historicalBackground.isNotEmpty) ...[
+              SliverWithPadding(
+                child: TextSection(
+                  title: 'Historical Background',
+                  text: state.cluster.historicalBackground,
+                ),
+              ),
+              SliverSpacing(),
+            ],
+            if (state.cluster.humanitarianImpact.isNotEmpty) ...[
+              SliverWithPadding(
+                child: TextSection(
+                  title: 'Humanitarian Impact',
+                  text: state.cluster.humanitarianImpact,
+                ),
+              ),
+              SliverSpacing(),
+            ],
             if (state.cluster.timeline.isNotEmpty) ...[
               SliverWithPadding(
                 child: NumberedList(
-                  title: 'Timeline',
+                  title: 'Timeline of events',
                   items: NumberedListHelper.itemsFromList(state.cluster.timeline),
+                ),
+              ),
+              SliverSpacing(),
+            ],
+
+            if (state.cluster.destinationHighlights.isNotEmpty) ...[
+              SliverWithPadding(
+                child: BulletList(
+                  title: 'Destination Highlights',
+                  items: state.cluster.destinationHighlights,
                 ),
               ),
               SliverSpacing(),
@@ -124,17 +171,6 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
             if (state.cluster.industryImpact.isNotEmpty) ...[
               SliverWithPadding(
                 child: BulletList(title: 'Industry Impact', items: state.cluster.industryImpact),
-              ),
-              SliverSpacing(),
-            ],
-            if (article2 != null) ...[
-              SliverToBoxAdapter(
-                child: ArticleBox(
-                  imageUrl: article2.image,
-                  caption: article2.imageCaption,
-                  source: article2.domain,
-                  url: article2.link,
-                ),
               ),
               SliverSpacing(),
             ],
