@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Carousel extends StatefulWidget {
-  const Carousel({
+class Pager extends StatefulWidget {
+  const Pager({
     super.key,
     required this.itemBuilder,
     required this.length,
@@ -15,10 +15,10 @@ class Carousel extends StatefulWidget {
   final ValueChanged<int>? onIndexChanged;
 
   @override
-  State<Carousel> createState() => _CarouselState();
+  State<Pager> createState() => _PagerState();
 }
 
-class _CarouselState extends State<Carousel> with SingleTickerProviderStateMixin {
+class _PagerState extends State<Pager> with SingleTickerProviderStateMixin {
   TabController? _tabController;
 
   @override
@@ -29,7 +29,7 @@ class _CarouselState extends State<Carousel> with SingleTickerProviderStateMixin
   }
 
   @override
-  void didUpdateWidget(covariant Carousel oldWidget) {
+  void didUpdateWidget(covariant Pager oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.length != widget.length) {
       _tabController?.dispose();

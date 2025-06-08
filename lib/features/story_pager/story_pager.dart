@@ -73,7 +73,7 @@ class _StoryPagerState extends State<StoryPager> {
                         }
                         return false;
                       },
-                      child: Carousel(
+                      child: Pager(
                         itemBuilder: (context, index) {
                           return BlocProvider(
                             create:
