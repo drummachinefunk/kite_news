@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kagi_news/features/navigation/navigation.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class QuoteBox extends StatelessWidget {
   const QuoteBox({super.key, required this.title, required this.text, this.author, this.source});

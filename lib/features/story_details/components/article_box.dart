@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kagi_news/features/navigation/navigation.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class ArticleBox extends StatelessWidget {
   const ArticleBox({

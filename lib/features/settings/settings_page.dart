@@ -10,7 +10,6 @@ import 'package:kagi_news/features/info/info_bloc.dart';
 import 'package:kagi_news/features/info/info_page.dart';
 import 'package:kagi_news/features/settings/settings_bloc.dart';
 import 'package:kagi_news/features/settings/settings_list_tile.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
