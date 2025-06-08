@@ -9,11 +9,11 @@ import 'package:kagi_news/theme/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initLocator();
-  runApp(const MyApp());
+  runApp(const KiteApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class KiteApp extends StatelessWidget {
+  const KiteApp({super.key});
 
   @override
   Widget build(BuildContext context) {
