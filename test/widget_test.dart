@@ -1,10 +1,4 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kagi_news/locator.dart';
 import 'package:kagi_news/main.dart';
@@ -20,6 +14,16 @@ void main() {
 
   setUp(() {
     mockNewsRepository = MockNewsRepository();
+    when(() => mockNewsRepository.loadCategories()).thenAnswer((_) async => mockCategories);
+    when(
+      () => mockNewsRepository.loadCategory(mockTechCategory),
+    ).thenAnswer((_) async => mockTechCategoryResponse);
+    when(
+      () => mockNewsRepository.loadCategory(mockWorldCategory),
+    ).thenAnswer((_) async => mockWorldCategoryResponse);
+    when(
+      () => mockNewsRepository.loadCategory(mockUsaCategory),
+    ).thenAnswer((_) async => mockUsaCategoryResponse);
     locator.registerSingleton<NewsRepository>(mockNewsRepository);
   });
 
@@ -27,14 +31,40 @@ void main() {
     locator.reset();
   });
 
-  testWidgets('Your test here', (WidgetTester tester) async {
-    when(() => mockNewsRepository.loadCategories()).thenAnswer((_) async => mockCategories);
-    when(
-      () => mockNewsRepository.loadCategory(mockTechCategory),
-    ).thenAnswer((_) async => mockTechCategoryResponse);
-
+  testWidgets('Category selection test', (WidgetTester tester) async {
     await tester.pumpWidget(const KiteApp());
+    await tester.pumpAndSettle();
+    expect(find.textContaining(mockTechCategoryResponse.clusters.first.title), findsWidgets);
 
-    // Assert: verify behavior
+    // Verify we don't see world category articles initially
+    expect(find.textContaining(mockWorldCategoryResponse.clusters.first.title), findsNothing);
+    await tester.tap(find.text(mockWorldCategory.name));
+    await tester.pumpAndSettle();
+    // Verify we see world category articles after tapping
+    expect(find.textContaining(mockWorldCategoryResponse.clusters.first.title), findsWidgets);
+
+    // Verify we don't see USA category articles initially
+    expect(find.textContaining(mockUsaCategoryResponse.clusters.first.title), findsNothing);
+    await tester.tap(find.text(mockUsaCategory.name));
+    await tester.pumpAndSettle();
+    // Verify we see USA category articles after tapping
+    expect(find.textContaining(mockUsaCategoryResponse.clusters.first.title), findsWidgets);
+  });
+
+  testWidgets('Swiping left changes to the next category', (WidgetTester tester) async {
+    await tester.pumpWidget(const KiteApp());
+    await tester.pumpAndSettle();
+
+    // Start on the first category (Tech)
+    expect(find.textContaining(mockTechCategoryResponse.clusters.first.title), findsWidgets);
+
+    // Swipe left to World category
+    await tester.drag(find.byType(TabBarView), const Offset(-500, 0));
+    await tester.pumpAndSettle();
+
+    // // Should see World category articles
+    expect(find.textContaining(mockWorldCategoryResponse.clusters.first.title), findsWidgets);
+    // // Should not see Tech category articles
+    expect(find.textContaining(mockTechCategoryResponse.clusters.first.title), findsNothing);
   });
 }
