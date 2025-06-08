@@ -102,97 +102,117 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return BlocListener<HomeBloc, HomeState>(
       listener: (context, state) {
-        _updateTabController(
-          state.categories,
-          state.category,
-          state.categories.indexOf(state.category),
-        );
+        if (state is HomeStateLoaded) {
+          _updateTabController(
+            state.categories,
+            state.category,
+            state.categories.indexOf(state.category),
+          );
+        }
       },
       listenWhen:
           (previous, current) =>
-              previous.categories.length != current.categories.length ||
-              previous.category != current.category,
+              (previous is! HomeStateLoaded && current is HomeStateLoaded) || true,
+
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          int? index = state.categories.indexOf(state.category);
-          if (index == -1) index = 0;
+          switch (state) {
+            case HomeStateError(:final message):
+              return Scaffold(
+                body: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(message, textAlign: TextAlign.center),
+                      const SizedBox(height: 16),
+                      FilledButton(onPressed: () {}, child: const Text('Reload')),
+                    ],
+                  ),
+                ),
+              );
+            case HomeStateLoaded(:final categories, :final category, :final date):
+              int? index = categories.indexOf(category);
+              if (index == -1) index = 0;
 
-          return Scaffold(
-            body: SafeArea(
-              child: Column(
-                children: [
-                  TitleBar(
-                    leading: IconButton(
-                      padding: const EdgeInsets.all(2),
-                      onPressed: () => _presentInfo(context),
-                      icon: SvgPicture.asset('assets/kite.svg', width: 36, height: 36),
-                    ),
-                    title: Text(DateFormat('EEEE, MMM d').format(state.date)),
-                    trailing: IconButton(
-                      onPressed: () => _presentSettings(context),
-                      icon: const Icon(Icons.settings),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: TabBar(
-                            tabAlignment: TabAlignment.start,
-                            controller: _tabController,
-                            isScrollable: true,
-                            tabs:
-                                state.categories
-                                    .map((category) => Tab(text: category.name))
-                                    .toList(),
-                            onTap:
-                                (value) => context.read<HomeBloc>().add(
-                                  HomeCategoryChanged(state.categories[value]),
-                                ),
-                          ),
+              return Scaffold(
+                body: SafeArea(
+                  child: Column(
+                    children: [
+                      TitleBar(
+                        leading: IconButton(
+                          padding: const EdgeInsets.all(2),
+                          onPressed: () => _presentInfo(context),
+                          icon: SvgPicture.asset('assets/kite.svg', width: 36, height: 36),
                         ),
-                      ],
-                    ),
+                        title: Text(DateFormat('EEEE, MMM d').format(date)),
+                        trailing: IconButton(
+                          onPressed: () => _presentSettings(context),
+                          icon: const Icon(Icons.settings),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: TabBar(
+                                tabAlignment: TabAlignment.start,
+                                controller: _tabController,
+                                isScrollable: true,
+                                tabs:
+                                    state.categories
+                                        .map((category) => Tab(text: category.name))
+                                        .toList(),
+                                onTap:
+                                    (value) => context.read<HomeBloc>().add(
+                                      HomeCategoryChanged(state.categories[value]),
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child:
+                            state.categories.isNotEmpty
+                                ? Column(
+                                  children: [
+                                    Expanded(
+                                      child: TabBarView(
+                                        controller: _tabController,
+                                        children:
+                                            state.categories.asMap().entries.map((e) {
+                                              return BlocProvider(
+                                                create:
+                                                    (context) => CategoryTabBloc(
+                                                      category: e.value,
+                                                      newsRepository: locator<NewsRepository>(),
+                                                    )..add(const CategoryTabStarted()),
+                                                child: CategoryTab(
+                                                  onSelected:
+                                                      (clusters, index) => _pushCarousel(
+                                                        context,
+                                                        e.value,
+                                                        clusters,
+                                                        index,
+                                                      ),
+                                                ),
+                                              );
+                                            }).toList(),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                                : Container(),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child:
-                        state.categories.isNotEmpty
-                            ? Column(
-                              children: [
-                                Expanded(
-                                  child: TabBarView(
-                                    controller: _tabController,
-                                    children:
-                                        state.categories.asMap().entries.map((e) {
-                                          return BlocProvider(
-                                            create:
-                                                (context) => CategoryTabBloc(
-                                                  category: e.value,
-                                                  newsRepository: locator<NewsRepository>(),
-                                                )..add(const CategoryTabStarted()),
-                                            child: CategoryTab(
-                                              onSelected:
-                                                  (clusters, index) => _pushCarousel(
-                                                    context,
-                                                    e.value,
-                                                    clusters,
-                                                    index,
-                                                  ),
-                                            ),
-                                          );
-                                        }).toList(),
-                                  ),
-                                ),
-                              ],
-                            )
-                            : Container(),
-                  ),
-                ],
-              ),
-            ),
-          );
+                ),
+              );
+            default:
+              return const Center(child: CircularProgressIndicator());
+          }
         },
       ),
     );
