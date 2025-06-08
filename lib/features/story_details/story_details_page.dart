@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagi_news/features/story_details/components/location.dart';
+import 'package:kagi_news/features/story_details/components/sources.dart';
 import 'package:kagi_news/features/story_details/components/text_section.dart';
 
 import 'components/article_box.dart';
@@ -189,6 +190,7 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
               ),
               SliverSpacing(),
             ],
+            if (state.sources.isNotEmpty) ...[Sources(sources: state.sources), SliverSpacing()],
             if (state.cluster.didYouKnow.isNotEmpty) ...[
               SliverWithPadding(
                 child: QuoteBox(title: 'Did You Know', text: state.cluster.didYouKnow),
