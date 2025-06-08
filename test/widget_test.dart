@@ -34,21 +34,21 @@ void main() {
   testWidgets('Tapping the tab bar changes to the category selected', (WidgetTester tester) async {
     await tester.pumpWidget(const KiteApp());
     await tester.pumpAndSettle();
-    expect(find.textContaining(mockTechCategoryResponse.clusters.first.title), findsWidgets);
+    expect(find.text(mockTechCategoryResponse.clusters.first.title), findsWidgets);
 
     // Verify we don't see world category articles initially
-    expect(find.textContaining(mockWorldCategoryResponse.clusters.first.title), findsNothing);
+    expect(find.text(mockWorldCategoryResponse.clusters.first.title), findsNothing);
     await tester.tap(find.text(mockWorldCategory.name));
     await tester.pumpAndSettle();
     // Verify we see world category articles after tapping
-    expect(find.textContaining(mockWorldCategoryResponse.clusters.first.title), findsWidgets);
+    expect(find.text(mockWorldCategoryResponse.clusters.first.title), findsWidgets);
 
     // Verify we don't see USA category articles initially
-    expect(find.textContaining(mockUsaCategoryResponse.clusters.first.title), findsNothing);
+    expect(find.text(mockUsaCategoryResponse.clusters.first.title), findsNothing);
     await tester.tap(find.text(mockUsaCategory.name));
     await tester.pumpAndSettle();
     // Verify we see USA category articles after tapping
-    expect(find.textContaining(mockUsaCategoryResponse.clusters.first.title), findsWidgets);
+    expect(find.text(mockUsaCategoryResponse.clusters.first.title), findsWidgets);
   });
 
   testWidgets('Swiping left changes to the next category', (WidgetTester tester) async {
@@ -56,15 +56,25 @@ void main() {
     await tester.pumpAndSettle();
 
     // Start on the first category (Tech)
-    expect(find.textContaining(mockTechCategoryResponse.clusters.first.title), findsWidgets);
+    expect(find.text(mockTechCategoryResponse.clusters.first.title), findsWidgets);
 
     // Swipe left to World category
     await tester.drag(find.byType(TabBarView), const Offset(-500, 0));
     await tester.pumpAndSettle();
 
     // // Should see World category articles
-    expect(find.textContaining(mockWorldCategoryResponse.clusters.first.title), findsWidgets);
+    expect(find.text(mockWorldCategoryResponse.clusters.first.title), findsWidgets);
     // // Should not see Tech category articles
-    expect(find.textContaining(mockTechCategoryResponse.clusters.first.title), findsNothing);
+    expect(find.text(mockTechCategoryResponse.clusters.first.title), findsNothing);
+  });
+
+  testWidgets('Tapping an article opens the article reader', (WidgetTester tester) async {
+    await tester.pumpWidget(const KiteApp());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text(mockTechCategoryResponse.clusters.first.title));
+    await tester.pumpAndSettle();
+
+    expect(find.text(mockTechCategoryResponse.clusters.first.shortSummary), findsWidgets);
   });
 }
