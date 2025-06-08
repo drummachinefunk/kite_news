@@ -8,7 +8,7 @@ import 'package:kagi_news/features/story_details/components/sliver_with_padding.
 import 'package:kagi_news/features/info/info_bloc.dart';
 import 'package:kagi_news/features/info/info_page.dart';
 import 'package:kagi_news/features/settings/settings_bloc.dart';
-import 'package:kagi_news/features/settings/settings_item.dart';
+import 'package:kagi_news/features/settings/settings_list_tile.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -55,17 +55,22 @@ class SettingsPage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             switch (index) {
                               case 0:
-                                return SettingsItem(
+                                return SettingsListTile(
+                                  title: 'Kagi Search',
+                                  onTap: () => launchUrlString('https://kagi.com'),
+                                );
+                              case 1:
+                                return SettingsListTile(
                                   title: 'Acknowledgements',
                                   onTap: () => _presentAcknowledgements(context),
                                 );
-                              case 1:
-                                return SettingsItem(
+                              case 2:
+                                return SettingsListTile(
                                   title: 'Feedback',
                                   onTap: () => launchUrlString('mailto:hello@drummachinefunk.com'),
                                 );
-                              case 2:
-                                return SettingsItem(
+                              case 3:
+                                return SettingsListTile(
                                   title: 'Kagi Search',
                                   onTap: () => launchUrlString('https://kagi.com'),
                                 );
@@ -73,7 +78,7 @@ class SettingsPage extends StatelessWidget {
                             return Container();
                           },
                           separatorBuilder: (context, index) => const Divider(),
-                          itemCount: 2,
+                          itemCount: 3,
                         ),
                       ),
                       SliverSpacing(height: 50),

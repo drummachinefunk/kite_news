@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SettingsItem extends StatelessWidget {
-  const SettingsItem({super.key, required this.title, this.onTap});
+class SettingsListTile extends StatelessWidget {
+  const SettingsListTile({super.key, required this.title, this.onTap});
 
   final String title;
   final VoidCallback? onTap;

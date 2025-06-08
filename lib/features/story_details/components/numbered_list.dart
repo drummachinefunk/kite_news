@@ -18,7 +18,7 @@ class NumberedList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: Theme.of(context).textTheme.titleMedium),
+        Text(title, style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 10),
         ListView.separated(
           shrinkWrap: true,
