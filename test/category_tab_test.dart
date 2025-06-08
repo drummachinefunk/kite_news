@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kagi_news/features/home/tab/category_tab_bloc.dart';
+import 'package:kagi_news/features/category_tab/category_tab_bloc.dart';
 import 'package:mocktail/mocktail.dart';
 import 'mocks/mock_data.dart';
 import 'mocks/mock_news_repository.dart';

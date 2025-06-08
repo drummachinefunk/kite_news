@@ -18,7 +18,7 @@ class KiteApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'News',
+      title: 'Kite News',
       debugShowCheckedModeBanner: false,
       theme: KagiTheme.createLightTheme(),
       darkTheme: KagiTheme.createDarkTheme(),
