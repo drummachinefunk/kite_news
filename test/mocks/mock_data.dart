@@ -14,7 +14,7 @@ const mockWorldCategory = Category(name: 'World', file: 'world.json');
 const mockUsaCategory = Category(name: 'USA', file: 'usa.json');
 
 const mockCategories = CategoriesResponse(
-  timestamp: 1749370099,
+  timestamp: 1749320000,
   categories: [
     mockTechCategory, mockWorldCategory, mockUsaCategory
   ],

@@ -23,6 +23,12 @@ For iOS:
     - Run `flutter build appbundle`
     - Upload the build to the Play Store 
 
+# Tests
+- Run `flutter test`
+
+# User testing
+Use the Testflight link to beta test the application: https://testflight.apple.com/join/whwSKG8Z
+
 # Known Limitations
 - No caching of web resources
 - No tablet optimized layout
