@@ -31,7 +31,7 @@ void main() {
     locator.reset();
   });
 
-  testWidgets('Category selection test', (WidgetTester tester) async {
+  testWidgets('Tapping the tab bar changes to the category selected', (WidgetTester tester) async {
     await tester.pumpWidget(const KiteApp());
     await tester.pumpAndSettle();
     expect(find.textContaining(mockTechCategoryResponse.clusters.first.title), findsWidgets);
