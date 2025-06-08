@@ -45,9 +45,7 @@ class ClusterCarouselBloc extends Bloc<ClusterCarouselEvent, ClusterCarouselStat
 
   ClusterCarouselBloc({required Category category, required this.clusters, required int index})
     : super(ClusterCarouselState(category: category, clusters: clusters, selectedIndex: index)) {
-    on<ClusterCarouselStarted>((event, emit) {
-      //
-    });
+    on<ClusterCarouselStarted>((event, emit) {});
     on<ClusterCarouselIndexChanged>((event, emit) {
       emit(state.copyWith(selectedIndex: event.index));
     });

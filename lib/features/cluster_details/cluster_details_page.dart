@@ -60,7 +60,7 @@ class _ClusterDetailsPageState extends State<ClusterDetailsPage> {
                 SliverWithPadding(
                   child: NumberedList(
                     title: 'Highlights',
-                    items: NumberedListHelpers.itemsFromList(
+                    items: NumberedListHelper.itemsFromList(
                       state.cluster.talkingPoints,
                       separator: ':',
                     ),
@@ -99,7 +99,7 @@ class _ClusterDetailsPageState extends State<ClusterDetailsPage> {
                 SliverWithPadding(
                   child: NumberedList(
                     title: 'Timeline',
-                    items: NumberedListHelpers.itemsFromList(state.cluster.timeline),
+                    items: NumberedListHelper.itemsFromList(state.cluster.timeline),
                   ),
                 ),
                 SliverSpacing(),
