@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kagi_news/features/navigation/navigation.dart';
 import 'package:kagi_news/models/article.dart';
-import 'package:kagi_news/models/source.dart';
 
 class SourceItem {
   final String name;

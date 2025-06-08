@@ -6,29 +6,12 @@ import 'package:kagi_news/components/title_bar.dart';
 import 'package:kagi_news/features/navigation/navigation.dart';
 import 'package:kagi_news/features/story_details/components/sliver_spacing.dart';
 import 'package:kagi_news/features/story_details/components/sliver_with_padding.dart';
-import 'package:kagi_news/features/info/info_bloc.dart';
-import 'package:kagi_news/features/info/info_page.dart';
 import 'package:kagi_news/features/settings/settings_bloc.dart';
 import 'package:kagi_news/features/settings/settings_list_tile.dart';
+import 'package:kagi_news/localization/localization.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
-
-  void _presentAcknowledgements(BuildContext context) {
-    Navigator.push(
-      context,
-      CupertinoModalPopupRoute(
-        builder:
-            (context) => BlocProvider(
-              create:
-                  (context) =>
-                      InfoBloc(title: 'Acknowledgements', asset: 'assets/acknowledgements.md')
-                        ..add(const InfoStarted()),
-              child: const InfoPage(),
-            ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +22,7 @@ class SettingsPage extends StatelessWidget {
             child: Column(
               children: [
                 TitleBar(
-                  title: const Text('Settings'),
+                  title: Text(L.of(context).settings),
                   trailing: IconButton(
                     onPressed: () => Navigator.of(context).pop(),
                     icon: const Icon(Icons.close),
@@ -55,17 +38,17 @@ class SettingsPage extends StatelessWidget {
                             switch (index) {
                               case 0:
                                 return SettingsListTile(
-                                  title: 'Kagi Search',
+                                  title: L.of(context).kagiSearch,
                                   onTap: () => presentUrl('https://kagi.com', isExternal: true),
                                 );
                               case 1:
                                 return SettingsListTile(
-                                  title: 'Acknowledgements',
-                                  onTap: () => _presentAcknowledgements(context),
+                                  title: L.of(context).acknowledgements,
+                                  onTap: () => presentAcknowledgements(context),
                                 );
                               case 2:
                                 return SettingsListTile(
-                                  title: 'Feedback',
+                                  title: L.of(context).feedback,
                                   onTap: () => presentUrl('mailto:hello@drummachinefunk.com'),
                                 );
                               default:
@@ -82,7 +65,7 @@ class SettingsPage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'Developed with love by',
+                              L.of(context).developedWithLove,
                               style: Theme.of(context).textTheme.labelMedium,
                             ),
                             const SizedBox(height: 4),
@@ -100,7 +83,7 @@ class SettingsPage extends StatelessWidget {
                             const SizedBox(height: 4),
                             if (state.appVersion.isNotEmpty)
                               Text(
-                                'App version: ${state.appVersion}',
+                                '${L.of(context).appVersion}: ${state.appVersion}',
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                           ],

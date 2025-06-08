@@ -10,6 +10,7 @@ A mobile client for [Kite](https://kite.kagi.com) by Kagi.
 
 # Development
 - The app uses `json_serializable` to parse JSON models. To generate the files run `dart run build_runner build`
+- To generate the localizations, run `flutter gen-l10n`
 
 # Deployment
 

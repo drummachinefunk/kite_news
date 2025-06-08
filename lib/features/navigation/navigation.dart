@@ -6,6 +6,7 @@ import 'package:kagi_news/features/info/info_bloc.dart';
 import 'package:kagi_news/features/info/info_page.dart';
 import 'package:kagi_news/features/settings/settings_bloc.dart';
 import 'package:kagi_news/features/settings/settings_page.dart';
+import 'package:kagi_news/localization/localization.dart';
 import 'package:kagi_news/models/category.dart';
 import 'package:kagi_news/models/cluster.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -48,10 +49,28 @@ void presentInfo(BuildContext context) {
     context,
     CupertinoModalPopupRoute(
       builder:
+          (popupContext) => BlocProvider(
+            create:
+                (blocContext) =>
+                    InfoBloc(title: L.of(context).about, asset: 'assets/info.md')
+                      ..add(const InfoStarted()),
+            child: const InfoPage(),
+          ),
+    ),
+  );
+}
+
+void presentAcknowledgements(BuildContext context) {
+  Navigator.push(
+    context,
+    CupertinoModalPopupRoute(
+      builder:
           (context) => BlocProvider(
             create:
-                (context) =>
-                    InfoBloc(title: 'About', asset: 'assets/info.md')..add(const InfoStarted()),
+                (context) => InfoBloc(
+                  title: L.of(context).acknowledgements,
+                  asset: 'assets/acknowledgements.md',
+                )..add(const InfoStarted()),
             child: const InfoPage(),
           ),
     ),

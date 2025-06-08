@@ -1,0 +1,31 @@
+{
+    "@@locale": "en",
+    "about": "About",
+    "settings": "Settings",
+    "acknowledgements": "Acknowledgements",
+    "feedback": "Feedback",
+    "kagiSearch": "Kagi Search",
+    "developedWithLove": "Developed with love by",
+    "appVersion": "App Version",
+    "userActionItems": "User Action Items",
+    "didYouKnow": "Did you know?",
+    "technicalDetails": "Technical Details",
+    "industryImpact": "Industry Impact",
+    "gameplayMechanics": "Gameplay Mechanics",
+    "destinationHighlights": "Destination Highlights",
+    "timelineOfEvents": "Timeline of Events",
+    "historicalBackground": "Historical Background",
+    "humanitarianImpact": "Humanitarian Impact",
+    "perspectives": "Perspectives",
+    "highlights": "Highlights",
+    "numberOfArticles": "{count, plural, =0{no articles} =1{1 article} other{{count} articles}}",
+    "@numberOfArticles": {
+        "description": "",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
+        }
+    }
+}
