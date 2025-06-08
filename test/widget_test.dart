@@ -5,23 +5,36 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:flutter_test/flutter_test.dart';
+import 'package:kagi_news/locator.dart';
+import 'package:kagi_news/main.dart';
+import 'package:kagi_news/repositories/news_repository.dart';
+import 'package:mocktail/mocktail.dart';
+
+import 'mock_data.dart';
+
+class MockNewsRepository extends Mock implements NewsRepository {}
 
 void main() {
-  // testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-  //   // Build our app and trigger a frame.
-  //   await tester.pumpWidget(const MyApp());
+  late MockNewsRepository mockNewsRepository;
 
-  //   // Verify that our counter starts at 0.
-  //   expect(find.text('0'), findsOneWidget);
-  //   expect(find.text('1'), findsNothing);
+  setUp(() {
+    mockNewsRepository = MockNewsRepository();
+    locator.registerSingleton<NewsRepository>(mockNewsRepository);
+  });
 
-  //   // Tap the '+' icon and trigger a frame.
-  //   await tester.tap(find.byIcon(Icons.add));
-  //   await tester.pump();
+  tearDown(() {
+    locator.reset();
+  });
 
-  //   // Verify that our counter has incremented.
-  //   expect(find.text('0'), findsNothing);
-  //   expect(find.text('1'), findsOneWidget);
-  // });
+  testWidgets('Your test here', (WidgetTester tester) async {
+    when(() => mockNewsRepository.loadCategories()).thenAnswer((_) async => mockCategories);
+    when(
+      () => mockNewsRepository.loadCategory(mockTechCategory),
+    ).thenAnswer((_) async => mockTechCategoryResponse);
 
+    await tester.pumpWidget(const KiteApp());
+
+    // Assert: verify behavior
+  });
 }

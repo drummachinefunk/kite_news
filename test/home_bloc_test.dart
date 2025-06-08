@@ -59,12 +59,12 @@ void main() {
           category: mockCategories.categories.first,
           date: 'Saturday, Jun 7',
         ),
-    act: (bloc) => bloc.add(HomeCategoryChanged(mockCategories.categories[1])),
+    act: (bloc) => bloc.add(const HomeCategoryChanged(mockWorldCategory)),
     expect:
         () => [
           HomeStateLoaded(
             categories: mockCategories.categories,
-            category: mockCategories.categories[1],
+            category: mockWorldCategory,
             date: 'Saturday, Jun 7',
           ),
         ],
@@ -82,7 +82,7 @@ void main() {
         () => [
           HomeStateLoaded(
             categories: mockCategories.categories,
-            category: mockCategories.categories[0],
+            category: mockCategories.categories.first,
             date: 'Saturday, Jun 7',
           ),
         ],

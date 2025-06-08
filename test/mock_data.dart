@@ -7,16 +7,18 @@ const loadingCategoriesErrorMessage = 'Failed to load categories.\nPlease try ag
 
 const loadingCategoryErrorMessage = 'Failed to load category.\nPlease try again later.';
 
+const mockTechCategory = Category(name: 'Tech', file: 'tech.json');
+const mockWorldCategory = Category(name: 'World', file: 'world.json');
+const mockUsaCategory = Category(name: 'USA', file: 'usa.json');
+
 const mockCategories = CategoriesResponse(
   timestamp: 1749370099,
   categories: [
-    Category(name: 'Tech', file: 'tech.json'),
-    Category(name: 'USA', file: 'usa.json'),
-    Category(name: 'World', file: 'world.json'),
+    mockTechCategory, mockWorldCategory, mockUsaCategory
   ],
 );
 
-const mockTechCategory = CategoryResponse(
+const mockTechCategoryResponse = CategoryResponse(
   category: 'Tech',
   timestamp: 1749370099,
   read: 100,

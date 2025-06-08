@@ -19,15 +19,15 @@ void main() {
     'Category tab loading',
     build: () {
       when(
-        () => mockRepository.loadCategory(mockCategories.categories[0]),
-      ).thenAnswer((_) async => mockTechCategory);
+        () => mockRepository.loadCategory(mockTechCategory),
+      ).thenAnswer((_) async => mockTechCategoryResponse);
       return CategoryTabBloc(
         category: mockCategories.categories[0],
         newsRepository: mockRepository,
       );
     },
     act: (bloc) => bloc.add(const CategoryTabStarted()),
-    expect: () => [CategoryTabStateLoaded(clusters: mockTechCategory.clusters)],
+    expect: () => [CategoryTabStateLoaded(clusters: mockTechCategoryResponse.clusters)],
     verify: (_) {
       verify(() => mockRepository.loadCategory(mockCategories.categories.first)).called(1);
     },
@@ -37,17 +37,17 @@ void main() {
     'Category tab error',
     build: () {
       when(
-        () => mockRepository.loadCategory(mockCategories.categories[0]),
+        () => mockRepository.loadCategory(mockTechCategory),
       ).thenThrow(Exception('Error loading category'));
       return CategoryTabBloc(
-        category: mockCategories.categories[0],
+        category: mockTechCategory,
         newsRepository: mockRepository,
       );
     },
     act: (bloc) => bloc.add(const CategoryTabStarted()),
     expect: () => [const CategoryTabStateError(message: loadingCategoryErrorMessage)],
     verify: (_) {
-      verify(() => mockRepository.loadCategory(mockCategories.categories.first)).called(1);
+      verify(() => mockRepository.loadCategory(mockTechCategory)).called(1);
     },
   );
 }
