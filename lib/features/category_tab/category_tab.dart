@@ -13,29 +13,28 @@ class CategoryTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryTabBloc, CategoryTabState>(
       builder: (context, state) {
+        late Widget content;
         switch (state) {
           case CategoryTabStateError(:final message):
-            return Center(child: Text(message));
+            content = Center(child: Text(message));
           case CategoryTabStateLoaded(:final clusters):
-            return AnimatedSwitcher(
-              duration: const Duration(milliseconds: 200),
-              child:
-                  clusters.isEmpty
-                      ? Container()
-                      : ListView.separated(
-                        itemBuilder:
-                            (context, index) => CategoryListTile(
-                              cluster: state.clusters[index],
-                              onTap: () => onSelected(state.clusters, index),
-                            ),
-                        separatorBuilder:
-                            (context, index) => const Divider(height: 1, indent: 16, endIndent: 16),
-                        itemCount: state.clusters.length,
-                      ),
-            );
+            content =
+                clusters.isEmpty
+                    ? Container()
+                    : ListView.separated(
+                      itemBuilder:
+                          (context, index) => CategoryListTile(
+                            cluster: state.clusters[index],
+                            onTap: () => onSelected(state.clusters, index),
+                          ),
+                      separatorBuilder:
+                          (context, index) => const Divider(height: 1, indent: 16, endIndent: 16),
+                      itemCount: state.clusters.length,
+                    );
           default:
-            return const Center(child: CircularProgressIndicator());
+            content = const Center(child: CircularProgressIndicator());
         }
+        return AnimatedSwitcher(duration: const Duration(milliseconds: 200), child: content);
       },
     );
   }
