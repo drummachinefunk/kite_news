@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:kagi_news/features/domain_articles/domain_articles_dialog.dart';
 import 'package:kagi_news/features/home/home_page.dart';
+import 'package:kagi_news/features/settings/settings_page.dart';
 import 'package:kagi_news/features/story_details/components/sources.dart';
 import 'package:kagi_news/features/story_pager/story_pager.dart';
 import 'package:kagi_news/locator.dart';
@@ -77,6 +78,16 @@ void main() {
       expect(find.text(mockWorldCategoryResponse.clusters.first.title), findsWidgets);
       // Should not see Tech category articles
       expect(find.text(mockTechCategoryResponse.clusters.first.title), findsNothing);
+    });
+
+    testWidgets('Pressing settings button opens settings', (WidgetTester tester) async {
+      await tester.pumpWidget(const KiteApp());
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.settings));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(SettingsPage), findsOneWidget);
     });
 
     testWidgets('Tapping an article opens the article reader', (WidgetTester tester) async {
