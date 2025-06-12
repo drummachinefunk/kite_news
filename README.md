@@ -8,6 +8,8 @@ A mobile client for [Kite](https://kite.kagi.com) by Kagi.
 - Run `flutter pub get`
 - Build and run with `flutter run`
 
+The most important tasks mentioned in this document are also available in the VSCode command palette.
+
 # Development
 - The app uses `json_serializable` to parse JSON models. To generate the files run `dart run build_runner build`
 - To generate the localizations, run `flutter gen-l10n`
@@ -36,6 +38,7 @@ Use the Testflight link to beta test the application: https://testflight.apple.c
 # Suggestions for Improvement
 - Improve article reader layout
 - Optimize article reader rendering
+- Improve drag-to-dismiss gesture in the article reader
 
 # License
 This project is licensed under the MIT License – see the [LICENSE](LICENSE.md) file for details.
