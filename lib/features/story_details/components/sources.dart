@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kagi_news/localization/localization.dart';
 import 'package:kagi_news/models/article.dart';
 
 class SourceItem {
@@ -29,7 +30,7 @@ class Sources extends StatelessWidget {
               alignment: Alignment.centerLeft,
               onPressed: () => onToggleExpanded?.call(),
               child: Text(
-                expanded ? 'Show less' : 'Show more',
+                expanded ? L.of(context).showLess : L.of(context).showMore,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),

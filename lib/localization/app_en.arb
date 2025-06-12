@@ -18,6 +18,8 @@
     "humanitarianImpact": "Humanitarian Impact",
     "perspectives": "Perspectives",
     "highlights": "Highlights",
+    "showMore": "Show More",
+    "showLess": "Show Less",
     "numberOfArticles": "{count, plural, =0{no articles} =1{1 article} other{{count} articles}}",
     "@numberOfArticles": {
         "description": "",
