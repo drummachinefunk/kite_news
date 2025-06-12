@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kagi_news/features/story_pager/story_pager_bloc.dart';
-import 'mocks/mock_data.dart';
+import '../mocks/mock_data.dart';
 
 void main() {
   blocTest(

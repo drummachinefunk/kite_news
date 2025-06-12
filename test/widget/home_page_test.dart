@@ -7,8 +7,8 @@ import 'package:kagi_news/main.dart';
 import 'package:kagi_news/repositories/news_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'mocks/mock_data.dart';
-import 'mocks/mock_news_repository.dart';
+import '../mocks/mock_data.dart';
+import '../mocks/mock_news_repository.dart';
 
 void main() {
   late MockNewsRepository mockNewsRepository;
