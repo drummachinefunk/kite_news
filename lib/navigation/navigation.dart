@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagi_news/features/domain_articles/domain_articles_bloc.dart';
 import 'package:kagi_news/features/domain_articles/domain_articles_dialog.dart';
-import 'package:kagi_news/features/story_details/components/sources.dart';
+import 'package:kagi_news/features/story_details/models/source_item.dart';
 import 'package:kagi_news/features/story_pager/story_pager.dart';
 import 'package:kagi_news/features/story_pager/story_pager_bloc.dart';
 import 'package:kagi_news/features/info/info_bloc.dart';

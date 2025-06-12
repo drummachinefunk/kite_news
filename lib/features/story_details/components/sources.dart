@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kagi_news/features/story_details/models/source_item.dart';
@@ -20,6 +22,8 @@ class Sources extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasOverflow = sources.length > maxSources;
+
     return SliverList.builder(
       itemBuilder: (context, index) {
         if (index == maxSources) {
@@ -38,7 +42,7 @@ class Sources extends StatelessWidget {
         final source = sources[index];
         return SourceListTile(source: source, onPressed: () => onSourceSelected.call(source));
       },
-      itemCount: maxSources + 1,
+      itemCount: hasOverflow ? maxSources + 1 : sources.length,
     );
   }
 }

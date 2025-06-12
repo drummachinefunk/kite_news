@@ -6,6 +6,7 @@ import 'package:kagi_news/locator.dart';
 import 'package:kagi_news/main.dart';
 import 'package:kagi_news/repositories/news_repository.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:mocktail_image_network/mocktail_image_network.dart';
 
 import '../mocks/mock_data.dart';
 import '../mocks/mock_news_repository.dart';
@@ -25,6 +26,7 @@ void main() {
     when(
       () => mockNewsRepository.loadCategory(mockUsaCategory),
     ).thenAnswer((_) async => mockUsaCategoryResponse);
+
     locator.registerSingleton<NewsRepository>(mockNewsRepository);
   });
 
@@ -70,37 +72,41 @@ void main() {
   });
 
   testWidgets('Tapping an article opens the article reader', (WidgetTester tester) async {
-    await tester.pumpWidget(const KiteApp());
-    await tester.pumpAndSettle();
+    await mockNetworkImages(() async {
+      await tester.pumpWidget(const KiteApp());
+      await tester.pumpAndSettle();
 
-    // Verify home page is displayed
-    expect(find.byType(HomePage), findsOneWidget);
+      // Verify home page is displayed
+      expect(find.byType(HomePage), findsOneWidget);
 
-    // Tap on the first article in the Tech category
-    await tester.tap(find.text(mockTechCategoryResponse.clusters.first.title));
-    await tester.pumpAndSettle();
+      // Tap on the first article in the Tech category
+      await tester.tap(find.text(mockTechCategoryResponse.clusters.first.title));
+      await tester.pumpAndSettle();
 
-    // Verify the article reader is displayed
-    expect(find.byType(StoryPager), findsOneWidget);
+      // // Verify the article reader is displayed
+      expect(find.byType(StoryPager), findsOneWidget);
+    });
   });
 
   testWidgets('Tapping the close button closes the article reader', (WidgetTester tester) async {
-    await tester.pumpWidget(const KiteApp());
-    await tester.pumpAndSettle();
+    await mockNetworkImages(() async {
+      await tester.pumpWidget(const KiteApp());
+      await tester.pumpAndSettle();
 
-    // Tap on the first article in the Tech category
-    await tester.tap(find.text(mockTechCategoryResponse.clusters.first.title));
-    await tester.pumpAndSettle();
+      // Tap on the first article in the Tech category
+      await tester.tap(find.text(mockTechCategoryResponse.clusters.first.title));
+      await tester.pumpAndSettle();
 
-    // Verify the article reader is displayed
-    expect(find.byType(StoryPager), findsOneWidget);
+      // Verify the article reader is displayed
+      expect(find.byType(StoryPager), findsOneWidget);
 
-    // Dismiss the article reader
-    await tester.tap(find.byIcon(Icons.close));
-    await tester.pumpAndSettle();
+      // Dismiss the article reader
+      await tester.tap(find.byIcon(Icons.close));
+      await tester.pumpAndSettle();
 
-    // Verify we are back to the main screen
-    expect(find.byType(StoryPager), findsNothing);
-    expect(find.byType(HomePage), findsOneWidget);
+      // Verify we are back to the main screen
+      expect(find.byType(StoryPager), findsNothing);
+      expect(find.byType(HomePage), findsOneWidget);
+    });
   });
 }
