@@ -45,3 +45,6 @@ flutter:
     - assets/dmf_logo.svg
     - assets/info.md
     - assets/acknowledgements.md
+
+flutter_gen:
+  synthetic-package: false

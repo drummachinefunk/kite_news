@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kagi_news/features/story_details/components/sources.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:kagi_news/features/story_details/models/source_item.dart';
+import 'package:kagi_news/localization/app_localizations.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 
 import '../mocks/mock_data.dart';
