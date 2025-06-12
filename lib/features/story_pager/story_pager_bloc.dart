@@ -36,6 +36,14 @@ final class StoryPagerIndexChanged extends StoryPagerEvent {
   const StoryPagerIndexChanged(this.index);
 }
 
+final class StoryPagerPreviousPressed extends StoryPagerEvent {
+  const StoryPagerPreviousPressed();
+}
+
+final class StoryPagerNextPressed extends StoryPagerEvent {
+  const StoryPagerNextPressed();
+}
+
 class StoryPagerBloc extends Bloc<StoryPagerEvent, StoryPagerState> {
   final List<Cluster> clusters;
 
@@ -44,6 +52,14 @@ class StoryPagerBloc extends Bloc<StoryPagerEvent, StoryPagerState> {
     on<StoryPagerStarted>((event, emit) {});
     on<StoryPagerIndexChanged>((event, emit) {
       emit(state.copyWith(selectedIndex: event.index));
+    });
+    on<StoryPagerPreviousPressed>((event, emit) {
+      final newIndex = (state.selectedIndex - 1).clamp(0, state.clusters.length - 1);
+      emit(state.copyWith(selectedIndex: newIndex));
+    });
+    on<StoryPagerNextPressed>((event, emit) {
+      final newIndex = (state.selectedIndex + 1).clamp(0, state.clusters.length - 1);
+      emit(state.copyWith(selectedIndex: newIndex));
     });
   }
 }

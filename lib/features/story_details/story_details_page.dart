@@ -24,7 +24,6 @@ class StoryDetailsPage extends StatefulWidget {
 }
 
 class _StoryDetailsPageState extends State<StoryDetailsPage> {
-
   bool _sourcesExpanded = false;
 
   @override
@@ -206,9 +205,7 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
               ),
               SliverSpacing(),
             ],
-            SliverSpacing(),
-            SliverSpacing(),
-            SliverSpacing(),
+            SliverSpacing(height: 100),
           ],
         );
       },
