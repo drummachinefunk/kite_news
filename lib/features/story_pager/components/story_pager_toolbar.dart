@@ -28,7 +28,9 @@ class StoryPagerToolbar extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondaryContainer.withAlpha(150),
+            color: Theme.of(context).colorScheme.secondaryContainer.withAlpha(
+              MediaQuery.platformBrightnessOf(context) == Brightness.dark ? 150 : 255,
+            ),
             borderRadius: BorderRadius.circular(30.0),
             border: Border.all(
               color: Theme.of(context).colorScheme.outline.withAlpha(50),
