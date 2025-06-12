@@ -17,7 +17,7 @@ import '../test/mocks/mock_news_repository.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('Home screen tests', () {
+  group('App navigation tests', () {
     late MockNewsRepository mockNewsRepository;
 
     setUp(() {
