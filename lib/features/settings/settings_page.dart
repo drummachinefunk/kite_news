@@ -7,7 +7,7 @@ import 'package:kagi_news/features/navigation/navigation.dart';
 import 'package:kagi_news/features/story_details/components/sliver_spacing.dart';
 import 'package:kagi_news/features/story_details/components/sliver_with_padding.dart';
 import 'package:kagi_news/features/settings/settings_bloc.dart';
-import 'package:kagi_news/features/settings/settings_list_tile.dart';
+import 'package:kagi_news/features/settings/components/settings_list_tile.dart';
 import 'package:kagi_news/localization/localization.dart';
 
 class SettingsPage extends StatelessWidget {

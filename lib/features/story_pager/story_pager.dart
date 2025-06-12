@@ -6,7 +6,7 @@ import 'package:kagi_news/components/title_bar.dart';
 import 'package:kagi_news/features/story_pager/story_pager_bloc.dart';
 import 'package:kagi_news/features/story_details/story_details_bloc.dart';
 import 'package:kagi_news/features/story_details/story_details_page.dart';
-import 'package:kagi_news/features/story_pager/toolbar/story_pager_toolbar.dart';
+import 'package:kagi_news/features/story_pager/components/story_pager_toolbar.dart';
 
 class StoryPager extends StatefulWidget {
   const StoryPager({super.key, this.scrollController, required this.onDismiss});
