@@ -10,18 +10,35 @@ class SourceItem {
 }
 
 class Sources extends StatelessWidget {
-  const Sources({super.key, required this.sources});
+  const Sources({super.key, required this.sources, this.expanded = false, this.onToggleExpanded})
+    : maxSources = expanded ? sources.length : 5;
 
   final List<SourceItem> sources;
+  final bool expanded;
+  final int maxSources;
+  final VoidCallback? onToggleExpanded;
 
   @override
   Widget build(BuildContext context) {
     return SliverList.builder(
       itemBuilder: (context, index) {
+        if (index == maxSources) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            child: CupertinoButton(
+              alignment: Alignment.centerLeft,
+              onPressed: () => onToggleExpanded?.call(),
+              child: Text(
+                expanded ? 'Show less' : 'Show more',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
+          );
+        }
         final source = sources[index];
         return SourceListTile(source: source);
       },
-      itemCount: sources.length,
+      itemCount: maxSources + 1,
     );
   }
 }

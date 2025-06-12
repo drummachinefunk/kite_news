@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kagi_news/components/custom_scroll_physics.dart';
 import 'package:kagi_news/features/story_details/components/location.dart';
 import 'package:kagi_news/features/story_details/components/sources.dart';
 import 'package:kagi_news/features/story_details/components/text_section.dart';
@@ -23,6 +24,9 @@ class StoryDetailsPage extends StatefulWidget {
 }
 
 class _StoryDetailsPageState extends State<StoryDetailsPage> {
+
+  bool _sourcesExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StoryDetailsBloc, StoryDetailsState>(
@@ -31,7 +35,7 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
         final article2 = state.cluster.articles.length > 1 ? state.cluster.articles[1] : null;
 
         return CustomScrollView(
-          physics: const ClampingScrollPhysics(),
+          physics: const CustomScrollPhysics(),
           slivers: [
             SliverWithPadding(
               child: Text(state.cluster.category, style: Theme.of(context).textTheme.titleSmall),
@@ -188,7 +192,14 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
               ),
               SliverSpacing(),
             ],
-            if (state.sources.isNotEmpty) ...[Sources(sources: state.sources), SliverSpacing()],
+            if (state.sources.isNotEmpty) ...[
+              Sources(
+                sources: state.sources,
+                expanded: _sourcesExpanded,
+                onToggleExpanded: () => setState(() => _sourcesExpanded = !_sourcesExpanded),
+              ),
+              SliverSpacing(),
+            ],
             if (state.cluster.didYouKnow.isNotEmpty) ...[
               SliverWithPadding(
                 child: QuoteBox(title: L.of(context).didYouKnow, text: state.cluster.didYouKnow),
