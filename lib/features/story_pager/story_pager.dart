@@ -90,7 +90,10 @@ class _StoryPagerState extends State<StoryPager> {
                                 return true; // Consume the overscroll
                               }
                               if (notification is ScrollEndNotification) {
-                                if (-_dragOffset > MediaQuery.sizeOf(context).height * 0.3) {
+                                final velocity =
+                                    notification.dragDetails?.velocity.pixelsPerSecond.dy ?? 0.0;
+                                debugPrint('Velocity: $velocity, Drag Offset: $_dragOffset');
+                                if (-_dragOffset > MediaQuery.sizeOf(context).height * 0.2) {
                                   Navigator.of(context).pop();
                                 } else {
                                   if (_dragOffset != 0) {
