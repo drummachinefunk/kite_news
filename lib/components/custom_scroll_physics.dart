@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+/// Custom scroll physics that apply a bouncing effect only on the bottom edge.
 class CustomScrollPhysics extends ScrollPhysics {
   const CustomScrollPhysics({this.decelerationRate = ScrollDecelerationRate.normal, super.parent});
 
