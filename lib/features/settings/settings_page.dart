@@ -70,7 +70,8 @@ class SettingsPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 4),
                             CupertinoButton(
-                              onPressed: () => presentUrl('https://drummachinefunk.com'),
+                              onPressed:
+                                  () => presentUrl('https://drummachinefunk.com', isExternal: true),
                               child: SvgPicture.asset(
                                 'assets/dmf_logo.svg',
                                 width: 80,

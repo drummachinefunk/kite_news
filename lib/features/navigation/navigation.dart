@@ -81,13 +81,15 @@ void presentAcknowledgements(BuildContext context) {
   );
 }
 
-void presentUrl(String url, {bool isExternal = false}) {
+void presentUrl(String url, {bool isExternal = false}) async {
   try {
-    launchUrlString(
+    await launchUrlString(
       url,
       mode: isExternal ? LaunchMode.externalApplication : LaunchMode.inAppWebView,
     );
-  } catch (_) {}
+  } catch (error) {
+    debugPrint('Failed to launch URL: $url $error');
+  }
 }
 
 void presentDomainArticles(BuildContext context, SourceItem sourceItem) {
