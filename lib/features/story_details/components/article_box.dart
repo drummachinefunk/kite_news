@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kagi_news/navigation/navigation.dart';
 
@@ -32,10 +31,12 @@ class ArticleBox extends StatelessWidget {
                 children: [
                   AspectRatio(
                     aspectRatio: 16 / 9,
-                    child: CachedNetworkImage(
-                      imageUrl: imageUrl,
+                    child: Image.network(
+                      imageUrl,
                       fit: BoxFit.cover,
-                      errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
+                      errorBuilder:
+                          (context, error, stackTrace) =>
+                              const Center(child: Icon(Icons.error, size: 24)),
                     ),
                   ),
                   Positioned(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:kagi_news/components/circle_image.dart';
 import 'package:kagi_news/features/domain_articles/components/article_tile.dart';
 import 'package:kagi_news/features/domain_articles/domain_articles_bloc.dart';
 import 'package:kagi_news/navigation/navigation.dart';
@@ -26,7 +27,7 @@ class DomainArticlesDialog extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(radius: 8, backgroundImage: NetworkImage(state.source.favicon)),
+                    CircleImage(state.source.favicon),
                     const SizedBox(width: 12),
                     Text(state.source.name, style: Theme.of(context).textTheme.titleLarge),
                   ],

@@ -20,7 +20,6 @@ dependencies:
   json_serializable: ^6.9.5
   json_annotation: ^4.9.0
   url_launcher: ^6.3.1
-  cached_network_image: ^3.4.1
   flutter_svg: ^2.1.0
   intl: ^0.19.0
   flutter_markdown: ^0.7.7+1
@@ -34,6 +33,8 @@ dev_dependencies:
   mocktail: ^1.0.4
   bloc_test: ^10.0.0
   mocktail_image_network: ^1.2.0
+  integration_test:
+    sdk: flutter
 
 flutter:
   uses-material-design: true

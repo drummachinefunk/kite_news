@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kagi_news/components/circle_image.dart';
 import 'package:kagi_news/features/story_details/models/source_item.dart';
 import 'package:kagi_news/localization/localization.dart';
 
@@ -62,7 +63,7 @@ class SourceListTile extends StatelessWidget {
 
       child: Row(
         children: [
-          CircleAvatar(radius: 8, backgroundImage: NetworkImage(source.favicon)),
+          CircleImage(source.favicon),
           const SizedBox(width: 8),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
