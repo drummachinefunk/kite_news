@@ -4,14 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InfoState extends Equatable {
   final String title;
-  final String markdown;
+  final List<String> markdown;
 
-  const InfoState({required this.title, this.markdown = ''});
+  const InfoState({required this.title, this.markdown = const []});
 
   @override
   List<Object?> get props => [title, markdown];
 
-  InfoState copyWith({String? title, String? markdown}) {
+  InfoState copyWith({String? title, List<String>? markdown}) {
     return InfoState(title: title ?? this.title, markdown: markdown ?? this.markdown);
   }
 }
@@ -28,7 +28,9 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
   InfoBloc({required String title, required String asset}) : super(InfoState(title: title)) {
     on<InfoStarted>((event, emit) async {
       final md = await rootBundle.loadString(asset);
-      emit(state.copyWith(markdown: md));
+      // NOTE: this is a rough optimization to handle large markdown files by breaking them into parts.
+      final parts = md.split('##').map((part) => '##$part').toList();
+      emit(state.copyWith(markdown: parts));
     });
   }
 }

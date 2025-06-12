@@ -24,18 +24,27 @@ class InfoPage extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: Markdown(
-                    styleSheet: MarkdownStyleSheet(
-                      h1Padding: const EdgeInsets.symmetric(vertical: 4),
-                      h2Padding: const EdgeInsets.symmetric(vertical: 2),
-                      h3Padding: const EdgeInsets.symmetric(vertical: 1),
-                    ),
-                    data: state.markdown,
-                    onTapLink: (text, href, title) {
-                      try {
-                        if (href != null) launchUrl(Uri.parse(href));
-                      } catch (_) {}
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      if (index >= state.markdown.length) return const SizedBox.shrink();
+                      final part = state.markdown[index];
+                      return Markdown(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        styleSheet: MarkdownStyleSheet(
+                          h1Padding: const EdgeInsets.symmetric(vertical: 4),
+                          h2Padding: const EdgeInsets.symmetric(vertical: 2),
+                          h3Padding: const EdgeInsets.symmetric(vertical: 1),
+                        ),
+                        data: part,
+                        onTapLink: (text, href, title) {
+                          try {
+                            if (href != null) launchUrl(Uri.parse(href));
+                          } catch (_) {}
+                        },
+                      );
                     },
+                    itemCount: state.markdown.length,
                   ),
                 ),
               ],
