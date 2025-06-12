@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kagi_news/features/story_details/components/sources.dart';
 import 'package:kagi_news/features/story_details/models/source_item.dart';
 import 'package:kagi_news/localization/app_localizations.dart';
+import 'package:kagi_news/locator.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 
+import '../mocks/mock_cache_manager.dart';
 import '../mocks/mock_data.dart';
 
 void main() {
+
+  setUp(() {
+    locator.registerSingleton<BaseCacheManager>(MockCacheManager());
+  });
+
+  tearDown(() {
+    locator.reset();
+  });
+  
   testWidgets('Sources widget displays source names without more button', (
     WidgetTester tester,
   ) async {
