@@ -56,6 +56,7 @@ class _PagerState extends State<Pager> with SingleTickerProviderStateMixin {
       children: [
         Expanded(
           child: TabBarView(
+            key: const ValueKey('pager'),
             controller: _tabController,
             children:
                 List.generate(widget.length, (index) => index).map((index) {

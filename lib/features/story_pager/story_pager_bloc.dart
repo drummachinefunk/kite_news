@@ -45,9 +45,8 @@ final class StoryPagerNextPressed extends StoryPagerEvent {
 }
 
 class StoryPagerBloc extends Bloc<StoryPagerEvent, StoryPagerState> {
-  final List<Cluster> clusters;
 
-  StoryPagerBloc({required Category category, required this.clusters, required int index})
+  StoryPagerBloc({required Category category, required List<Cluster> clusters, required int index})
     : super(StoryPagerState(category: category, clusters: clusters, selectedIndex: index)) {
     on<StoryPagerStarted>((event, emit) {});
     on<StoryPagerIndexChanged>((event, emit) {

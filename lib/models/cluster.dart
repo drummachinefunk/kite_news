@@ -163,4 +163,10 @@ class Cluster {
   factory Cluster.fromJson(Map<String, dynamic> json) => _$ClusterFromJson(json);
 
   Map<String, dynamic> toJson() => _$ClusterToJson(this);
+
+
+  @override
+  String toString() {
+    return 'Cluster{clusterNumber: $clusterNumber, title: $title}}';
+  }
 }
