@@ -122,7 +122,7 @@ class _StoryPagerState extends State<StoryPager> {
                       ],
                     ),
                     AnimatedPositioned(
-                      duration: const Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 500),
                       curve: _toolBarVisible ? Curves.easeInOutBack : Curves.easeOut,
                       bottom: _toolBarVisible ? MediaQuery.paddingOf(context).bottom + 4 : -100,
                       left: 0,
