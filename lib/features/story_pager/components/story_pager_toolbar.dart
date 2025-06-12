@@ -45,7 +45,7 @@ class StoryPagerToolbar extends StatelessWidget {
                 onPressed: isPreviousEnabled ? onPrevious : null,
                 child: const Icon(CupertinoIcons.arrow_left),
               ),
-              CupertinoButton(onPressed: onList, child: const Icon(CupertinoIcons.list_bullet)),
+              CupertinoButton(onPressed: onList, child: const Icon(Icons.menu)),
               CupertinoButton(
                 onPressed: isNextEnabled ? onNext : null,
                 child: const Icon(CupertinoIcons.arrow_right),
