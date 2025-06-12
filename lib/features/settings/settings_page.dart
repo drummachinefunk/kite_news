@@ -49,7 +49,11 @@ class SettingsPage extends StatelessWidget {
                               case 2:
                                 return SettingsListTile(
                                   title: L.of(context).feedback,
-                                  onTap: () => presentUrl('mailto:hello@drummachinefunk.com'),
+                                  onTap:
+                                      () => mailTo(
+                                        'hello@drummachinefunk.com',
+                                        subject: 'Feedback for Kagi News',
+                                      ),
                                 );
                               default:
                                 return Container();

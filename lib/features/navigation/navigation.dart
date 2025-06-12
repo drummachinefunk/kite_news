@@ -92,6 +92,15 @@ void presentUrl(String url, {bool isExternal = false}) async {
   }
 }
 
+void mailTo(String email, {String subject = ''}) async {
+  final url = 'mailto:$email?subject=${Uri.encodeComponent(subject)}';
+  try {
+    await launchUrlString(url);
+  } catch (error) {
+    debugPrint('Failed to launch mailto: $url $error');
+  }
+}
+
 void presentDomainArticles(BuildContext context, SourceItem sourceItem) {
   showCupertinoDialog(
     context: context,
