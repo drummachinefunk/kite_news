@@ -83,6 +83,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
               return Scaffold(
                 body: SafeArea(
+                  bottom: false,
                   child: Column(
                     children: [
                       TitleBar(
@@ -103,28 +104,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           icon: const Icon(Icons.settings),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: TabBar(
-                                tabAlignment: TabAlignment.start,
-                                controller: _tabController,
-                                isScrollable: true,
-                                tabs:
-                                    state.categories
-                                        .map((category) => Tab(text: category.name))
-                                        .toList(),
-                                onTap:
-                                    (value) => context.read<HomeBloc>().add(
-                                      HomeCategoryChanged(state.categories[value]),
-                                    ),
-                              ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: TabBar(
+                              tabAlignment: TabAlignment.start,
+                              controller: _tabController,
+                              isScrollable: true,
+                              tabs:
+                                  state.categories
+                                      .map((category) => Tab(text: category.name))
+                                      .toList(),
+                              onTap:
+                                  (value) => context.read<HomeBloc>().add(
+                                    HomeCategoryChanged(state.categories[value]),
+                                  ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                       Expanded(child: _buildCategoryTabs(state.categories)),
                     ],

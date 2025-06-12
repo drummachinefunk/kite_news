@@ -41,6 +41,7 @@ class _StoryPagerState extends State<StoryPager> {
           curve: Curves.easeOut,
           child: Scaffold(
             body: SafeArea(
+              bottom: false,
               child: NotificationListener<ScrollNotification>(
                 onNotification: (notification) {
                   if (notification.metrics.axis != Axis.vertical) {
@@ -123,7 +124,7 @@ class _StoryPagerState extends State<StoryPager> {
                     AnimatedPositioned(
                       duration: const Duration(milliseconds: 300),
                       curve: _toolBarVisible ? Curves.easeInOutBack : Curves.easeOut,
-                      bottom: _toolBarVisible ? 4 : -100,
+                      bottom: _toolBarVisible ? MediaQuery.paddingOf(context).bottom + 4 : -100,
                       left: 0,
                       right: 0,
                       child: Center(
