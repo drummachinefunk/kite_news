@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kagi_news/features/story_details/utilities/numbered_list_helpers.dart';
 
 void main() {
-  test('Items with :: separators', () {
+  test('Items with "::" separators are parsed correctly', () {
     final items = [
       '1 :: First item',
       '2 :: Second item with more text',
@@ -21,7 +21,7 @@ void main() {
     expect(result[3].text, 'Fourth item with extra details');
   });
 
-  test('Items with : separators', () {
+  test('Items with ":" separators are parsed correctly', () {
     final items = [
       '1 : First item',
       '2 : Second item with more text',
