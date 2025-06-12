@@ -10,7 +10,9 @@ class Sources extends StatelessWidget {
     this.expanded = false,
     this.onToggleExpanded,
     required this.onSourceSelected,
-  }) : maxSources = expanded ? sources.length : 5;
+  }) : maxSources = expanded ? sources.length : collapseSourcesCount;
+
+  static const int collapseSourcesCount = 5;
 
   final List<SourceItem> sources;
   final bool expanded;
@@ -20,7 +22,8 @@ class Sources extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasOverflow = sources.length > maxSources;
+    final hasOverflow =
+        expanded ? sources.length > collapseSourcesCount : sources.length > maxSources;
 
     return SliverList.builder(
       itemBuilder: (context, index) {
@@ -67,7 +70,7 @@ class SourceListTile extends StatelessWidget {
               Text(source.name, style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 2),
               Text(
-                '${source.articles.length} articles',
+                L.of(context).numberOfArticles(source.articles.length),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
