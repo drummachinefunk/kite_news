@@ -33,7 +33,7 @@ class ArticleTile extends StatelessWidget {
             style: Theme.of(
               context,
             ).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.onSurface),
-            child: Text(title),
+            child: Text(title, maxLines: 3, overflow: TextOverflow.ellipsis),
           ),
         ],
       ),
