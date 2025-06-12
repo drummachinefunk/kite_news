@@ -1,6 +1,7 @@
 {
     "@@locale": "en",
     "about": "About",
+    "close": "Close",
     "settings": "Settings",
     "acknowledgements": "Acknowledgements",
     "feedback": "Feedback",

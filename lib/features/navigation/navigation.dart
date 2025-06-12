@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kagi_news/features/domain_articles/domain_articles_bloc.dart';
+import 'package:kagi_news/features/domain_articles/domain_articles_dialog.dart';
+import 'package:kagi_news/features/story_details/components/sources.dart';
 import 'package:kagi_news/features/story_pager/story_pager.dart';
 import 'package:kagi_news/features/story_pager/story_pager_bloc.dart';
 import 'package:kagi_news/features/info/info_bloc.dart';
@@ -84,4 +88,16 @@ void presentUrl(String url, {bool isExternal = false}) {
       mode: isExternal ? LaunchMode.externalApplication : LaunchMode.inAppWebView,
     );
   } catch (_) {}
+}
+
+void presentDomainArticles(BuildContext context, SourceItem sourceItem) {
+  showCupertinoDialog(
+    context: context,
+    barrierDismissible: true,
+    builder:
+        (context) => BlocProvider(
+          create: (context) => DomainArticlesBloc(sourceItem)..add(const DomainArticlesStarted()),
+          child: const Dialog(child: DomainArticlesDialog()),
+        ),
+  );
 }

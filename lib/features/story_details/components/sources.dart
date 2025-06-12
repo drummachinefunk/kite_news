@@ -11,13 +11,19 @@ class SourceItem {
 }
 
 class Sources extends StatelessWidget {
-  const Sources({super.key, required this.sources, this.expanded = false, this.onToggleExpanded})
-    : maxSources = expanded ? sources.length : 5;
+  const Sources({
+    super.key,
+    required this.sources,
+    this.expanded = false,
+    this.onToggleExpanded,
+    required this.onSourceSelected,
+  }) : maxSources = expanded ? sources.length : 5;
 
   final List<SourceItem> sources;
   final bool expanded;
   final int maxSources;
   final VoidCallback? onToggleExpanded;
+  final void Function(SourceItem source) onSourceSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +43,7 @@ class Sources extends StatelessWidget {
           );
         }
         final source = sources[index];
-        return SourceListTile(source: source);
+        return SourceListTile(source: source, onPressed: () => onSourceSelected.call(source));
       },
       itemCount: maxSources + 1,
     );
@@ -45,14 +51,17 @@ class Sources extends StatelessWidget {
 }
 
 class SourceListTile extends StatelessWidget {
-  const SourceListTile({super.key, required this.source});
+  const SourceListTile({super.key, required this.source, required this.onPressed});
 
   final SourceItem source;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      onPressed: onPressed,
+
       child: Row(
         children: [
           CircleAvatar(radius: 8, backgroundImage: NetworkImage(source.favicon)),
@@ -70,7 +79,6 @@ class SourceListTile extends StatelessWidget {
           ),
         ],
       ),
-      onPressed: () {},
     );
   }
 }
