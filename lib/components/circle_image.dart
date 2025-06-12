@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kagi_news/components/web_image.dart';
 
 class CircleImage extends StatelessWidget {
   const CircleImage(this.imageUrl, {super.key, this.size = 20});
@@ -14,13 +15,7 @@ class CircleImage extends StatelessWidget {
         shape: BoxShape.circle,
         color: Theme.of(context).colorScheme.surface,
       ),
-      child: Image.network(
-        imageUrl,
-        width: size,
-        height: size,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, size: 24),
-      ),
+      child: WebImage(imageUrl, width: size, height: size),
     );
   }
 }

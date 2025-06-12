@@ -24,6 +24,8 @@ dependencies:
   intl: ^0.19.0
   flutter_markdown: ^0.7.7+1
   package_info_plus: ^8.3.0
+  cached_network_image: ^3.4.1
+  flutter_cache_manager: ^3.4.1
 
 dev_dependencies:
   flutter_test:
@@ -35,6 +37,7 @@ dev_dependencies:
   mocktail_image_network: ^1.2.0
   integration_test:
     sdk: flutter
+  file: ^7.0.1
 
 flutter:
   uses-material-design: true

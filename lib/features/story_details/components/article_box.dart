@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kagi_news/components/web_image.dart';
 import 'package:kagi_news/navigation/navigation.dart';
 
 class ArticleBox extends StatelessWidget {
@@ -31,13 +32,7 @@ class ArticleBox extends StatelessWidget {
                 children: [
                   AspectRatio(
                     aspectRatio: 16 / 9,
-                    child: Image.network(
-                      imageUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder:
-                          (context, error, stackTrace) =>
-                              const Center(child: Icon(Icons.error, size: 24)),
-                    ),
+                    child: WebImage(imageUrl),
                   ),
                   Positioned(
                     right: 8,

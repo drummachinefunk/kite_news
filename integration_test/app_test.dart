@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:kagi_news/features/domain_articles/domain_articles_dialog.dart';
@@ -12,6 +13,7 @@ import 'package:kagi_news/repositories/news_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 
+import '../test/mocks/mock_cache_manager.dart';
 import '../test/mocks/mock_data.dart';
 import '../test/mocks/mock_news_repository.dart';
 
@@ -35,6 +37,8 @@ void main() {
       ).thenAnswer((_) async => mockUsaCategoryResponse);
 
       locator.registerSingleton<NewsRepository>(mockNewsRepository);
+
+      locator.registerSingleton<BaseCacheManager>(MockCacheManager());
     });
 
     tearDown(() {
