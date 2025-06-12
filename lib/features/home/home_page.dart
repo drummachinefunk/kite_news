@@ -6,7 +6,7 @@ import 'package:kagi_news/components/title_bar.dart';
 import 'package:kagi_news/features/home/home_bloc.dart';
 import 'package:kagi_news/features/category_tab/category_tab.dart';
 import 'package:kagi_news/features/category_tab/category_tab_bloc.dart';
-import 'package:kagi_news/features/navigation/navigation.dart';
+import 'package:kagi_news/navigation/navigation.dart';
 import 'package:kagi_news/localization/localization.dart';
 import 'package:kagi_news/locator.dart';
 import 'package:kagi_news/models/category.dart';

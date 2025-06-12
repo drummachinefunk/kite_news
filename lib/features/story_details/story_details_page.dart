@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagi_news/components/custom_scroll_physics.dart';
-import 'package:kagi_news/features/navigation/navigation.dart';
+import 'package:kagi_news/navigation/navigation.dart';
 import 'package:kagi_news/features/story_details/components/location.dart';
 import 'package:kagi_news/features/story_details/components/sources.dart';
 import 'package:kagi_news/features/story_details/components/text_section.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kagi_news/components/title_bar.dart';
-import 'package:kagi_news/features/navigation/navigation.dart';
+import 'package:kagi_news/navigation/navigation.dart';
 import 'package:kagi_news/features/story_details/components/sliver_spacing.dart';
 import 'package:kagi_news/features/story_details/components/sliver_with_padding.dart';
 import 'package:kagi_news/features/settings/settings_bloc.dart';

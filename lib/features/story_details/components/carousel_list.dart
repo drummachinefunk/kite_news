@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kagi_news/features/navigation/navigation.dart';
+import 'package:kagi_news/navigation/navigation.dart';
 
 class CarouselListItemData {
   final String text;

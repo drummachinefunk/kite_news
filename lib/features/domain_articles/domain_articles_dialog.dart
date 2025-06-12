@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:kagi_news/features/domain_articles/components/article_tile.dart';
 import 'package:kagi_news/features/domain_articles/domain_articles_bloc.dart';
-import 'package:kagi_news/features/navigation/navigation.dart';
+import 'package:kagi_news/navigation/navigation.dart';
 import 'package:kagi_news/localization/localization.dart';
 
 class DomainArticlesDialog extends StatelessWidget {
