@@ -1,3 +1,4 @@
+import 'package:kagi_news/features/story_details/models/source_item.dart';
 import 'package:kagi_news/models/article.dart';
 import 'package:kagi_news/models/categories_response.dart';
 import 'package:kagi_news/models/category.dart';
@@ -17,9 +18,7 @@ const mockUsaCategory = Category(name: 'USA', file: 'usa.json');
 
 const mockCategories = CategoriesResponse(
   timestamp: 1749320000,
-  categories: [
-    mockTechCategory, mockWorldCategory, mockUsaCategory
-  ],
+  categories: [mockTechCategory, mockWorldCategory, mockUsaCategory],
 );
 
 final mockTechCategoryResponse = CategoryResponse(
@@ -324,6 +323,52 @@ const mockUsaCategoryResponse = CategoryResponse(
       technicalDetails: [],
       articles: [],
       domains: [],
+    ),
+  ],
+);
+
+final source1WithTwoArticles = SourceItem(
+  name: 'Source 1',
+  favicon: 'https://placehold.co/30x30',
+  articles: [
+    Article(
+      title: 'Article 1',
+      link: 'https://example.com/article1',
+      domain: 'example.com',
+      date: DateTime.now(),
+      image: 'https://placehold.co/600x400',
+      imageCaption: 'Article 1 Image Caption',
+    ),
+    Article(
+      title: 'Article 2',
+      link: 'https://example.com/article2',
+      domain: 'example.com',
+      date: DateTime.now(),
+      image: 'https://placehold.co/600x400',
+      imageCaption: 'Article 2 Image Caption',
+    ),
+  ],
+);
+
+final source2WithTwoArticles = SourceItem(
+  name: 'Source 2',
+  favicon: 'https://placehold.co/30x30',
+  articles: [
+    Article(
+      title: 'Article 3',
+      link: 'https://example.com/article3',
+      domain: 'example.com',
+      date: DateTime.now(),
+      image: 'https://placehold.co/600x400',
+      imageCaption: 'Article 3 Image Caption',
+    ),
+    Article(
+      title: 'Article 4',
+      link: 'https://example.com/article4',
+      domain: 'example.com',
+      date: DateTime.now(),
+      image: 'https://placehold.co/600x400',
+      imageCaption: 'Article 4 Image Caption',
     ),
   ],
 );

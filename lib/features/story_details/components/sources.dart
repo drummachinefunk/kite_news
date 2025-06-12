@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kagi_news/components/circle_image.dart';
@@ -23,15 +25,17 @@ class Sources extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasOverflow =
-        expanded ? sources.length > collapseSourcesCount : sources.length > maxSources;
+    final visibleItemCount = expanded ? sources.length : min(collapseSourcesCount, sources.length);
+    final showMoreButton =
+        expanded ? sources.length > collapseSourcesCount : sources.length > visibleItemCount;
 
     return SliverList.builder(
       itemBuilder: (context, index) {
-        if (index == maxSources) {
+        if (index == visibleItemCount) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             child: CupertinoButton(
+              key: const Key('show_more_button'),
               alignment: Alignment.centerLeft,
               onPressed: () => onToggleExpanded?.call(),
               child: Text(
@@ -44,7 +48,7 @@ class Sources extends StatelessWidget {
         final source = sources[index];
         return SourceListTile(source: source, onPressed: () => onSourceSelected.call(source));
       },
-      itemCount: hasOverflow ? maxSources + 1 : sources.length,
+      itemCount: visibleItemCount + (showMoreButton ? 1 : 0),
     );
   }
 }
