@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:kagi_news/features/domain_articles/components/article_tile.dart';
 import 'package:kagi_news/features/domain_articles/domain_articles_bloc.dart';
 import 'package:kagi_news/features/navigation/navigation.dart';
@@ -38,7 +39,7 @@ class DomainArticlesDialog extends StatelessWidget {
                     final article = state.source.articles[index];
                     return ArticleTile(
                       title: article.title,
-                      subtitle: article.date,
+                      subtitle: DateFormat.yMMMd().format(article.date),
                       onPressed: () => presentUrl(article.link),
                     );
                   },

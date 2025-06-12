@@ -7,7 +7,8 @@ class Article {
   final String title;
   final String link;
   final String domain;
-  final String date;
+  //@JsonKey(fromJson: _dateFromJson)
+  final DateTime date;
   final String image;
   @JsonKey(name: 'image_caption')
   final String imageCaption;
