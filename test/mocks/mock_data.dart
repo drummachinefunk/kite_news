@@ -1,7 +1,9 @@
+import 'package:kagi_news/models/article.dart';
 import 'package:kagi_news/models/categories_response.dart';
 import 'package:kagi_news/models/category.dart';
 import 'package:kagi_news/models/category_response.dart';
 import 'package:kagi_news/models/cluster.dart';
+import 'package:kagi_news/models/domain.dart';
 import 'package:kagi_news/models/perspective.dart';
 import 'package:kagi_news/models/source.dart';
 
@@ -20,7 +22,7 @@ const mockCategories = CategoriesResponse(
   ],
 );
 
-const mockTechCategoryResponse = CategoryResponse(
+final mockTechCategoryResponse = CategoryResponse(
   category: 'Tech',
   timestamp: 1749370099,
   read: 100,
@@ -46,7 +48,7 @@ const mockTechCategoryResponse = CategoryResponse(
       quoteSourceUrl: '',
       quoteSourceDomain: '',
       location: '',
-      perspectives: [
+      perspectives: const [
         Perspective(
           text: 'Tech Enthusiast',
           sources: [
@@ -108,10 +110,38 @@ const mockTechCategoryResponse = CategoryResponse(
       technicalSpecifications: '',
       suggestedQna: [],
       technicalDetails: [],
-      articles: [],
-      domains: [],
+      articles: [
+        Article(
+          title: 'QuantumOS Launch',
+          link: 'https://example.com/quantumos-launch',
+          date: DateTime.fromMicrosecondsSinceEpoch(1623490634000000),
+          domain: 'example.com',
+          image: 'https://example.com/quantumos-launch.jpg',
+          imageCaption: 'QuantumOS Launch Event',
+        ),
+        Article(
+          title: 'QuantumOS Features',
+          link: 'https://example.com/quantumos-features',
+          date: DateTime.fromMicrosecondsSinceEpoch(1623490634000000),
+          domain: 'example.com',
+          image: 'https://example.com/quantumos-features.jpg',
+          imageCaption: 'Exploring QuantumOS Features',
+        ),
+        Article(
+          title: 'QuantumOS Developer Guide',
+          link: 'https://world.com/quantumos-developer-guide',
+          date: DateTime.fromMicrosecondsSinceEpoch(1623490634000000),
+          domain: 'world.com',
+          image: 'https://world.com/quantumos-developer-guide.jpg',
+          imageCaption: 'Guide for QuantumOS Developers',
+        ),
+      ],
+      domains: const [
+        Domain(name: 'example.com', favicon: 'https://example.com/favicon.ico'),
+        Domain(name: 'world.com', favicon: 'https://world.com/favicon.ico'),
+      ],
     ),
-    Cluster(
+    const Cluster(
       clusterNumber: 1,
       uniqueDomains: 10,
       numberOfTitles: 2,

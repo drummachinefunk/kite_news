@@ -1,13 +1,22 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kagi_news/localization/localization.dart';
 import 'package:kagi_news/models/article.dart';
 
-class SourceItem {
+class SourceItem extends Equatable {
   final String name;
   final String favicon;
   final List<Article> articles;
   const SourceItem({required this.name, required this.favicon, required this.articles});
+
+  @override
+  List<Object?> get props => [name, favicon, articles];
+
+  @override
+  String toString() {
+    return 'SourceItem(name: $name, favicon: $favicon, articles: ${articles.length})';
+  }
 }
 
 class Sources extends StatelessWidget {

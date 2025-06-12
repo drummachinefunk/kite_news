@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'category.g.dart';
 
 @JsonSerializable()
-class Category {
+class Category extends Equatable {
   final String name;
   final String file;
 
@@ -12,6 +13,9 @@ class Category {
   factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
+
+  @override
+  List<Object?> get props => [name, file];
 
   @override
   String toString() => 'Category(name: $name, file: $file)';

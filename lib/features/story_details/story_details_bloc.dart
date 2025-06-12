@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagi_news/features/story_details/components/sources.dart';
+import 'package:kagi_news/features/story_details/utilities/story_sources.dart';
 import 'package:kagi_news/models/cluster.dart';
 
 class StoryDetailsState extends Equatable {
@@ -26,22 +27,8 @@ final class StoryDetailsStarted extends StoryDetailsEvent {
 }
 
 class StoryDetailsBloc extends Bloc<StoryDetailsEvent, StoryDetailsState> {
-  StoryDetailsBloc({required Cluster cluster}) : super(StoryDetailsState(cluster: cluster)) {
-    on<StoryDetailsStarted>((event, emit) {
-      final articles = cluster.articles;
-      final domains = cluster.domains;
-
-      final sources =
-          domains.map((domain) {
-            final articlesForDomain =
-                articles.where((article) => article.domain == domain.name).toList();
-            return SourceItem(
-              name: domain.name,
-              favicon: domain.favicon,
-              articles: articlesForDomain,
-            );
-          }).toList();
-      emit(state.copyWith(sources: sources));
-    });
+  StoryDetailsBloc({required Cluster cluster})
+    : super(StoryDetailsState(cluster: cluster, sources: getStorySources(cluster))) {
+    on<StoryDetailsStarted>((event, emit) {});
   }
 }

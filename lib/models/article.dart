@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'article.g.dart';
 
 @JsonSerializable()
-class Article {
+class Article extends Equatable {
   final String title;
   final String link;
   final String domain;
@@ -21,6 +22,9 @@ class Article {
     required this.image,
     required this.imageCaption,
   });
+
+  @override
+  List<Object?> get props => [title, link, domain, date, image, imageCaption];
 
   factory Article.fromJson(Map<String, dynamic> json) => _$ArticleFromJson(json);
 

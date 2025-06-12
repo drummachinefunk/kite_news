@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:kagi_news/models/article.dart';
 import 'package:kagi_news/models/domain.dart';
@@ -8,7 +9,7 @@ import 'package:kagi_news/models/qna.dart';
 part 'cluster.g.dart';
 
 @JsonSerializable()
-class Cluster {
+class Cluster extends Equatable {
   @JsonKey(name: 'cluster_number')
   final int clusterNumber;
 
@@ -164,6 +165,48 @@ class Cluster {
 
   Map<String, dynamic> toJson() => _$ClusterToJson(this);
 
+  @override
+  List<Object?> get props => [
+    clusterNumber,
+    uniqueDomains,
+    numberOfTitles,
+    title,
+    shortSummary,
+    category,
+    didYouKnow,
+    talkingPoints,
+    quote,
+    qouteAuthor,
+    quoteSourceUrl,
+    quoteSourceDomain,
+    location,
+    perspectives,
+    emoji,
+    geopoliticalContext,
+    historicalBackground,
+    internationalReactions,
+    humanitarianImpact,
+    economicImplications,
+    timeline,
+    futureOutlook,
+    businessAngleText,
+    userActionItems,
+    scientificSignificance,
+    travelAdvisory,
+    destinationHighlights,
+    culinarySignificance,
+    leagueStandings,
+    diyTips,
+    designPrinciples,
+    userExperienceImpact,
+    gameplayMechanics,
+    industryImpact,
+    technicalSpecifications,
+    suggestedQna,
+    technicalDetails,
+    articles,
+    domains,
+  ];
 
   @override
   String toString() {
