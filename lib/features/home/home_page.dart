@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kagi_news/components/loading_indicator.dart';
 import 'package:kagi_news/components/title_bar.dart';
 import 'package:kagi_news/features/home/home_bloc.dart';
 import 'package:kagi_news/features/category_tab/category_tab.dart';
 import 'package:kagi_news/features/category_tab/category_tab_bloc.dart';
 import 'package:kagi_news/features/navigation/navigation.dart';
+import 'package:kagi_news/localization/localization.dart';
 import 'package:kagi_news/locator.dart';
 import 'package:kagi_news/models/category.dart';
 import 'package:kagi_news/repositories/news_repository.dart';
@@ -72,7 +74,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     children: [
                       Text(message, textAlign: TextAlign.center),
                       const SizedBox(height: 16),
-                      FilledButton(onPressed: () {}, child: const Text('Reload')),
+                      FilledButton(onPressed: () {}, child: Text(L.of(context).reload)),
                     ],
                   ),
                 ),
@@ -130,7 +132,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
               );
             default:
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: LoadingIndicator());
           }
         },
       ),

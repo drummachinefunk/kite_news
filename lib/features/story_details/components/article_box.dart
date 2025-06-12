@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:kagi_news/components/loading_indicator.dart';
 import 'package:kagi_news/features/navigation/navigation.dart';
 
 class ArticleBox extends StatelessWidget {
@@ -36,7 +37,7 @@ class ArticleBox extends StatelessWidget {
                       imageUrl: imageUrl,
                       fit: BoxFit.cover,
                       placeholder:
-                          (context, url) => const Center(child: CircularProgressIndicator()),
+                          (context, url) => const Center(child: LoadingIndicator()),
                       errorWidget: (context, url, error) => const Center(child: Icon(Icons.error)),
                     ),
                   ),

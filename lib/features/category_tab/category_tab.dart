@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kagi_news/components/loading_indicator.dart';
 import 'package:kagi_news/features/category_tab/components/category_list_tile.dart';
 import 'package:kagi_news/features/category_tab/category_tab_bloc.dart';
 import 'package:kagi_news/models/cluster.dart';
@@ -32,7 +33,7 @@ class CategoryTab extends StatelessWidget {
                       itemCount: state.clusters.length,
                     );
           default:
-            content = const Center(child: CircularProgressIndicator());
+            content = const Center(child: LoadingIndicator());
         }
         return AnimatedSwitcher(duration: const Duration(milliseconds: 200), child: content);
       },
