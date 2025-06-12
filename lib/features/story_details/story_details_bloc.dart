@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kagi_news/features/story_details/components/sources.dart';
+import 'package:kagi_news/features/story_details/models/source_item.dart';
 import 'package:kagi_news/features/story_details/utilities/story_sources.dart';
 import 'package:kagi_news/models/cluster.dart';
 

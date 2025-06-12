@@ -193,6 +193,9 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
               SliverSpacing(),
             ],
             if (state.sources.isNotEmpty) ...[
+              SliverWithPadding(
+                child: Text(L.of(context).sources, style: Theme.of(context).textTheme.titleMedium),
+              ),
               Sources(
                 sources: state.sources,
                 expanded: _sourcesExpanded,

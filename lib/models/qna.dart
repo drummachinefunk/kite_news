@@ -8,7 +8,7 @@ class Qna extends Equatable {
   final String question;
   final String answer;
 
-  Qna({required this.question, required this.answer});
+  const Qna({required this.question, required this.answer});
 
   factory Qna.fromJson(Map<String, dynamic> json) => _$QnaFromJson(json);
 
