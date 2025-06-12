@@ -69,9 +69,9 @@ void presentAcknowledgements(BuildContext context) {
     context,
     CupertinoModalPopupRoute(
       builder:
-          (context) => BlocProvider(
+          (popupContext) => BlocProvider(
             create:
-                (context) => InfoBloc(
+                (blocContext) => InfoBloc(
                   title: L.of(context).acknowledgements,
                   asset: 'assets/acknowledgements.md',
                 )..add(const InfoStarted()),
