@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kagi_news/features/story_details/utilities/numbered_list_helpers.dart';
+import 'package:kagi_news/features/story_details/utilities/item_data.dart';
 
 void main() {
   test('Items with "::" separators are parsed correctly', () {
@@ -9,7 +9,7 @@ void main() {
       '3 :: Third item',
       '4 :: Fourth item with extra details',
     ];
-    final result = NumberedListHelper.itemsFromList(items);
+    final result = ItemDataParser.itemsFromList(items);
     expect(result.length, 4);
     expect(result[0].title, '1');
     expect(result[0].text, 'First item');
@@ -28,7 +28,7 @@ void main() {
       '3 : Third item',
       '4 : Fourth item with extra details',
     ];
-    final result = NumberedListHelper.itemsFromList(items, separator: ':');
+    final result = ItemDataParser.itemsFromList(items, separator: ':');
     expect(result.length, 4);
     expect(result[0].title, '1');
     expect(result[0].text, 'First item');

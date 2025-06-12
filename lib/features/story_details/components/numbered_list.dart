@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-
-class NumberedListItemData {
-  final String title;
-  final String text;
-
-  const NumberedListItemData({required this.title, required this.text});
-}
+import 'package:kagi_news/features/story_details/utilities/item_data.dart';
 
 class NumberedList extends StatelessWidget {
   const NumberedList({super.key, required this.title, required this.items});
 
   final String title;
-  final List<NumberedListItemData> items;
+  final List<ItemData> items;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +18,7 @@ class NumberedList extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            return NumberedListItem(index: index + 1, data: items[index]);
+            return NumberedListTile(index: index + 1, data: items[index]);
           },
           separatorBuilder: (context, index) => const SizedBox(height: 10),
           itemCount: items.length,
@@ -34,11 +28,11 @@ class NumberedList extends StatelessWidget {
   }
 }
 
-class NumberedListItem extends StatelessWidget {
-  const NumberedListItem({super.key, required this.index, required this.data});
+class NumberedListTile extends StatelessWidget {
+  const NumberedListTile({super.key, required this.index, required this.data});
 
   final int index;
-  final NumberedListItemData data;
+  final ItemData data;
 
   @override
   Widget build(BuildContext context) {

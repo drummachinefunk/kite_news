@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagi_news/components/custom_scroll_physics.dart';
+import 'package:kagi_news/features/story_details/components/timeline.dart';
 import 'package:kagi_news/navigation/navigation.dart';
 import 'package:kagi_news/features/story_details/components/location.dart';
 import 'package:kagi_news/features/story_details/components/sources.dart';
@@ -15,7 +16,7 @@ import 'story_details_bloc.dart';
 import 'components/quote_box.dart';
 import 'components/sliver_with_padding.dart';
 import 'components/sliver_spacing.dart';
-import 'utilities/numbered_list_helpers.dart';
+import 'utilities/item_data.dart';
 
 class StoryDetailsPage extends StatefulWidget {
   const StoryDetailsPage({super.key});
@@ -71,7 +72,7 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
               SliverWithPadding(
                 child: NumberedList(
                   title: L.of(context).highlights,
-                  items: NumberedListHelper.itemsFromList(
+                  items: ItemDataParser.itemsFromList(
                     state.cluster.talkingPoints,
                     separator: ':',
                   ),
@@ -139,9 +140,9 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
             ],
             if (state.cluster.timeline.isNotEmpty) ...[
               SliverWithPadding(
-                child: NumberedList(
+                child: Timeline(
                   title: L.of(context).timelineOfEvents,
-                  items: NumberedListHelper.itemsFromList(state.cluster.timeline),
+                  items: ItemDataParser.itemsFromList(state.cluster.timeline, separator: '::'),
                 ),
               ),
               SliverSpacing(),
