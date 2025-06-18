@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kagi_news/components/loading_indicator.dart';
 import 'package:kagi_news/components/title_bar.dart';
+import 'package:kagi_news/features/events/events_bloc.dart';
+import 'package:kagi_news/features/events/events_page.dart';
 import 'package:kagi_news/features/home/home_bloc.dart';
 import 'package:kagi_news/features/category_tab/category_tab.dart';
 import 'package:kagi_news/features/category_tab/category_tab_bloc.dart';
@@ -148,18 +150,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 controller: _tabController,
                 children:
                     categories.asMap().entries.map((e) {
-                      return BlocProvider(
-                        create:
-                            (context) => CategoryTabBloc(
-                              category: e.value,
-                              newsRepository: locator<NewsRepository>(),
-                            )..add(const CategoryTabStarted()),
-                        child: CategoryTab(
-                          onSelected:
-                              (clusters, index) =>
-                                  presentCategory(context, e.value, clusters, index),
-                        ),
-                      );
+                      switch (NewsRepository.getCategoryType(e.value)) {
+                        case CategoryType.stories:
+                          return BlocProvider(
+                            create:
+                                (context) => CategoryTabBloc(
+                                  category: e.value,
+                                  newsRepository: locator<NewsRepository>(),
+                                )..add(const CategoryTabStarted()),
+                            child: CategoryTab(
+                              onSelected:
+                                  (clusters, index) =>
+                                      presentCategory(context, e.value, clusters, index),
+                            ),
+                          );
+                        case CategoryType.events:
+                          return BlocProvider(
+                            create:
+                                (context) =>
+                                    EventsBloc(newsRepository: locator<NewsRepository>())
+                                      ..add(const EventsStarted()),
+                            child: const EventsPage(),
+                          );
+                      }
                     }).toList(),
               ),
             ),
