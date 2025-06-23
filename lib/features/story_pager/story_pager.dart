@@ -37,7 +37,8 @@ class _StoryPagerState extends State<StoryPager> {
       builder: (context, state) {
         return AnimatedTranslation(
           offset: Offset(0.0, -_dragOffset),
-          duration: _draggin ? Duration.zero : const Duration(milliseconds: 100),
+          duration:
+              _draggin ? Duration.zero : const Duration(milliseconds: 100),
           curve: Curves.easeOut,
           child: Scaffold(
             body: SafeArea(
@@ -62,10 +63,14 @@ class _StoryPagerState extends State<StoryPager> {
                       children: [
                         TitleBar(
                           padding: const EdgeInsets.fromLTRB(16, 3, 10, 3),
-                          leading: Text('${state.selectedIndex + 1} / ${state.clusters.length}'),
+                          leading: Text(
+                            '${state.selectedIndex + 1} / ${state.clusters.length}',
+                          ),
                           title: Text(
                             state.category.name,
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            style: Theme.of(
+                              context,
+                            ).textTheme.titleMedium?.copyWith(
                               color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
@@ -90,7 +95,8 @@ class _StoryPagerState extends State<StoryPager> {
                                 return true; // Consume the overscroll
                               }
                               if (notification is ScrollEndNotification) {
-                                if (-_dragOffset > MediaQuery.sizeOf(context).height * 0.2) {
+                                if (-_dragOffset >
+                                    MediaQuery.sizeOf(context).height * 0.2) {
                                   Navigator.of(context).pop();
                                 } else {
                                   if (_dragOffset != 0) {
@@ -105,16 +111,18 @@ class _StoryPagerState extends State<StoryPager> {
                               itemBuilder: (context, index) {
                                 return BlocProvider(
                                   create:
-                                      (context) =>
-                                          StoryDetailsBloc(cluster: state.clusters[index])
-                                            ..add(const StoryDetailsStarted()),
+                                      (context) => StoryDetailsBloc(
+                                        cluster: state.clusters[index],
+                                      )..add(const StoryDetailsStarted()),
                                   child: const StoryDetailsPage(),
                                 );
                               },
                               length: state.clusters.length,
                               index: state.selectedIndex,
                               onIndexChanged: (int index) {
-                                context.read<StoryPagerBloc>().add(StoryPagerIndexChanged(index));
+                                context.read<StoryPagerBloc>().add(
+                                  StoryPagerIndexChanged(index),
+                                );
                               },
                             ),
                           ),
@@ -123,21 +131,29 @@ class _StoryPagerState extends State<StoryPager> {
                     ),
                     AnimatedPositioned(
                       duration: const Duration(milliseconds: 500),
-                      curve: _toolBarVisible ? Curves.easeInOutBack : Curves.easeOut,
-                      bottom: _toolBarVisible ? MediaQuery.paddingOf(context).bottom + 4 : -100,
+                      curve:
+                          _toolBarVisible
+                              ? Curves.easeInOutBack
+                              : Curves.easeOut,
+                      bottom:
+                          _toolBarVisible
+                              ? MediaQuery.paddingOf(context).bottom + 4
+                              : -100,
                       left: 0,
                       right: 0,
                       child: Center(
                         child: StoryPagerToolbar(
                           isPreviousEnabled: state.selectedIndex > 0,
-                          isNextEnabled: state.selectedIndex < state.clusters.length - 1,
+                          isNextEnabled:
+                              state.selectedIndex < state.clusters.length - 1,
                           onPrevious:
                               () => context.read<StoryPagerBloc>().add(
                                 const StoryPagerPreviousPressed(),
                               ),
                           onNext:
-                              () =>
-                                  context.read<StoryPagerBloc>().add(const StoryPagerNextPressed()),
+                              () => context.read<StoryPagerBloc>().add(
+                                const StoryPagerNextPressed(),
+                              ),
                           onList: () => Navigator.of(context).pop(),
                         ),
                       ),

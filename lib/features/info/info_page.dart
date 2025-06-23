@@ -26,7 +26,8 @@ class InfoPage extends StatelessWidget {
                 Expanded(
                   child: ListView.builder(
                     itemBuilder: (context, index) {
-                      if (index >= state.markdown.length) return const SizedBox.shrink();
+                      if (index >= state.markdown.length)
+                        return const SizedBox.shrink();
                       final part = state.markdown[index];
                       return Markdown(
                         shrinkWrap: true,

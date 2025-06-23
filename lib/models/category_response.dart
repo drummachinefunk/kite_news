@@ -17,7 +17,8 @@ class CategoryResponse {
     required this.clusters,
   });
 
-  factory CategoryResponse.fromJson(Map<String, dynamic> json) => _$CategoryResponseFromJson(json);
+  factory CategoryResponse.fromJson(Map<String, dynamic> json) =>
+      _$CategoryResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryResponseToJson(this);
 }

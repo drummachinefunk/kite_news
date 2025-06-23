@@ -36,7 +36,11 @@ class BulletListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [const Text('•'), const SizedBox(width: 4), Expanded(child: Text(text))],
+      children: [
+        const Text('•'),
+        const SizedBox(width: 4),
+        Expanded(child: Text(text)),
+      ],
     );
   }
 }

@@ -29,13 +29,20 @@ class CategoryTab extends StatelessWidget {
                             onTap: () => onSelected(state.clusters, index),
                           ),
                       separatorBuilder:
-                          (context, index) => const Divider(height: 1, indent: 16, endIndent: 16),
+                          (context, index) => const Divider(
+                            height: 1,
+                            indent: 16,
+                            endIndent: 16,
+                          ),
                       itemCount: state.clusters.length,
                     );
           default:
             content = const Center(child: LoadingIndicator());
         }
-        return AnimatedSwitcher(duration: const Duration(milliseconds: 200), child: content);
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 200),
+          child: content,
+        );
       },
     );
   }

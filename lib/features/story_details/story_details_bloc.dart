@@ -14,7 +14,10 @@ class StoryDetailsState extends Equatable {
   List<Object?> get props => [cluster, sources];
 
   StoryDetailsState copyWith({Cluster? cluster, List<SourceItem>? sources}) {
-    return StoryDetailsState(cluster: cluster ?? this.cluster, sources: sources ?? this.sources);
+    return StoryDetailsState(
+      cluster: cluster ?? this.cluster,
+      sources: sources ?? this.sources,
+    );
   }
 }
 
@@ -28,7 +31,9 @@ final class StoryDetailsStarted extends StoryDetailsEvent {
 
 class StoryDetailsBloc extends Bloc<StoryDetailsEvent, StoryDetailsState> {
   StoryDetailsBloc({required Cluster cluster})
-    : super(StoryDetailsState(cluster: cluster, sources: getStorySources(cluster))) {
+    : super(
+        StoryDetailsState(cluster: cluster, sources: getStorySources(cluster)),
+      ) {
     on<StoryDetailsStarted>((event, emit) {});
   }
 }

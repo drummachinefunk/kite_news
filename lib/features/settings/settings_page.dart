@@ -32,14 +32,21 @@ class SettingsPage extends StatelessWidget {
                   child: CustomScrollView(
                     slivers: [
                       SliverPadding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
                         sliver: SliverList.separated(
                           itemBuilder: (context, index) {
                             switch (index) {
                               case 0:
                                 return SettingsListTile(
                                   title: L.of(context).kagiSearch,
-                                  onTap: () => presentUrl('https://kagi.com', isExternal: true),
+                                  onTap:
+                                      () => presentUrl(
+                                        'https://kagi.com',
+                                        isExternal: true,
+                                      ),
                                 );
                               case 1:
                                 return SettingsListTile(
@@ -75,7 +82,10 @@ class SettingsPage extends StatelessWidget {
                             const SizedBox(height: 4),
                             CupertinoButton(
                               onPressed:
-                                  () => presentUrl('https://drummachinefunk.com', isExternal: true),
+                                  () => presentUrl(
+                                    'https://drummachinefunk.com',
+                                    isExternal: true,
+                                  ),
                               child: SvgPicture.asset(
                                 'assets/dmf_logo.svg',
                                 width: 80,

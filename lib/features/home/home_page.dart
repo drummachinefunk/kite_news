@@ -39,7 +39,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void _updateTabController(List categories, dynamic category, int index) {
     if (_tabController!.length != categories.length) {
       _tabController?.dispose();
-      _tabController = TabController(length: categories.length, initialIndex: 0, vsync: this);
+      _tabController = TabController(
+        length: categories.length,
+        initialIndex: 0,
+        vsync: this,
+      );
     }
     if (_tabController!.index != index) {
       _tabController!.index = index;
@@ -76,12 +80,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     children: [
                       Text(message, textAlign: TextAlign.center),
                       const SizedBox(height: 16),
-                      FilledButton(onPressed: () {}, child: Text(L.of(context).reload)),
+                      FilledButton(
+                        onPressed: () {},
+                        child: Text(L.of(context).reload),
+                      ),
                     ],
                   ),
                 ),
               );
-            case HomeStateLoaded(:final categories, :final category, :final date):
+            case HomeStateLoaded(
+              :final categories,
+              :final category,
+              :final date,
+            ):
               int? index = categories.indexOf(category);
               if (index == -1) index = 0;
 
@@ -118,11 +129,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               isScrollable: true,
                               tabs:
                                   state.categories
-                                      .map((category) => Tab(text: category.name))
+                                      .map(
+                                        (category) => Tab(text: category.name),
+                                      )
                                       .toList(),
                               onTap:
                                   (value) => context.read<HomeBloc>().add(
-                                    HomeCategoryChanged(state.categories[value]),
+                                    HomeCategoryChanged(
+                                      state.categories[value],
+                                    ),
                                   ),
                             ),
                           ),
@@ -160,16 +175,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 )..add(const CategoryTabStarted()),
                             child: CategoryTab(
                               onSelected:
-                                  (clusters, index) =>
-                                      presentCategory(context, e.value, clusters, index),
+                                  (clusters, index) => presentCategory(
+                                    context,
+                                    e.value,
+                                    clusters,
+                                    index,
+                                  ),
                             ),
                           );
                         case CategoryType.events:
                           return BlocProvider(
                             create:
-                                (context) =>
-                                    EventsBloc(newsRepository: locator<NewsRepository>())
-                                      ..add(const EventsStarted()),
+                                (context) => EventsBloc(
+                                  newsRepository: locator<NewsRepository>(),
+                                )..add(const EventsStarted()),
                             child: const EventsPage(),
                           );
                       }

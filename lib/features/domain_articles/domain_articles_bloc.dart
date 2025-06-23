@@ -18,8 +18,10 @@ final class DomainArticlesStarted extends DomainArticlesEvent {
   const DomainArticlesStarted();
 }
 
-class DomainArticlesBloc extends Bloc<DomainArticlesEvent, DomainArticlesState> {
-  DomainArticlesBloc(SourceItem source) : super(DomainArticlesState(source: source)) {
+class DomainArticlesBloc
+    extends Bloc<DomainArticlesEvent, DomainArticlesState> {
+  DomainArticlesBloc(SourceItem source)
+    : super(DomainArticlesState(source: source)) {
     on<DomainArticlesStarted>((event, emit) {});
   }
 }

@@ -12,7 +12,10 @@ class InfoState extends Equatable {
   List<Object?> get props => [title, markdown];
 
   InfoState copyWith({String? title, List<String>? markdown}) {
-    return InfoState(title: title ?? this.title, markdown: markdown ?? this.markdown);
+    return InfoState(
+      title: title ?? this.title,
+      markdown: markdown ?? this.markdown,
+    );
   }
 }
 
@@ -25,7 +28,8 @@ final class InfoStarted extends InfoEvent {
 }
 
 class InfoBloc extends Bloc<InfoEvent, InfoState> {
-  InfoBloc({required String title, required String asset}) : super(InfoState(title: title)) {
+  InfoBloc({required String title, required String asset})
+    : super(InfoState(title: title)) {
     on<InfoStarted>((event, emit) async {
       final md = await rootBundle.loadString(asset);
       // NOTE: this is a rough optimization to handle large markdown files by breaking them into parts.

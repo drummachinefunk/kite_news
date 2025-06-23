@@ -11,7 +11,8 @@ class Perspective extends Equatable {
 
   const Perspective({required this.text, required this.sources});
 
-  factory Perspective.fromJson(Map<String, dynamic> json) => _$PerspectiveFromJson(json);
+  factory Perspective.fromJson(Map<String, dynamic> json) =>
+      _$PerspectiveFromJson(json);
 
   Map<String, dynamic> toJson() => _$PerspectiveToJson(this);
 

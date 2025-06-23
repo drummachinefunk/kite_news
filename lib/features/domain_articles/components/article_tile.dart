@@ -30,9 +30,9 @@ class ArticleTile extends StatelessWidget {
           ),
           const SizedBox(height: 2),
           DefaultTextStyle(
-            style: Theme.of(
-              context,
-            ).textTheme.bodyLarge!.copyWith(color: Theme.of(context).colorScheme.onSurface),
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             child: Text(title, maxLines: 3, overflow: TextOverflow.ellipsis),
           ),
         ],

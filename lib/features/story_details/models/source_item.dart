@@ -5,7 +5,11 @@ class SourceItem extends Equatable {
   final String name;
   final String favicon;
   final List<Article> articles;
-  const SourceItem({required this.name, required this.favicon, required this.articles});
+  const SourceItem({
+    required this.name,
+    required this.favicon,
+    required this.articles,
+  });
 
   @override
   List<Object?> get props => [name, favicon, articles];

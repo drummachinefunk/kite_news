@@ -7,7 +7,10 @@ class ItemData {
 
 class ItemDataParser {
   /// Converts a list of strings into a list of [ItemData] based on a specified separator.
-  static List<ItemData> itemsFromList(List<String> items, {String separator = '::'}) {
+  static List<ItemData> itemsFromList(
+    List<String> items, {
+    String separator = '::',
+  }) {
     return items.map((e) {
       final parts = e.split(separator);
       if (parts.length >= 2) {

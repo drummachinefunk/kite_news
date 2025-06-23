@@ -29,14 +29,18 @@ class DomainArticlesDialog extends StatelessWidget {
                   children: [
                     CircleImage(state.source.favicon),
                     const SizedBox(width: 12),
-                    Text(state.source.name, style: Theme.of(context).textTheme.titleLarge),
+                    Text(
+                      state.source.name,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 8),
                 ListView.builder(
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
-                    if (index >= state.source.articles.length) return const SizedBox.shrink();
+                    if (index >= state.source.articles.length)
+                      return const SizedBox.shrink();
                     final article = state.source.articles[index];
                     return ArticleTile(
                       title: article.title,

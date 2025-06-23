@@ -28,7 +28,8 @@ class KiteApp extends StatelessWidget {
       home: BlocProvider(
         create:
             (context) =>
-                HomeBloc(newsRepository: locator<NewsRepository>())..add(const HomeStarted()),
+                HomeBloc(newsRepository: locator<NewsRepository>())
+                  ..add(const HomeStarted()),
         child: const HomePage(),
       ),
     );

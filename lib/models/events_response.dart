@@ -10,7 +10,8 @@ class EventsResponse {
 
   const EventsResponse({required this.timestamp, required this.events});
 
-  factory EventsResponse.fromJson(Map<String, dynamic> json) => _$EventsResponseFromJson(json);
+  factory EventsResponse.fromJson(Map<String, dynamic> json) =>
+      _$EventsResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$EventsResponseToJson(this);
 }

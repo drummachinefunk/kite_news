@@ -5,13 +5,19 @@ import 'package:flutter/material.dart';
 
 /// Custom scroll physics that apply a bouncing effect only on the bottom edge.
 class CustomScrollPhysics extends ScrollPhysics {
-  const CustomScrollPhysics({this.decelerationRate = ScrollDecelerationRate.normal, super.parent});
+  const CustomScrollPhysics({
+    this.decelerationRate = ScrollDecelerationRate.normal,
+    super.parent,
+  });
 
   final ScrollDecelerationRate decelerationRate;
 
   @override
   CustomScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    return CustomScrollPhysics(parent: buildParent(ancestor), decelerationRate: decelerationRate);
+    return CustomScrollPhysics(
+      parent: buildParent(ancestor),
+      decelerationRate: decelerationRate,
+    );
   }
 
   double _frictionFactor(double overscrollFraction) {
@@ -31,16 +37,28 @@ class CustomScrollPhysics extends ScrollPhysics {
       return offset;
     }
 
-    final double overscrollPastStart = math.max(position.minScrollExtent - position.pixels, 0.0);
-    final double overscrollPastEnd = math.max(position.pixels - position.maxScrollExtent, 0.0);
-    final double overscrollPast = math.max(overscrollPastStart, overscrollPastEnd);
+    final double overscrollPastStart = math.max(
+      position.minScrollExtent - position.pixels,
+      0.0,
+    );
+    final double overscrollPastEnd = math.max(
+      position.pixels - position.maxScrollExtent,
+      0.0,
+    );
+    final double overscrollPast = math.max(
+      overscrollPastStart,
+      overscrollPastEnd,
+    );
     final bool easing =
-        (overscrollPastStart > 0.0 && offset < 0.0) || (overscrollPastEnd > 0.0 && offset > 0.0);
+        (overscrollPastStart > 0.0 && offset < 0.0) ||
+        (overscrollPastEnd > 0.0 && offset > 0.0);
 
     final double friction =
         easing
             // Apply less resistance when easing the overscroll vs tensioning.
-            ? _frictionFactor((overscrollPast - offset.abs()) / position.viewportDimension)
+            ? _frictionFactor(
+              (overscrollPast - offset.abs()) / position.viewportDimension,
+            )
             : _frictionFactor(overscrollPast / position.viewportDimension);
     final double direction = offset.sign;
 
@@ -50,7 +68,11 @@ class CustomScrollPhysics extends ScrollPhysics {
     return direction * _applyFriction(overscrollPast, offset.abs(), friction);
   }
 
-  static double _applyFriction(double extentOutside, double absDelta, double gamma) {
+  static double _applyFriction(
+    double extentOutside,
+    double absDelta,
+    double gamma,
+  ) {
     assert(absDelta > 0);
     double total = 0.0;
     if (extentOutside > 0) {
@@ -66,7 +88,8 @@ class CustomScrollPhysics extends ScrollPhysics {
 
   @override
   double applyBoundaryConditions(ScrollMetrics position, double value) {
-    if (value < position.pixels && position.pixels <= position.minScrollExtent) {
+    if (value < position.pixels &&
+        position.pixels <= position.minScrollExtent) {
       // Underscroll.
       return value - position.pixels;
     }
@@ -74,7 +97,10 @@ class CustomScrollPhysics extends ScrollPhysics {
   }
 
   @override
-  Simulation? createBallisticSimulation(ScrollMetrics position, double velocity) {
+  Simulation? createBallisticSimulation(
+    ScrollMetrics position,
+    double velocity,
+  ) {
     final Tolerance tolerance = toleranceFor(position);
     if (velocity.abs() >= tolerance.velocity || position.outOfRange) {
       return BouncingScrollSimulation(
@@ -99,7 +125,10 @@ class CustomScrollPhysics extends ScrollPhysics {
   @override
   double carriedMomentum(double existingVelocity) {
     return existingVelocity.sign *
-        math.min(0.000816 * math.pow(existingVelocity.abs(), 1.967).toDouble(), 40000.0);
+        math.min(
+          0.000816 * math.pow(existingVelocity.abs(), 1.967).toDouble(),
+          40000.0,
+        );
   }
 
   @override
@@ -115,7 +144,11 @@ class CustomScrollPhysics extends ScrollPhysics {
   SpringDescription get spring {
     switch (decelerationRate) {
       case ScrollDecelerationRate.fast:
-        return SpringDescription.withDampingRatio(mass: 0.3, stiffness: 75.0, ratio: 1.3);
+        return SpringDescription.withDampingRatio(
+          mass: 0.3,
+          stiffness: 75.0,
+          ratio: 1.3,
+        );
       case ScrollDecelerationRate.normal:
         return super.spring;
     }

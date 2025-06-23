@@ -34,7 +34,9 @@ class EventTile extends StatelessWidget {
                 margin: Margins.zero,
                 padding: HtmlPaddings.zero,
                 fontFamily: Theme.of(context).textTheme.bodyMedium?.fontFamily,
-                fontSize: FontSize(Theme.of(context).textTheme.bodyMedium?.fontSize ?? 14.0),
+                fontSize: FontSize(
+                  Theme.of(context).textTheme.bodyMedium?.fontSize ?? 14.0,
+                ),
                 color: Theme.of(context).textTheme.bodyMedium?.color,
               ),
               'a': Style(

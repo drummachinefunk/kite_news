@@ -25,9 +25,12 @@ class Sources extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visibleItemCount = expanded ? sources.length : min(collapseSourcesCount, sources.length);
+    final visibleItemCount =
+        expanded ? sources.length : min(collapseSourcesCount, sources.length);
     final showMoreButton =
-        expanded ? sources.length > collapseSourcesCount : sources.length > visibleItemCount;
+        expanded
+            ? sources.length > collapseSourcesCount
+            : sources.length > visibleItemCount;
 
     return SliverList.builder(
       itemBuilder: (context, index) {
@@ -46,7 +49,10 @@ class Sources extends StatelessWidget {
           );
         }
         final source = sources[index];
-        return SourceListTile(source: source, onPressed: () => onSourceSelected.call(source));
+        return SourceListTile(
+          source: source,
+          onPressed: () => onSourceSelected.call(source),
+        );
       },
       itemCount: visibleItemCount + (showMoreButton ? 1 : 0),
     );
@@ -54,7 +60,11 @@ class Sources extends StatelessWidget {
 }
 
 class SourceListTile extends StatelessWidget {
-  const SourceListTile({super.key, required this.source, required this.onPressed});
+  const SourceListTile({
+    super.key,
+    required this.source,
+    required this.onPressed,
+  });
 
   final SourceItem source;
   final VoidCallback onPressed;

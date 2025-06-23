@@ -30,12 +30,20 @@ class HomeStateLoaded extends HomeState {
   final String date;
   final Category category;
 
-  const HomeStateLoaded({required this.categories, required this.category, required this.date});
+  const HomeStateLoaded({
+    required this.categories,
+    required this.category,
+    required this.date,
+  });
 
   @override
   List<Object?> get props => [category, categories, date];
 
-  HomeStateLoaded copyWith({Category? category, List<Category>? categories, String? date}) {
+  HomeStateLoaded copyWith({
+    Category? category,
+    List<Category>? categories,
+    String? date,
+  }) {
     return HomeStateLoaded(
       category: category ?? this.category,
       categories: categories ?? this.categories,
@@ -90,7 +98,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   void _reload(Emitter<HomeState> emit) async {
     try {
       final response = await newsRepository.loadCategories();
-      final date = DateTime.fromMillisecondsSinceEpoch(response.timestamp * 1000);
+      final date = DateTime.fromMillisecondsSinceEpoch(
+        response.timestamp * 1000,
+      );
       final dateString = DateFormat('EEEE, MMM d').format(date);
       emit(
         HomeStateLoaded(
@@ -100,7 +110,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         ),
       );
     } catch (e) {
-      emit(const HomeStateError(message: 'Failed to load categories.\nPlease try again later.'));
+      emit(
+        const HomeStateError(
+          message: 'Failed to load categories.\nPlease try again later.',
+        ),
+      );
     }
   }
 }

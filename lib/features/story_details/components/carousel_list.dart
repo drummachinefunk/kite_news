@@ -6,7 +6,11 @@ class CarouselListItemData {
   final String url;
   final String source;
 
-  const CarouselListItemData({required this.text, required this.url, required this.source});
+  const CarouselListItemData({
+    required this.text,
+    required this.url,
+    required this.source,
+  });
 }
 
 class CarouselList extends StatelessWidget {
@@ -34,7 +38,8 @@ class CarouselList extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               scrollDirection: Axis.horizontal,
               itemCount: items.length,
-              itemBuilder: (context, index) => CarouselListItem(data: items[index]),
+              itemBuilder:
+                  (context, index) => CarouselListItem(data: items[index]),
               separatorBuilder: (context, index) => const SizedBox(width: 16.0),
             ),
           ),

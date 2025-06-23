@@ -57,7 +57,9 @@ class CategoryTabBloc extends Bloc<CategoryTabEvent, CategoryTabState> {
         emit(CategoryTabStateLoaded(clusters: response.clusters));
       } catch (e) {
         emit(
-          const CategoryTabStateError(message: 'Failed to load category.\nPlease try again later.'),
+          const CategoryTabStateError(
+            message: 'Failed to load category.\nPlease try again later.',
+          ),
         );
       }
     });

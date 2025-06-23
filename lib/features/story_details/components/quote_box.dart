@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:kagi_news/navigation/navigation.dart';
 
 class QuoteBox extends StatelessWidget {
-  const QuoteBox({super.key, required this.title, required this.text, this.author, this.source});
+  const QuoteBox({
+    super.key,
+    required this.title,
+    required this.text,
+    this.author,
+    this.source,
+  });
 
   final String? title;
   final String text;
@@ -33,7 +39,9 @@ class QuoteBox extends StatelessWidget {
                 style: ButtonStyle(
                   padding: WidgetStateProperty.all(EdgeInsets.zero),
                   shape: WidgetStateProperty.all(
-                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(1)),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(1),
+                    ),
                   ),
                   minimumSize: WidgetStateProperty.all(Size.zero),
                 ),
@@ -47,7 +55,7 @@ class QuoteBox extends StatelessWidget {
                 ),
               ),
             ],
-          ]
+          ],
         ],
       ),
     );

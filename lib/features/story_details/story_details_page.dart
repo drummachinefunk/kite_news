@@ -32,18 +32,30 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<StoryDetailsBloc, StoryDetailsState>(
       builder: (context, state) {
-        final article1 = state.cluster.articles.isNotEmpty ? state.cluster.articles.first : null;
-        final article2 = state.cluster.articles.length > 1 ? state.cluster.articles[1] : null;
+        final article1 =
+            state.cluster.articles.isNotEmpty
+                ? state.cluster.articles.first
+                : null;
+        final article2 =
+            state.cluster.articles.length > 1
+                ? state.cluster.articles[1]
+                : null;
 
         return CustomScrollView(
           physics: const CustomScrollPhysics(),
           slivers: [
             SliverWithPadding(
-              child: Text(state.cluster.category, style: Theme.of(context).textTheme.titleSmall),
+              child: Text(
+                state.cluster.category,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
             ),
             SliverSpacing(height: 3),
             SliverWithPadding(
-              child: Text(state.cluster.title, style: Theme.of(context).textTheme.displaySmall),
+              child: Text(
+                state.cluster.title,
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
             ),
             SliverSpacing(),
             SliverWithPadding(
@@ -142,7 +154,10 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
               SliverWithPadding(
                 child: Timeline(
                   title: L.of(context).timelineOfEvents,
-                  items: ItemDataParser.itemsFromList(state.cluster.timeline, separator: '::'),
+                  items: ItemDataParser.itemsFromList(
+                    state.cluster.timeline,
+                    separator: '::',
+                  ),
                 ),
               ),
               SliverSpacing(),
@@ -195,19 +210,27 @@ class _StoryDetailsPageState extends State<StoryDetailsPage> {
             ],
             if (state.sources.isNotEmpty) ...[
               SliverWithPadding(
-                child: Text(L.of(context).sources, style: Theme.of(context).textTheme.titleMedium),
+                child: Text(
+                  L.of(context).sources,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               ),
               Sources(
                 sources: state.sources,
                 expanded: _sourcesExpanded,
-                onToggleExpanded: () => setState(() => _sourcesExpanded = !_sourcesExpanded),
-                onSourceSelected: (source) => presentDomainArticles(context, source),
+                onToggleExpanded:
+                    () => setState(() => _sourcesExpanded = !_sourcesExpanded),
+                onSourceSelected:
+                    (source) => presentDomainArticles(context, source),
               ),
               SliverSpacing(),
             ],
             if (state.cluster.didYouKnow.isNotEmpty) ...[
               SliverWithPadding(
-                child: QuoteBox(title: L.of(context).didYouKnow, text: state.cluster.didYouKnow),
+                child: QuoteBox(
+                  title: L.of(context).didYouKnow,
+                  text: state.cluster.didYouKnow,
+                ),
               ),
               SliverSpacing(),
             ],

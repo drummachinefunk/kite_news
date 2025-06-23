@@ -23,7 +23,11 @@ class _PagerState extends State<Pager> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    _tabController = TabController(length: widget.length, initialIndex: widget.index, vsync: this);
+    _tabController = TabController(
+      length: widget.length,
+      initialIndex: widget.index,
+      vsync: this,
+    );
     _tabController?.addListener(_indexChanged);
     super.initState();
   }

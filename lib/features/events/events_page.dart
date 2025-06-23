@@ -16,13 +16,21 @@ class EventsPage extends StatelessWidget {
           case EventsInitial():
             return const Center(child: LoadingIndicator());
           case EventsError():
-            return Center(child: Text(state.message, style: Theme.of(context).textTheme.bodyLarge));
+            return Center(
+              child: Text(
+                state.message,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            );
           case EventsLoaded(:final events):
             return ListView.separated(
               itemBuilder:
-                  (context, index) =>
-                      EventTile(event: events[index], onLinkTapped: (url) => presentUrl(url)),
-              separatorBuilder: (context, index) => const Divider(indent: 16, endIndent: 16),
+                  (context, index) => EventTile(
+                    event: events[index],
+                    onLinkTapped: (url) => presentUrl(url),
+                  ),
+              separatorBuilder:
+                  (context, index) => const Divider(indent: 16, endIndent: 16),
               itemCount: state.events.length,
             );
         }
