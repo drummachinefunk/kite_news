@@ -70,6 +70,16 @@
         "panel": "shared"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Format Dart (lib)",
+      "type": "shell",
+      "command": "dart format ./lib",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "problemMatcher": []
     }
   ]
 }
