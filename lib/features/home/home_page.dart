@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       Text(message, textAlign: TextAlign.center),
                       const SizedBox(height: 16),
                       FilledButton(
-                        onPressed: () {},
+                        onPressed: () => context.read<HomeBloc>().add(const HomeReloadPressed()),
                         child: Text(L.of(context).reload),
                       ),
                     ],
